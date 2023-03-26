@@ -1,0 +1,541 @@
+﻿<!--
+=========================================================
+* Argon Dashboard 2 - v2.0.4
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/argon-dashboard
+* Copyright 2022 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="~/Bootstrap 5/assets/img/bg3.png">
+    <link rel="icon" type="image/png" href="~/Bootstrap 5/assets/img/bg3.png">
+    <title>
+        One Prodeco
+    </title>
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <!-- Nucleo Icons -->
+    <link href="~/Bootstrap 5/assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="~/Bootstrap 5/assets/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <link href="~/Bootstrap 5/assets/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- CSS Files -->
+    <link id="pagestyle" href="~/Bootstrap 5/assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
+</head>
+
+<body class="g-sidenav-show bg-gray-200">
+    <div class="position-absolute w-100 min-height-300 top-0">
+        <span class="mask bg-danger opacity-6"></span>
+    </div>
+    <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4" id="sidenav-main">
+        <div class="sidenav-header">
+            <i class="fas fa-times p-4 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+            <a class="navbar-brand m-0" href="/Home/Index">
+                <img src="~/Bootstrap 5/assets/img/bg3.png" class="navbar-brand-img h-100" alt="main_logo">
+                <span class="ms-1 font-weight-bold">ONE PRODECO</span>
+            </a>
+        </div>
+        <hr class="horizontal dark mt-0">
+        <div @*class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main"*@>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link  active" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sliders"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+                        </div>
+                        <span class="nav-link-text ms-1">Dashboard</span>
+                    </a>
+                    <div class="collapse" id="collapseExample">
+                        <a class="nav-link " href="/Home/Index">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="ni ni-single-02 text-warning text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Dashboard</span>
+                        </a>
+                        <a class="nav-link " href="#">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="ni ni-single-02 text-info text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Dashboard Admin</span>
+                        </a>
+                        <a class="nav-link " href="#">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="ni ni-single-02 text-warning text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Dashboard User</span>
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  active" data-bs-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dribbble"><circle cx="12" cy="12" r="10"></circle><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"></path></svg>
+                        </div>
+                        <span class="nav-link-text ms-1">New Toy Hub</span>
+                    </a>
+                    <div class="collapse" id="collapseExample1">
+                        <a class="nav-link " href="/AllProduct/Index_newtoyhub">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="ni ni-app text-warning text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">All Product</span>
+                        </a>
+                        <a class="nav-link " href="/Calendar/Index">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="ni ni-calendar-grid-58 text-info text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Calendar</span>
+                        </a>
+                        <a class="nav-link " href="~/ProjectScheduler/ProjectSCH">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="ni ni-single-copy-04 text-success text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Project Scheduler</span>
+                        </a>
+                        <a class="nav-link " href="~/NewToy/Index">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="ni ni-bullet-list-67 text-secondary text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Toy Piloting</span>
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  active" data-bs-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                        </div>
+                        <span class="nav-link-text ms-1">Library</span>
+                    </a>
+                    <div class="collapse" id="collapseExample2">
+                        <a class="nav-link " href="~/Molded/Index">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="ni ni-basket text-warning text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Molded Accessories</span>
+                        </a>
+                        <a class="nav-link " href="#">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="ni ni-ambulance text-info text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">PKG STD Library</span>
+                        </a>
+                        <a class="nav-link " href="/RotoHead/Index">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="ni ni-hat-3 text-danger text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Roto Head</span>
+                        </a>
+                        <a class="nav-link " href="#">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="ni ni-ruler-pencil text-success text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">STD Design Product</span>
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  active" data-bs-toggle="collapse" href="#collapseExample6" role="button" aria-expanded="false" aria-controls="collapseExample6">
+                        <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sunglasses">
+                                <path d="M5.5,6 L5.5,8.5 L3.5,9.5 L5.5,10.5 L5.5,13 L9,13 L9,10.5 L11,9.5 L9,8.5 L9,6 L5.5,6 Z M18.5,6 L18.5,8.5 L16.5,9.5 L18.5,10.5 L18.5,13 L22,13 L22,10.5 L24,9.5 L22,8.5 L22,6 L18.5,6 Z"></path>
+                            </svg>
+                        </div>
+                        <span class="nav-link-text ms-1">Decoration</span>
+                    </a>
+                    <div class="collapse" id="collapseExample6">
+                        <a class="nav-link " href="/Accdev/IndexProgress">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="ni ni-bulb-61 text-warning text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Accessories Development</span>
+                        </a>
+                        <a class="nav-link " href="/Form/Index">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="ni ni-palette text-warning text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Tool Painting Request</span>
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  active" data-bs-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                        </div>
+                        <span class="nav-link-text ms-1">Request Form</span>
+                    </a>
+                    <div class="collapse" id="collapseExample3">
+                        <a class="nav-link " href="#">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="ni ni-paper-diploma text-info text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">MMM</span>
+                        </a>
+                        <a class="nav-link " href="/ThreeDprint/Index">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="ni ni-curved-next text-danger text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">3D Print Request</span>
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  active" data-bs-toggle="collapse" href="#collapseExample4" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-scissors"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>
+                        </div>
+                        <span class="nav-link-text ms-1">Softgoods</span>
+                    </a>
+                    <div class="collapse" id="collapseExample4">
+                        <a class="nav-link " href="/Sewing/Index">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="ni ni-book-bookmark text-warning text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Sewing Library</span>
+                        </a>
+                        <a class="nav-link " href="/SewingProcess/Index">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="ni ni-tag text-info text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Sewing Process</span>
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="collapse" href="#collapseExample5" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                        </div>
+                        <span class="nav-link-text ms-1">Cost Engineering</span>
+                    </a>
+                    <div class="collapse" id="collapseExample5">
+                        <a class="nav-link " href="/Costeng/Home">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="ni ni-building text-warning text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Home</span>
+                        </a>
+                        <a class="nav-link " href="/Costeng/Database">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="ni ni-cloud-download-95 text-info text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Database</span>
+                        </a>
+                        <a class="nav-link " href="/Costeng/Index">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="ni ni-money-coins text-danger text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Cost Model</span>
+                        </a>
+                        <a class="nav-link " href="/Costeng/Uploaddata">
+                            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                                <i class="ni ni-settings-gear-65 text-danger text-sm opacity-10"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Settings</span>
+                        </a>
+                    </div>
+                </li>
+                @*<li class="nav-item mt-3">
+            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/Profile/Index">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="ni ni-single-02 text-success text-sm opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Profile</span>
+            </a>
+        </li>*@
+                @*<li class="nav-item">
+            <a class="nav-link" href="@Url.Action("SignOut","Home")">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="ni ni-collection text-info text-sm opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Logout</span>
+            </a>
+        </li>*@
+            </ul>
+        </div>
+        <!--<div class="sidenav-footer mx-3 ">
+            <div class="card card-plain shadow-none" id="sidenavCard">
+                <img class="w-50 mx-auto" src="~/Bootstrap 5/assets/img/illustrations/icon-documentation.svg" alt="sidebar_illustration">
+                <div class="card-body text-center p-3 w-100 pt-0">
+                    <div class="docs-info">
+                        <h6 class="mb-0">Need help?</h6>
+                        <p class="text-xs font-weight-bold mb-0">Please check our docs</p>
+                    </div>
+                </div>
+            </div>
+            <a href="https://www.creative-tim.com/learning-lab/bootstrap/license/argon-dashboard" target="_blank" class="btn btn-dark btn-sm w-100 mb-3">Documentation</a>
+            <a class="btn btn-primary btn-sm mb-0 w-100" href="https://www.creative-tim.com/product/argon-dashboard-pro?ref=sidebarfree" type="button">Upgrade to pro</a>
+        </div>-->
+    </aside>
+    <main class="main-content position-relative border-radius-lg ">
+        <!-- Navbar -->
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
+            <div class="container-fluid py-1 px-3">
+                <!--<nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
+                        <li class="breadcrumb-item text-sm text-white active" aria-current="page">Dashboard</li>
+                    </ol>
+                    <h6 class="font-weight-bolder text-white mb-0">Dashboard</h6>
+                </nav>-->
+                <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+                    @*<div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                        <div class="input-group">
+                            <input type="text" class="form-control" style="border-radius: 0.5rem;" placeholder="Search" list="search-list">
+                            <datalist id="search-list">
+                                <option value="Form Tool Paint Request" data-link="@Url.Action("Index", "Form")">
+                                <option value="Accessories Development Ongoing" data-link="@Url.Action("IndexProgress", "AccDev")">
+                                <option value="Accessories Development All Data" data-link="@Url.Action("Index", "AccDev")">
+                                <option value="Accessories Development No Date" data-link="@Url.Action("IndexNoDate", "AccDev")">
+                                <option value="Accessories Development No Exist" data-link="@Url.Action("IndexNoExist", "AccDev")">
+                            </datalist>
+                        </div>
+                    </div>*@
+                    @*<ul class="navbar-nav  justify-content-end">
+                        <li class="nav-item d-flex align-items-center" style="margin-right: 10px;">
+                            <a href="@Url.Action("Index", "Profile")" class="nav-link text-white font-weight-bold px-0">
+                                <i class="fa fa-user me-sm-1"></i>
+                                <span class="d-sm-inline d-none">
+                                    <text class="text-white">
+                                        @if (Session["us_usrname"] == null)
+                                        {
+                                            @Html.ActionLink("Login", "Login", "Home")
+                                        }
+                                        else
+                                        {
+                                            @Session["us_NAME"].ToString()
+                                        }
+                                    </text>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item d-flex align-items-center">
+                            <a class="nav-link text-white font-weight-bold px-0 bg-light " style="border-radius:0.5rem;" href="@Url.Action("SignOut","Home")">
+                                <i class="ni ni-collection text-danger text-sm opacity-10" style="margin-left:10px;"></i>
+                                <span class="d-sm-inline d-none text-danger" style="margin-right:10px;">Logout</span>
+                            </a>
+                        </li>
+                    </ul>*@
+                </div>
+            </div>
+        </nav>
+        <!-- End Navbar -->
+        <div class="container-fluid py-4">
+            <!-- Modal -->
+            <div class="modal fade" id="noInternetModal" tabindex="-1" role="dialog" aria-labelledby="noInternetModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="noInternetModalLabel">No Internet Connection</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="text-center">
+                                <div class="spinner-border" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <p>Please check your internet connection and try again.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @RenderBody()
+
+            <footer class="footer pt-4">
+                <hr />
+                <div class="container-fluid">
+                    <div class="copyright ml-auto">
+                        <div class="d-flex align-items-end flex-column">
+                            <p>@DateTime.Now.Year - One Prodeco&reg;</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </main>
+    <!--   Core JS Files   -->
+    <script src="~/Bootstrap 5/assets/js/core/popper.min.js"></script>
+    <script src="~/Bootstrap 5/assets/js/core/bootstrap.min.js"></script>
+    <script src="~/Bootstrap 5/assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="~/Bootstrap 5/assets/js/plugins/chartjs.min.js"></script>
+    @*<script>
+            var ctx1 = document.getElementById("chart-line").getContext("2d");
+
+            var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
+
+            gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
+            gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
+            gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
+            new Chart(ctx1, {
+                type: "line",
+                data: {
+                    labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                    datasets: [{
+                        label: "Mobile apps",
+                        tension: 0.4,
+                        borderWidth: 0,
+                        pointRadius: 0,
+                        borderColor: "#5e72e4",
+                        backgroundColor: gradientStroke1,
+                        borderWidth: 3,
+                        fill: true,
+                        data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+                        maxBarThickness: 6
+
+                    }],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false,
+                        }
+                    },
+                    interaction: {
+                        intersect: false,
+                        mode: 'index',
+                    },
+                    scales: {
+                        y: {
+                            grid: {
+                                drawBorder: false,
+                                display: true,
+                                drawOnChartArea: true,
+                                drawTicks: false,
+                                borderDash: [5, 5]
+                            },
+                            ticks: {
+                                display: true,
+                                padding: 10,
+                                color: '#fbfbfb',
+                                font: {
+                                    size: 11,
+                                    family: "Open Sans",
+                                    style: 'normal',
+                                    lineHeight: 2
+                                },
+                            }
+                        },
+                        x: {
+                            grid: {
+                                drawBorder: false,
+                                display: false,
+                                drawOnChartArea: false,
+                                drawTicks: false,
+                                borderDash: [5, 5]
+                            },
+                            ticks: {
+                                display: true,
+                                color: '#ccc',
+                                padding: 20,
+                                font: {
+                                    size: 11,
+                                    family: "Open Sans",
+                                    style: 'normal',
+                                    lineHeight: 2
+                                },
+                            }
+                        },
+                    },
+                },
+            });
+        </script>*@
+    <!-- Bootstrap JavaScript -->
+
+    <script>
+        function checkInternetConnection() {
+            var online = navigator.onLine;
+            var modal = new bootstrap.Modal(document.getElementById("noInternetModal"));
+
+            if (online) {
+                modal.hide();
+            } else {
+                modal.show();
+            }
+        }
+
+        setInterval(checkInternetConnection, 5000);
+    </script>
+    <script>
+        // Redirect to selected link when an item is selected from the datalist
+        var searchInput = document.querySelector('input[list="search-list"]');
+        searchInput.addEventListener('input', function () {
+            var selectedItem = document.querySelector('option[value="' + searchInput.value + '"]');
+            if (selectedItem) {
+                var link = selectedItem.dataset.link;
+                window.location.href = link;
+            }
+        });
+
+        // Sort options in datalist by first alphabet
+        var datalist = document.getElementById('search-list');
+        var options = Array.prototype.slice.call(datalist.options);
+        options.sort(function (a, b) {
+            if (a.value < b.value) { return -1; }
+            else if (a.value > b.value) { return 1; }
+            else { return 0; }
+        });
+        datalist.innerHTML = '';
+        options.slice(0, 5).forEach(function (option) {
+            datalist.appendChild(option);
+        });
+
+        // Update the datalist options based on the user input
+        searchInput.addEventListener('input', function () {
+            var inputValue = searchInput.value.toLowerCase();
+            var filteredOptions = options.filter(function (option) {
+                return option.value.toLowerCase().startsWith(inputValue);
+            });
+            datalist.innerHTML = '';
+            filteredOptions.slice(0, 5).forEach(function (option) {
+                datalist.appendChild(option);
+            });
+        });
+
+        // Show only the first 5 options in the datalist when the input is clicked
+        searchInput.addEventListener('click', function (e) {
+            e.stopPropagation(); // Stop the event from propagating to the document
+            if (datalist.children.length === 0) { // Only show options if the datalist is empty
+                options.slice(0, 5).forEach(function (option) {
+                    datalist.appendChild(option.cloneNode(true)); // Clone the option node and append to datalist
+                });
+            }
+        });
+    </script>
+    @*<script>
+            var win = navigator.platform.indexOf('Win') > -1;
+            if (win && document.querySelector('#sidenav-scrollbar')) {
+                var options = {
+                    damping: '0.5'
+                }
+                Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+            }
+        </script>*@
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="~/Bootstrap 5/assets/js/argon-dashboard.min.js?v=2.0.4"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

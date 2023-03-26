@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "DetailsProduct";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+<!-- Start Item Details -->
+<form method="post" action="/User/AddToCart" enctype="multipart/form-data">
+    <section class="item-details section">
+        <div class="container">
+            <div class="top-area">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-md-12 col-12">
+                        <div class="product-images">
+                            <main id="gallery">
+                                <div class="main-img">
+                                    <img src="~/ShopGrids-free-lite/assets/images/product-details/01.jpg" id="current" alt="#">
+                                </div>
+                                <div class="images">
+                                    <img src="~/ShopGrids-free-lite/assets/images/product-details/01.jpg" class="img" alt="#">
+                                    <img src="~/ShopGrids-free-lite/assets/images/product-details/02.jpg" class="img" alt="#">
+                                    <img src="~/ShopGrids-free-lite/assets/images/product-details/03.jpg" class="img" alt="#">
+                                    <img src="~/ShopGrids-free-lite/assets/images/product-details/04.jpg" class="img" alt="#">
+                                    <img src="~/ShopGrids-free-lite/assets/images/product-details/05.jpg" class="img" alt="#">
+                                </div>
+                            </main>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-12">
+                        @foreach (var productcart in ViewBag.uc)
+                        {
+                            <div class="product-info">
+                                <h2 class="title">@productcart.Product_name</h2>
+                                <p class="category">
+                                    <i class="lni lni-tag"></i> Category:<a href="javascript:void(0)">
+                                        @productcart.Kategori_Name
+                                    </a>
+                                </p>
+                                <h3 class="price">RP.@productcart.RP</h3>
+                                <p class="info-text">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                    tempor incididunt
+                                    ut labore et dolore magna aliqua.
+                                </p>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-12">
+                                        <div class="form-group quantity">
+                                            <label for="color">Quantity</label>
+                                            <input type="number" name="kuantity" class="form-control" min="1" value="1" />
+                                            <input type="hidden" name="productid" class="form-control"  value="@productcart.Product_id" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bottom-content">
+                                    <div class="row align-items-end">
+                                        <div class="col-lg-4 col-md-4 col-12">
+                                            <div class="button cart-button">
+                                                <button class="btn" type="submit" style="width: 100%;">Add to Cart</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="product-details-info">
+                <div class="single-block">
+                    <div class="row">
+                        <div class="col-lg-6 col-12">
+                            <div class="info-body custom-responsive-margin">
+                                <h4>Details</h4>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                                    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.
+                                </p>
+                                <h4>Features</h4>
+                                <ul class="features">
+                                    <li>Capture 4K30 Video and 12MP Photos</li>
+                                    <li>Game-Style Controller with Touchscreen</li>
+                                    <li>View Live Camera Feed</li>
+                                    <li>Full Control of HERO6 Black</li>
+                                    <li>Use App for Dedicated Camera Operation</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+<!-- End Item Details -->
+<!-- ========================= JS here ========================= -->
+<script src="~/ShopGrids-free-lite/assets/js/bootstrap.min.js"></script>
+<script src="~/ShopGrids-free-lite/assets/js/tiny-slider.js"></script>
+<script src="~/ShopGrids-free-lite/assets/js/glightbox.min.js"></script>
+<script src="~/ShopGrids-free-lite/assets/js/main.js"></script>
+<script type="text/javascript">
+    const current = document.getElementById("current");
+    const opacity = 0.6;
+    const imgs = document.querySelectorAll(".img");
+    imgs.forEach(img => {
+        img.addEventListener("click", (e) => {
+            //reset opacity
+            imgs.forEach(img => {
+                img.style.opacity = 1;
+            });
+            current.src = e.target.src;
+            //adding class
+            //current.classList.add("fade-in");
+            //opacity
+            e.target.style.opacity = opacity;
+        });
+    });
+</script>

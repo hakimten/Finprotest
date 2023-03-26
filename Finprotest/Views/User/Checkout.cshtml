@@ -1,0 +1,155 @@
+﻿
+@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+<link href="~/Bootstrap 5/assets/css/cartdesign.css" rel="stylesheet" />
+<style>
+    h2 {
+        font-size: 40px;
+        background: linear-gradient(to left, #660066 0%, #ff3300 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+</style>
+<script>
+
+    let formatter = new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR'
+    })
+
+    function sum() {
+        console.log('kena')
+
+    }
+
+    $(document).ready(function () {
+        TotalAll()
+
+        setTimeout(() => {
+            let qtys = document.querySelectorAll('.quantity2')
+            let harga = document.querySelectorAll('.hargabarang')
+            let hasilHarga = document.querySelectorAll('.harga')
+            let hasilHarga3 = document.querySelectorAll('.hasilharga3')
+            let kuantity = document.querySelectorAll('.quantity2')
+
+            qtys.forEach((qty, qtyIndex) => {
+                qty.addEventListener('change', (e) => {
+
+                    hasilHarga3[qtyIndex].value = parseInt(hasilHarga[qtyIndex].value) * parseInt(e.target.value)
+                    harga[qtyIndex].innerHTML = formatter.format(parseInt(hasilHarga[qtyIndex].value) * parseInt(e.target.value)).replace('Rp', '')
+                    $('#sampleForm').trigger('submit');
+                    TotalAll()
+                })
+            })
+
+        }, 1000)
+    });
+    function TotalAll() {
+        let hasilHarga = document.querySelectorAll('.hasilharga3')
+        let total = 0
+        hasilHarga.forEach((hasilfinal, hasilfinalIndex) => {
+            total += parseInt(hasilfinal.value)
+        })
+        document.getElementById('totalfinal').innerHTML = formatter.format(total)
+        //document.getElementById('totalfinal2').innerHTML = formatter.format(total)
+        document.getElementById('totalfinal2').value = total
+    }
+</script>
+<form action="/User/cartpaylogic" method="post" id="sampleForm" enctype="multipart/form-data">
+    <main>
+        <div class="py-5 text-center">
+            <h2>Checkout form</h2>
+        </div>
+        <a href="~/User/AddressUser">
+            <label class="btn btn-lg btn-primary">ADD ADDRESS</label>
+        </a>
+        <br />
+        <div class="row g-5" style="margin-left: 20px; margin-right:20px;">
+            <div class="col-md-5 col-lg-4 order-md-last">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-primary">Your cart</span>
+                    <span class="badge bg-primary rounded-pill">3</span>
+                </h4>
+                <ul class="list-group mb-3">
+                    @{ int i = 0;}
+                    @foreach (var product in ViewBag.uc2)
+                    {
+                        var jumlah = product.product_harga * product.Cart_kuantity;
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                            <div>
+                                <h6 class="my-0">@product.Product_name</h6>
+                                <small class="text-muted">@product.Kategori_Name</small>
+                                <input type="hidden" name="cartid[@i]" value="@product.Cart_id" />
+                                <input type="text" name="productid[@i]" value="@product.Product_id" />
+                                <input type="hidden" class="harga" onchange="sum();" value="@product.product_harga" />
+                                <input type="hidden" class="hasilharga3" value="@jumlah" name="subtotal[@i]" />
+                                <input type="hidden" class="form-control form-control-lg text-center quantity2" value="@product.Cart_kuantity" min="1" max="@product.Product_stock" name="quantity[@i]" step="1" data-decimals="0" required>
+                            </div>
+                            <span class="text-muted hargabarang">RP.@jumlah</span>
+                        </li>
+                        i++;
+                    }
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Total</span>
+                        <strong id="totalfinal">₹1500</strong>
+                        <input type="hidden" id="totalfinal2" name="totalharga"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-7 col-lg-8">
+                <h4 class="mb-3">Billing address</h4>
+                @foreach (var dataalamat in ViewBag.uc4)
+                {
+                    <div class="col-md-12">
+                        <div class="bg-white card addresses-item mb-4 border border-primary shadow">
+                            <div class="gold-members p-4">
+                                <div class="media">
+                                    <div class="mr-3"><i class="icofont-ui-home icofont-3x"></i></div>
+                                    <div class="media-body">
+                                        <h6 class="mb-1 text-secondary">Address</h6>
+                                        <p class="text-black">
+                                            @dataalamat.name_buyer,@dataalamat.no_hpbuy,@dataalamat.alamt_name, Jawa Barat, Bekasi, Indonesia, 21274
+                                        </p>
+                                        <input type="number" value="@dataalamat.almt_Id" name="alamat"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <hr class="my-4">
+
+                <h4 class="mb-3">Payment&Shipping</h4>
+
+                <div class="row gy-3">
+                    <div class="col-md-6">
+                        <label for="cc-name" class="form-label">Payment Method</label>
+                        <select class="form-select" name="payment" aria-label="Default select example">
+                            <option selected>Open this select menu</option>
+                            <option value="1">Bank Transfer</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="cc-number" class="form-label">Shipping Method</label>
+                        <select class="form-select" name="shipping" aria-label="Default select example">
+                            <option selected>Open this select menu</option>
+                            <option value="1">Standar</option>
+                            <option value="2">Premium</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="my-4">
+        <center>
+            <button class="w-75 btn btn-danger btn-lg" type="submit">Continue to checkout</button>
+        </center>
+    </main>
+</form>
+<br />
+
