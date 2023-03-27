@@ -21,5 +21,7 @@ namespace Finprotest.Models
         public Nullable<int> id_user { get; set; }
         public Nullable<int> cout_id { get; set; }
         public string cart_status { get; set; }
+        public Nullable<System.DateTime> tanggal_pembelian { get; set; }
+        public Nullable<System.DateTime> tanggal_checkout { get; set; }
     }
 }

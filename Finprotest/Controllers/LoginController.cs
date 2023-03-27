@@ -10,7 +10,8 @@ namespace Finprotest.Controllers
 {
     public class LoginController : Controller
     {
-        latihan1Entities entity = new latihan1Entities();
+        //latihan1Entities entity = new latihan1Entities();
+        HakimEntities entity = new HakimEntities();
         // GET: Login
         public ActionResult Index()
         {

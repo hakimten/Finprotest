@@ -1,0 +1,586 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HakimModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="account_admin">
+          <Key>
+            <PropertyRef Name="id_admin" />
+          </Key>
+          <Property Name="id_admin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_admin" Type="nvarchar" MaxLength="50" />
+          <Property Name="username_admin" Type="nvarchar" MaxLength="50" />
+          <Property Name="password_admin" Type="nvarchar" MaxLength="100" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="update_at" Type="datetime" />
+        </EntityType>
+        <EntityType Name="account_owner">
+          <Key>
+            <PropertyRef Name="id_owner" />
+          </Key>
+          <Property Name="id_owner" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_owner" Type="nvarchar" MaxLength="50" />
+          <Property Name="username_owner" Type="nvarchar" MaxLength="50" />
+          <Property Name="password_owner" Type="nvarchar" MaxLength="100" />
+          <Property Name="address_owner" Type="nvarchar" MaxLength="50" />
+          <Property Name="phone" Type="int" />
+          <Property Name="gender_owner" Type="nvarchar" MaxLength="50" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="update_at" Type="datetime" />
+        </EntityType>
+        <EntityType Name="account_user">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_user" Type="nvarchar" MaxLength="50" />
+          <Property Name="username_user" Type="nvarchar" MaxLength="50" />
+          <Property Name="password_user" Type="nvarchar" MaxLength="100" />
+          <Property Name="address_user" Type="nvarchar" MaxLength="50" />
+          <Property Name="phone" Type="int" />
+          <Property Name="gender_user" Type="nvarchar" MaxLength="50" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="update_at" Type="datetime" />
+        </EntityType>
+        <EntityType Name="alamat_user">
+          <Key>
+            <PropertyRef Name="almt_Id" />
+          </Key>
+          <Property Name="almt_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="alamt_name" Type="varchar" MaxLength="50" />
+          <Property Name="zip_code" Type="int" />
+          <Property Name="prov_id" Type="int" />
+          <Property Name="kab_id" Type="int" />
+          <Property Name="country_id" Type="int" />
+          <Property Name="lattitude_user" Type="varchar" MaxLength="50" />
+          <Property Name="longitude_user" Type="varchar" MaxLength="50" />
+          <Property Name="name_buyer" Type="varchar" MaxLength="50" />
+          <Property Name="no_hpbuy" Type="varchar" MaxLength="50" />
+          <Property Name="id_user" Type="int" />
+        </EntityType>
+        <EntityType Name="artist_Db">
+          <Key>
+            <PropertyRef Name="artist_ID" />
+          </Key>
+          <Property Name="artist_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="artist_name" Type="varchar" MaxLength="50" />
+          <Property Name="created_at" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Cart_user">
+          <Key>
+            <PropertyRef Name="Cart_id" />
+          </Key>
+          <Property Name="Cart_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_id" Type="int" />
+          <Property Name="Cart_kuantity" Type="int" />
+          <Property Name="total_harga" Type="int" />
+          <Property Name="id_user" Type="int" />
+          <Property Name="cout_id" Type="int" />
+          <Property Name="cart_status" Type="varchar" MaxLength="50" />
+          <Property Name="tanggal_pembelian" Type="datetime" />
+          <Property Name="tanggal_checkout" Type="datetime" />
+        </EntityType>
+        <EntityType Name="checkout_user">
+          <Key>
+            <PropertyRef Name="cout_id" />
+          </Key>
+          <Property Name="cout_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="all_total" Type="int" />
+          <Property Name="eks_id" Type="int" />
+          <Property Name="pay_ID" Type="int" />
+          <Property Name="id_user" Type="int" />
+          <Property Name="almt_Id" Type="int" />
+          <Property Name="cout_status" Type="varchar" MaxLength="50" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="updated_at" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Deskripsi_product">
+          <Key>
+            <PropertyRef Name="Deskripsi_id" />
+          </Key>
+          <Property Name="Deskripsi_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Deskripsi_isi" Type="varchar(max)" />
+          <Property Name="Deskripsi_details" Type="varchar(max)" />
+          <Property Name="Deskripsi_kelebihan" Type="varchar(max)" />
+          <Property Name="Product_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Ekspedis_c">
+          <Key>
+            <PropertyRef Name="eks_id" />
+          </Key>
+          <Property Name="eks_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="eks_name" Type="varchar" MaxLength="50" />
+          <Property Name="eks_harga" Type="int" />
+        </EntityType>
+        <EntityType Name="Image_product">
+          <Key>
+            <PropertyRef Name="Img_id" />
+          </Key>
+          <Property Name="Img_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="img_name" Type="varchar" MaxLength="50" />
+          <Property Name="img_numb" Type="int" />
+          <Property Name="Product_id" Type="int" />
+        </EntityType>
+        <EntityType Name="KategoriProduct">
+          <Key>
+            <PropertyRef Name="Kategori_ID" />
+          </Key>
+          <Property Name="Kategori_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kategori_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Kategori_status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="paymentMethod">
+          <Key>
+            <PropertyRef Name="pay_ID" />
+          </Key>
+          <Property Name="pay_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="payment_name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Product_owner">
+          <Key>
+            <PropertyRef Name="Product_id" />
+          </Key>
+          <Property Name="Product_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kategori_ID" Type="int" />
+          <Property Name="Product_name" Type="varchar" MaxLength="50" />
+          <Property Name="product_img1" Type="varchar" MaxLength="50" />
+          <Property Name="product_img2" Type="varchar" MaxLength="50" />
+          <Property Name="product_img3" Type="varchar" MaxLength="50" />
+          <Property Name="id_owner" Type="int" />
+          <Property Name="product_harga" Type="int" />
+          <Property Name="Product_stock" Type="int" />
+          <Property Name="artist_ID" Type="int" />
+          <Property Name="product_status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Toko_Profil">
+          <Key>
+            <PropertyRef Name="Toko_id" />
+          </Key>
+          <Property Name="Toko_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Toko_name" Type="varchar" MaxLength="100" />
+          <Property Name="Toko_foto" Type="varchar" MaxLength="100" />
+          <Property Name="Kategori_ID" Type="int" Nullable="false" />
+          <Property Name="username_owner" Type="varchar" MaxLength="100" />
+          <Property Name="id_owner" Type="int" />
+          <Property Name="Toko_long" Type="varchar" MaxLength="50" />
+          <Property Name="Toko_lat" Type="varchar" MaxLength="50" />
+          <Property Name="Toko_nohp" Type="varchar" MaxLength="50" />
+          <Property Name="Toko_bank" Type="varchar" MaxLength="50" />
+          <Property Name="Toko_norek" Type="varchar" MaxLength="50" />
+          <Property Name="Toko_status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="HakimModelStoreContainer">
+          <EntitySet Name="account_admin" EntityType="Self.account_admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="account_owner" EntityType="Self.account_owner" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="account_user" EntityType="Self.account_user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="alamat_user" EntityType="Self.alamat_user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="artist_Db" EntityType="Self.artist_Db" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cart_user" EntityType="Self.Cart_user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="checkout_user" EntityType="Self.checkout_user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Deskripsi_product" EntityType="Self.Deskripsi_product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ekspedis_c" EntityType="Self.Ekspedis_c" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Image_product" EntityType="Self.Image_product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KategoriProduct" EntityType="Self.KategoriProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="paymentMethod" EntityType="Self.paymentMethod" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product_owner" EntityType="Self.Product_owner" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Toko_Profil" EntityType="Self.Toko_Profil" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HakimModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="account_admin">
+          <Key>
+            <PropertyRef Name="id_admin" />
+          </Key>
+          <Property Name="id_admin" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_admin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="username_admin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password_admin" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="update_at" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="account_owner">
+          <Key>
+            <PropertyRef Name="id_owner" />
+          </Key>
+          <Property Name="id_owner" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_owner" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="username_owner" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password_owner" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="address_owner" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="Int32" />
+          <Property Name="gender_owner" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="update_at" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="account_user">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_user" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="username_user" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password_user" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="address_user" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="Int32" />
+          <Property Name="gender_user" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="update_at" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="alamat_user">
+          <Key>
+            <PropertyRef Name="almt_Id" />
+          </Key>
+          <Property Name="almt_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="alamt_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="zip_code" Type="Int32" />
+          <Property Name="prov_id" Type="Int32" />
+          <Property Name="kab_id" Type="Int32" />
+          <Property Name="country_id" Type="Int32" />
+          <Property Name="lattitude_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="longitude_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="name_buyer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="no_hpbuy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="id_user" Type="Int32" />
+        </EntityType>
+        <EntityType Name="artist_Db">
+          <Key>
+            <PropertyRef Name="artist_ID" />
+          </Key>
+          <Property Name="artist_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="artist_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Cart_user">
+          <Key>
+            <PropertyRef Name="Cart_id" />
+          </Key>
+          <Property Name="Cart_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_id" Type="Int32" />
+          <Property Name="Cart_kuantity" Type="Int32" />
+          <Property Name="total_harga" Type="Int32" />
+          <Property Name="id_user" Type="Int32" />
+          <Property Name="cout_id" Type="Int32" />
+          <Property Name="cart_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tanggal_pembelian" Type="DateTime" Precision="3" />
+          <Property Name="tanggal_checkout" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="checkout_user">
+          <Key>
+            <PropertyRef Name="cout_id" />
+          </Key>
+          <Property Name="cout_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="all_total" Type="Int32" />
+          <Property Name="eks_id" Type="Int32" />
+          <Property Name="pay_ID" Type="Int32" />
+          <Property Name="id_user" Type="Int32" />
+          <Property Name="almt_Id" Type="Int32" />
+          <Property Name="cout_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="updated_at" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Deskripsi_product">
+          <Key>
+            <PropertyRef Name="Deskripsi_id" />
+          </Key>
+          <Property Name="Deskripsi_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Deskripsi_isi" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Deskripsi_details" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Deskripsi_kelebihan" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Product_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Ekspedis_c">
+          <Key>
+            <PropertyRef Name="eks_id" />
+          </Key>
+          <Property Name="eks_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="eks_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="eks_harga" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Image_product">
+          <Key>
+            <PropertyRef Name="Img_id" />
+          </Key>
+          <Property Name="Img_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="img_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="img_numb" Type="Int32" />
+          <Property Name="Product_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="KategoriProduct">
+          <Key>
+            <PropertyRef Name="Kategori_ID" />
+          </Key>
+          <Property Name="Kategori_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kategori_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Kategori_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="paymentMethod">
+          <Key>
+            <PropertyRef Name="pay_ID" />
+          </Key>
+          <Property Name="pay_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="payment_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Product_owner">
+          <Key>
+            <PropertyRef Name="Product_id" />
+          </Key>
+          <Property Name="Product_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kategori_ID" Type="Int32" />
+          <Property Name="Product_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="product_img1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="product_img2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="product_img3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="id_owner" Type="Int32" />
+          <Property Name="product_harga" Type="Int32" />
+          <Property Name="Product_stock" Type="Int32" />
+          <Property Name="artist_ID" Type="Int32" />
+          <Property Name="product_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Toko_Profil">
+          <Key>
+            <PropertyRef Name="Toko_id" />
+          </Key>
+          <Property Name="Toko_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Toko_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Toko_foto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Kategori_ID" Type="Int32" Nullable="false" />
+          <Property Name="username_owner" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="id_owner" Type="Int32" />
+          <Property Name="Toko_long" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Toko_lat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Toko_nohp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Toko_bank" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Toko_norek" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Toko_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="HakimEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="account_admin" EntityType="Self.account_admin" />
+          <EntitySet Name="account_owner" EntityType="Self.account_owner" />
+          <EntitySet Name="account_user" EntityType="Self.account_user" />
+          <EntitySet Name="alamat_user" EntityType="Self.alamat_user" />
+          <EntitySet Name="artist_Db" EntityType="Self.artist_Db" />
+          <EntitySet Name="Cart_user" EntityType="Self.Cart_user" />
+          <EntitySet Name="checkout_user" EntityType="Self.checkout_user" />
+          <EntitySet Name="Deskripsi_product" EntityType="Self.Deskripsi_product" />
+          <EntitySet Name="Ekspedis_c" EntityType="Self.Ekspedis_c" />
+          <EntitySet Name="Image_product" EntityType="Self.Image_product" />
+          <EntitySet Name="KategoriProducts" EntityType="Self.KategoriProduct" />
+          <EntitySet Name="paymentMethods" EntityType="Self.paymentMethod" />
+          <EntitySet Name="Product_owner" EntityType="Self.Product_owner" />
+          <EntitySet Name="Toko_Profil" EntityType="Self.Toko_Profil" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HakimModelStoreContainer" CdmEntityContainer="HakimEntities">
+          <EntitySetMapping Name="account_admin">
+            <EntityTypeMapping TypeName="HakimModel.account_admin">
+              <MappingFragment StoreEntitySet="account_admin">
+                <ScalarProperty Name="id_admin" ColumnName="id_admin" />
+                <ScalarProperty Name="name_admin" ColumnName="name_admin" />
+                <ScalarProperty Name="username_admin" ColumnName="username_admin" />
+                <ScalarProperty Name="password_admin" ColumnName="password_admin" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="update_at" ColumnName="update_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="account_owner">
+            <EntityTypeMapping TypeName="HakimModel.account_owner">
+              <MappingFragment StoreEntitySet="account_owner">
+                <ScalarProperty Name="id_owner" ColumnName="id_owner" />
+                <ScalarProperty Name="name_owner" ColumnName="name_owner" />
+                <ScalarProperty Name="username_owner" ColumnName="username_owner" />
+                <ScalarProperty Name="password_owner" ColumnName="password_owner" />
+                <ScalarProperty Name="address_owner" ColumnName="address_owner" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="gender_owner" ColumnName="gender_owner" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="update_at" ColumnName="update_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="account_user">
+            <EntityTypeMapping TypeName="HakimModel.account_user">
+              <MappingFragment StoreEntitySet="account_user">
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="name_user" ColumnName="name_user" />
+                <ScalarProperty Name="username_user" ColumnName="username_user" />
+                <ScalarProperty Name="password_user" ColumnName="password_user" />
+                <ScalarProperty Name="address_user" ColumnName="address_user" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="gender_user" ColumnName="gender_user" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="update_at" ColumnName="update_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="alamat_user">
+            <EntityTypeMapping TypeName="HakimModel.alamat_user">
+              <MappingFragment StoreEntitySet="alamat_user">
+                <ScalarProperty Name="almt_Id" ColumnName="almt_Id" />
+                <ScalarProperty Name="alamt_name" ColumnName="alamt_name" />
+                <ScalarProperty Name="zip_code" ColumnName="zip_code" />
+                <ScalarProperty Name="prov_id" ColumnName="prov_id" />
+                <ScalarProperty Name="kab_id" ColumnName="kab_id" />
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+                <ScalarProperty Name="lattitude_user" ColumnName="lattitude_user" />
+                <ScalarProperty Name="longitude_user" ColumnName="longitude_user" />
+                <ScalarProperty Name="name_buyer" ColumnName="name_buyer" />
+                <ScalarProperty Name="no_hpbuy" ColumnName="no_hpbuy" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="artist_Db">
+            <EntityTypeMapping TypeName="HakimModel.artist_Db">
+              <MappingFragment StoreEntitySet="artist_Db">
+                <ScalarProperty Name="artist_ID" ColumnName="artist_ID" />
+                <ScalarProperty Name="artist_name" ColumnName="artist_name" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cart_user">
+            <EntityTypeMapping TypeName="HakimModel.Cart_user">
+              <MappingFragment StoreEntitySet="Cart_user">
+                <ScalarProperty Name="Cart_id" ColumnName="Cart_id" />
+                <ScalarProperty Name="Product_id" ColumnName="Product_id" />
+                <ScalarProperty Name="Cart_kuantity" ColumnName="Cart_kuantity" />
+                <ScalarProperty Name="total_harga" ColumnName="total_harga" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="cout_id" ColumnName="cout_id" />
+                <ScalarProperty Name="cart_status" ColumnName="cart_status" />
+                <ScalarProperty Name="tanggal_pembelian" ColumnName="tanggal_pembelian" />
+                <ScalarProperty Name="tanggal_checkout" ColumnName="tanggal_checkout" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="checkout_user">
+            <EntityTypeMapping TypeName="HakimModel.checkout_user">
+              <MappingFragment StoreEntitySet="checkout_user">
+                <ScalarProperty Name="cout_id" ColumnName="cout_id" />
+                <ScalarProperty Name="all_total" ColumnName="all_total" />
+                <ScalarProperty Name="eks_id" ColumnName="eks_id" />
+                <ScalarProperty Name="pay_ID" ColumnName="pay_ID" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="almt_Id" ColumnName="almt_Id" />
+                <ScalarProperty Name="cout_status" ColumnName="cout_status" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Deskripsi_product">
+            <EntityTypeMapping TypeName="HakimModel.Deskripsi_product">
+              <MappingFragment StoreEntitySet="Deskripsi_product">
+                <ScalarProperty Name="Deskripsi_id" ColumnName="Deskripsi_id" />
+                <ScalarProperty Name="Deskripsi_isi" ColumnName="Deskripsi_isi" />
+                <ScalarProperty Name="Deskripsi_details" ColumnName="Deskripsi_details" />
+                <ScalarProperty Name="Deskripsi_kelebihan" ColumnName="Deskripsi_kelebihan" />
+                <ScalarProperty Name="Product_id" ColumnName="Product_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ekspedis_c">
+            <EntityTypeMapping TypeName="HakimModel.Ekspedis_c">
+              <MappingFragment StoreEntitySet="Ekspedis_c">
+                <ScalarProperty Name="eks_id" ColumnName="eks_id" />
+                <ScalarProperty Name="eks_name" ColumnName="eks_name" />
+                <ScalarProperty Name="eks_harga" ColumnName="eks_harga" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Image_product">
+            <EntityTypeMapping TypeName="HakimModel.Image_product">
+              <MappingFragment StoreEntitySet="Image_product">
+                <ScalarProperty Name="Img_id" ColumnName="Img_id" />
+                <ScalarProperty Name="img_name" ColumnName="img_name" />
+                <ScalarProperty Name="img_numb" ColumnName="img_numb" />
+                <ScalarProperty Name="Product_id" ColumnName="Product_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KategoriProducts">
+            <EntityTypeMapping TypeName="HakimModel.KategoriProduct">
+              <MappingFragment StoreEntitySet="KategoriProduct">
+                <ScalarProperty Name="Kategori_ID" ColumnName="Kategori_ID" />
+                <ScalarProperty Name="Kategori_Name" ColumnName="Kategori_Name" />
+                <ScalarProperty Name="Kategori_status" ColumnName="Kategori_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="paymentMethods">
+            <EntityTypeMapping TypeName="HakimModel.paymentMethod">
+              <MappingFragment StoreEntitySet="paymentMethod">
+                <ScalarProperty Name="pay_ID" ColumnName="pay_ID" />
+                <ScalarProperty Name="payment_name" ColumnName="payment_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product_owner">
+            <EntityTypeMapping TypeName="HakimModel.Product_owner">
+              <MappingFragment StoreEntitySet="Product_owner">
+                <ScalarProperty Name="Product_id" ColumnName="Product_id" />
+                <ScalarProperty Name="Kategori_ID" ColumnName="Kategori_ID" />
+                <ScalarProperty Name="Product_name" ColumnName="Product_name" />
+                <ScalarProperty Name="product_img1" ColumnName="product_img1" />
+                <ScalarProperty Name="product_img2" ColumnName="product_img2" />
+                <ScalarProperty Name="product_img3" ColumnName="product_img3" />
+                <ScalarProperty Name="id_owner" ColumnName="id_owner" />
+                <ScalarProperty Name="product_harga" ColumnName="product_harga" />
+                <ScalarProperty Name="Product_stock" ColumnName="Product_stock" />
+                <ScalarProperty Name="artist_ID" ColumnName="artist_ID" />
+                <ScalarProperty Name="product_status" ColumnName="product_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Toko_Profil">
+            <EntityTypeMapping TypeName="HakimModel.Toko_Profil">
+              <MappingFragment StoreEntitySet="Toko_Profil">
+                <ScalarProperty Name="Toko_id" ColumnName="Toko_id" />
+                <ScalarProperty Name="Toko_name" ColumnName="Toko_name" />
+                <ScalarProperty Name="Toko_foto" ColumnName="Toko_foto" />
+                <ScalarProperty Name="Kategori_ID" ColumnName="Kategori_ID" />
+                <ScalarProperty Name="username_owner" ColumnName="username_owner" />
+                <ScalarProperty Name="id_owner" ColumnName="id_owner" />
+                <ScalarProperty Name="Toko_long" ColumnName="Toko_long" />
+                <ScalarProperty Name="Toko_lat" ColumnName="Toko_lat" />
+                <ScalarProperty Name="Toko_nohp" ColumnName="Toko_nohp" />
+                <ScalarProperty Name="Toko_bank" ColumnName="Toko_bank" />
+                <ScalarProperty Name="Toko_norek" ColumnName="Toko_norek" />
+                <ScalarProperty Name="Toko_status" ColumnName="Toko_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

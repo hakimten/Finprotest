@@ -13,5 +13,25 @@ namespace Finprotest.Controllers
         {
             return View();
         }
+        public ActionResult Product()
+        {
+            return View();
+        }
+        public ActionResult Product_soldout()
+        {
+            return View();
+        }
+        public ActionResult Order_masuk()
+        {
+            return View();
+        }
+        public ActionResult History_order()
+        {
+            return View();
+        }
+        public ActionResult Profil()
+        {
+            return View();
+        }
     }
 }

@@ -12,7 +12,8 @@ namespace Finprotest.Controllers
 {
     public class UserController : Controller
     {
-        String Mainconn = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+        //String Mainconn = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+        String Mainconn = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
         // GET: User
         public ActionResult Index()
         {
