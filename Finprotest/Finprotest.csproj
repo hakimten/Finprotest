@@ -212,6 +212,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model2.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Ownerclass.cs" />
     <Compile Include="Models\paymentMethod.cs">
       <DependentUpon>Model2.tt</DependentUpon>
     </Compile>
@@ -1786,6 +1787,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Upload\Profil\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
