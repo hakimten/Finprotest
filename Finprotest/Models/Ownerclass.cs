@@ -32,5 +32,9 @@ namespace Finprotest.Models
         public int product_harga { get; internal set; }
         public int Product_stock { get; internal set; }
         public int artist_ID { get; internal set; }
+        public string Deskripsi_details { get; internal set; }
+        public string Deskripsi_isi { get; internal set; }
+        public string Deskripsi_kelebihan { get; internal set; }
+        public int Deskripsi_id { get; internal set; }
     }
 }
