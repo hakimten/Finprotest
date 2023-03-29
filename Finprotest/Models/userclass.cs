@@ -45,5 +45,8 @@ namespace Finprotest.Models
         public int kab_id { get; internal set; }
         public int country_id { get; internal set; }
         public string no_hpbuy { get; internal set; }
+        public string Deskripsi_isi { get; internal set; }
+        public string Deskripsi_details { get; internal set; }
+        public string Deskripsi_kelebihan { get; internal set; }
     }
 }

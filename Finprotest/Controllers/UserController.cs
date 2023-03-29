@@ -43,7 +43,7 @@ namespace Finprotest.Controllers
                     }
                 }
                 // display product owner 
-                String sqlquery2 = "SELECT FORMAT(product_harga, 'N') AS RP, t1.Product_id, t1.Kategori_ID, t1.Product_name, t1.product_img1, t1.product_img2, t1.product_img3, t1.id_owner, t1.product_harga, t1.Product_stock, t1.artist_ID, t1.product_status, t2.address_owner, t3.Kategori_Name, t4.artist_name FROM Product_owner t1 JOIN account_owner t2 ON t1.id_owner = t2.id_owner JOIN KategoriProduct t3 ON t1.Kategori_ID = t3.Kategori_ID JOIN artist_Db t4 ON t1.artist_ID = t4.artist_ID WHERE t1.product_status = 'A'";
+                String sqlquery2 = "SELECT FORMAT(product_harga, 'N') AS RP, t1.Product_id, t1.Kategori_ID, t1.Product_name, t1.product_img1, t1.product_img2, t1.product_img3, t1.id_owner, t1.product_harga, t1.Product_stock, t1.artist_ID, t1.product_status, t2.address_owner, t3.Kategori_Name, t4.artist_name, t5.Toko_id, t5.Toko_name FROM Product_owner t1 JOIN account_owner t2 ON t1.id_owner = t2.id_owner JOIN KategoriProduct t3 ON t1.Kategori_ID = t3.Kategori_ID JOIN artist_Db t4 ON t1.artist_ID = t4.artist_ID JOIN Toko_Profil t5 ON t1.id_owner = t5.id_owner WHERE t1.product_status = 'A'";
                 SqlCommand sqlcomm2 = new SqlCommand(sqlquery2, sqlconn);
                 SqlDataAdapter sda2 = new SqlDataAdapter(sqlcomm2);
                 DataTable ds2 = new DataTable();
@@ -56,6 +56,7 @@ namespace Finprotest.Controllers
                         userclass uc10 = new userclass();
                         uc10.RP = Convert.ToString(dr["RP"]);
                         uc10.Product_name = Convert.ToString(dr["Product_name"]);
+                        uc10.Toko_name = Convert.ToString(dr["Toko_name"]);
                         uc10.product_img1 = Convert.ToString(dr["product_img1"]);
                         uc10.product_img2 = Convert.ToString(dr["product_img2"]);
                         uc10.product_img3 = Convert.ToString(dr["product_img3"]);
@@ -69,6 +70,7 @@ namespace Finprotest.Controllers
                         uc10.product_harga = Convert.ToInt32(dr["product_harga"]);
                         uc10.Product_stock = Convert.ToInt32(dr["Product_stock"]);
                         uc10.artist_ID = Convert.ToInt32(dr["artist_ID"]);
+                        uc10.Toko_id = Convert.ToInt32(dr["Toko_id"]);
 
                         uc2.Add(uc10);
                     }
@@ -137,8 +139,28 @@ namespace Finprotest.Controllers
                     uc2.Add(uc10);
                 }
             }
+            //menampilkan lattitude & longitude Toko
+            String sqlquery3 = $"SELECT * from Deskripsi_product WHERE Product_id = {id}";
+            SqlCommand sqlcomm3 = new SqlCommand(sqlquery3, sqlconn);
+            SqlDataAdapter sda3 = new SqlDataAdapter(sqlcomm3);
+            DataTable ds3 = new DataTable();
+            sda3.Fill(ds3);
+            List<userclass> uc3 = new List<userclass>();
+            {
+
+                foreach (DataRow dr in ds3.Rows)
+                {
+                    userclass uc10 = new userclass();
+                    uc10.Deskripsi_isi = Convert.ToString(dr["Deskripsi_isi"]);
+                    uc10.Deskripsi_details = Convert.ToString(dr["Deskripsi_details"]);
+                    uc10.Deskripsi_kelebihan = Convert.ToString(dr["Deskripsi_kelebihan"]);
+
+                    uc3.Add(uc10);
+                }
+            }
             ViewBag.uc = uc;
             ViewBag.uc2 = uc2;
+            ViewBag.uc3 = uc3;
             sqlconn.Close();
             return View();
         }
@@ -264,8 +286,6 @@ namespace Finprotest.Controllers
                 SqlConnection myConnection = new SqlConnection();
                 myConnection.ConnectionString = connectionString;
                 myConnection.Open();
-
-
                 SqlConnection sqlconn = new SqlConnection(connectionString);
                 string varString = "";
                 for (int i = 0; i < cartid.Count(); i++)

@@ -7,22 +7,29 @@
 <form method="post" action="/User/AddToCart" enctype="multipart/form-data">
     <section class="item-details section">
         <div class="container">
+            <div class="card">
+                <div class="card-header text-center" style="background-color:hotpink;"><h1>DETAILS PRODUCT</h1></div>
+            </div>
+            <br />
             <div class="top-area">
                 <div class="row align-items-center">
                     <div class="col-lg-6 col-md-12 col-12">
                         <div class="product-images">
+                            @foreach(var image in ViewBag.uc) {
                             <main id="gallery">
                                 <div class="main-img">
-                                    <img src="~/ShopGrids-free-lite/assets/images/product-details/01.jpg" id="current" alt="#">
+                                    <img src="~/Upload/FrontImage/@image.product_img1" style="width:550px; height:550px; object-fit:scale-down;" id="current" alt="#">
                                 </div>
                                 <div class="images">
-                                    <img src="~/ShopGrids-free-lite/assets/images/product-details/01.jpg" class="img" alt="#">
-                                    <img src="~/ShopGrids-free-lite/assets/images/product-details/02.jpg" class="img" alt="#">
-                                    <img src="~/ShopGrids-free-lite/assets/images/product-details/03.jpg" class="img" alt="#">
-                                    <img src="~/ShopGrids-free-lite/assets/images/product-details/04.jpg" class="img" alt="#">
-                                    <img src="~/ShopGrids-free-lite/assets/images/product-details/05.jpg" class="img" alt="#">
+                                    <img src="~/Upload/FrontImage/@image.product_img1" style="width:150px; height:150px; object-fit:scale-down;" class="img" alt="#">
+                                    <img src="~/Upload/SideImg/@image.product_img2" style="width:150px; height:150px; object-fit:scale-down;" class="img" alt="#">
+                                    <img src="~/Upload/BackImg/@image.product_img3" style="width:150px; height:150px; object-fit:scale-down;" class="img" alt="#">
+                                    @foreach(var image2 in ViewBag.uc2) {
+                                    <img src="~/Upload/ImageProduct/@image2.img_name" style="width:150px; height:150px; object-fit:scale-down;" class="img" alt="#">
+                                    }
                                 </div>
                             </main>
+                            }
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12 col-12">
@@ -36,11 +43,11 @@
                                     </a>
                                 </p>
                                 <h3 class="price">RP.@productcart.RP</h3>
+                                @foreach(var deskripsi in ViewBag.uc3) {
                                 <p class="info-text">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt
-                                    ut labore et dolore magna aliqua.
+                                    @deskripsi.Deskripsi_isi
                                 </p>
+                                }
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-12">
                                         <div class="form-group quantity">
@@ -68,23 +75,25 @@
                 <div class="single-block">
                     <div class="row">
                         <div class="col-lg-6 col-12">
+                            @foreach(var deskripsi2 in ViewBag.uc3) {
                             <div class="info-body custom-responsive-margin">
-                                <h4>Details</h4>
+                                <h4>Details Product</h4>
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.
+                                    @deskripsi2.Deskripsi_details
                                 </p>
                                 <h4>Features</h4>
-                                <ul class="features">
+                                <p>
+                                    @deskripsi2.Deskripsi_kelebihan
+                                </p>
+                                @*<ul class="features">
                                     <li>Capture 4K30 Video and 12MP Photos</li>
                                     <li>Game-Style Controller with Touchscreen</li>
                                     <li>View Live Camera Feed</li>
                                     <li>Full Control of HERO6 Black</li>
                                     <li>Use App for Dedicated Camera Operation</li>
-                                </ul>
+                                </ul>*@
                             </div>
+                            }
                         </div>
                     </div>
                 </div>

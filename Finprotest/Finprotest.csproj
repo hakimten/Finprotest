@@ -1787,7 +1787,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Upload\BackImg\" />
+    <Folder Include="Upload\FrontImage\" />
+    <Folder Include="Upload\ImageProduct\" />
     <Folder Include="Upload\Profil\" />
+    <Folder Include="Upload\SideImg\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

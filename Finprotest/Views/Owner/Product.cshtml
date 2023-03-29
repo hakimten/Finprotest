@@ -3,6 +3,342 @@
     ViewBag.Title = "Product";
     Layout = "~/Views/Shared/Layout_Owner.cshtml";
 }
+<head>
+    <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <style>
+        body {
+            background: #f5f5f5;
+            margin-top: 20px;
+        }
 
-<h2>Product</h2>
+        .card {
+            border: none;
+            -webkit-box-shadow: 1px 0 20px rgba(96,93,175,.05);
+            box-shadow: 1px 0 20px rgba(96,93,175,.05);
+            margin-bottom: 30px;
+        }
 
+        .table th {
+            font-weight: 500;
+            color: #827fc0;
+        }
+
+        .table thead {
+            /*background-color: #f3f2f7;*/
+            background: rgb(244,244,244);
+            background: linear-gradient(0deg, rgba(244,244,244,1) 0%, rgba(219,135,189,1) 100%);
+        }
+
+        .table > tbody > tr > td, .table > tfoot > tr > td, .table > thead > tr > td {
+            padding: 14px 12px;
+            vertical-align: middle;
+        }
+
+        .table tr:nth-child(even) td {
+            background-color: plum;
+        }
+
+        .table tr:nth-child(odd) td {
+            background-color: rosybrown;
+        }
+
+        .thumb-sm {
+            height: 32px;
+            width: 32px;
+        }
+
+        .badge-soft-warning {
+            /*background-color: rgba(248,201,85,.2);
+            color: #f8c955;*/
+            background: rgb(29,123,187);
+            background: linear-gradient(0deg, rgba(29,123,187,1) 0%, rgba(227,5,99,1) 100%);
+            color: white;
+        }
+
+        .badge {
+            font-weight: 500;
+        }
+
+        .badge-soft-primary {
+            /*background-color: rgba(96,93,175,.2);*/
+            background: rgb(34,193,195);
+            background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+            color: indigo;
+            /*color: #605daf;*/
+            /*background-color: deeppink;*/
+        }
+
+        .modal-xl {
+            width: 90%;
+            max-width: 750px;
+        }
+    </style>
+</head>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+
+    function preview_image(event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('output_image');
+            output.height = "200";
+            output.width = "200";
+            output.src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+    function preview_image2(event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('output_image2');
+            output.height = "200";
+            output.width = "200";
+            output.src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+    function preview_image3(event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('output_image3');
+            output.height = "200";
+            output.width = "200";
+            output.src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    $(document).on("click", ".open-editprofil", function () {
+        var id = $(this).data('id');
+        $(".modal-body #idproduct").val(id);
+    });
+</script>
+@{
+    if (TempData["messsage"] != null)
+    {
+        <script type="text/javascript">
+              window.onload = function () {
+              swal("Success Add Data", '@TempData["messsage"]', "success");
+            };
+        </script>
+    }
+}
+<h1 class="text-white">ALL PRODUCT OWNER</h1>
+<button class="btn btn-lg btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">ADD NEW PRODUCT</button>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="header-title pb-3 mt-0">Payments</h5>
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0" id="example">
+                        <thead>
+                            <tr class="align-self-center">
+                                <th class="text-center">Product Name</th>
+                                <th class="text-center">Owner Name</th>
+                                <th class="text-center">Kategori</th>
+                                <th class="text-center">Artist</th>
+                                <th class="text-center">Product Price</th>
+                                <th class="text-center">Product Stock</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var dataproduk in ViewBag.uc)
+                            {
+                                <tr>
+                                    <td class="text-center text-white">@dataproduk.Product_name</td>
+                                    <td class="text-white"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="thumb-sm rounded-circle mr-2"> @dataproduk.name_owner</td>
+                                    <td class="text-center text-white">@dataproduk.Kategori_Name</td>
+                                    <td class="text-center text-white">@dataproduk.artist_name</td>
+                                    <td class="text-center text-white">Rp.@dataproduk.product_harga</td>
+                                    <td class="text-center text-white">@dataproduk.Product_stock</td>
+                                    <td class="text-center text-white">
+                                        @if (dataproduk.product_status == "A")
+                                        {
+                                            <span class="badge badge-boxed badge-soft-primary">Edit Description</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="open-editprofil badge badge-boxed badge-soft-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" data-id="@dataproduk.Product_id">Add Description</span>
+                                        }
+                                    </td>
+                                    <td class="text-center text-dark">
+                                        <i class="fa fa-pencil-alt">Details</i>
+                                    </td>
+                                </tr>
+                            }
+                            @*<tr>
+                                    <td class="text-center text-white">New Office Building</td>
+                                    <td class="text-white"><img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" class="thumb-sm rounded-circle mr-2"> Frank M. Lyons</td>
+                                    <td class="text-center text-white">Paypal</td>
+                                    <td class="text-center text-white">15/7/2018</td>
+                                    <td class="text-center text-white">$35,000</td>
+                                    <td class="text-center text-white"><span class="badge badge-boxed badge-soft-primary">Edit Description</span></td>
+                                </tr>*@
+                        </tbody>
+                    </table>
+                </div>
+                <!--end table-responsive-->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal add product-->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="staticBackdropLabel">ADD NEW PRODUCT</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/Owner/AddProductOwner" method="post" id="sampleForm" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Product Name</span><br />
+                        <input type="text" name="productname" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Product Artist</span><br />
+                        <select class="form-select" name="artist" aria-label="Default select example">
+                            <option selected>Select Artist</option>
+                            <option value="1">BLACKPINK</option>
+                            <option value="2">BTS</option>
+                            <option value="3">EXO</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Product Kategori</span><br />
+                        <select class="form-select" name="kategori" aria-label="Default select example">
+                            <option selected>Select Kategori</option>
+                            <option value="1">Album</option>
+                            <option value="2">Baju</option>
+                            <option value="3">Celana</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Image Front</span><br />
+                        <input class="form-control" type="file" onchange="preview_image(event)" name="frontimg" accept="image/*" id="formFile1">
+                    </div>
+                    <div class="card-body" id="dvPreview">
+                        <center>
+                            <img id="output_image" style="object-fit:scale-down;" />
+                        </center>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Image Side</span><br />
+                        <input class="form-control" type="file" onchange="preview_image2(event)" name="sideimg" accept="image/*" id="formFile2">
+                    </div>
+                    <div class="card-body" id="dvPreview2">
+                        <center>
+                            <img id="output_image2" style="object-fit:scale-down;" />
+                        </center>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Image Back</span><br />
+                        <input class="form-control" type="file" onchange="preview_image3(event)" name="backimg" accept="image/*" id="formFile3">
+                    </div>
+                    <div class="card-body" id="dvPreview2">
+                        <center>
+                            <img id="output_image3" style="object-fit:scale-down;" />
+                        </center>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Product Price</span><br />
+                        <input class="form-control" type="number" name="price">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Product Stock</span><br />
+                        <input class="form-control" type="number" name="stock">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--End Modal -->
+<!-- Modal add Deskripsi-->
+<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="staticBackdropLabel">ADD NEW DESKRIPSI</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/Owner/AddDeskripsiOwner" method="post" id="sampleForm" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">DESCRIPTION PRODUCT</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name="deskripsiproduct" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">DESCRIPTION DETAILS</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name="deskripsidetils" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">DESCRIPTION PRODUCT ADVANTAGES</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name="kelebihan" rows="3"></textarea>
+                    </div>
+                    <input type="hidden" name="idproduct" id="idproduct" />
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Image Front</span><br />
+                        <input class="form-control" type="file" onchange="preview_image(event)" name="frontimg" accept="image/*" id="formFile1" multiple>
+                    </div>
+                    <div class="card-body" id="dvPreview">
+                        <center>
+                            <img id="output_image" style="object-fit:scale-down;" />
+                        </center>
+                    </div>
+                    <script>
+                        window.onload = function () {
+                            var fileUpload = document.getElementById("formFile1");
+                            fileUpload.onchange = function () {
+                                if (typeof (FileReader) != "undefined") {
+                                    var dvPreview = document.getElementById("dvPreview");
+                                    dvPreview.innerHTML = "";
+                                    var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp|.jfif)$/;
+                                    for (var i = 0; i < fileUpload.files.length; i++) {
+                                        var file = fileUpload.files[i];
+                                        if (regex.test(file.name.toLowerCase())) {
+                                            var reader = new FileReader();
+                                            reader.onload = function (e) {
+                                                var img = document.createElement("IMG");
+                                                img.height = "200";
+                                                img.width = "200";
+                                                img.src = e.target.result;
+                                                dvPreview.appendChild(img);
+                                            }
+                                            reader.readAsDataURL(file);
+                                        } else {
+                                            alert(file.name + " is not a valid image file.");
+                                            dvPreview.innerHTML = "";
+                                            return false;
+                                        }
+                                    }
+                                } else {
+                                    alert("This browser does not support HTML5 FileReader.");
+                                }
+                            }
+                        };
+                    </script>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--End Modal -->
