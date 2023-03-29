@@ -14,7 +14,7 @@ namespace Finprotest.Controllers
     public class OwnerController : Controller
     {
         //String Mainconn = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
-        String Mainconn = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
+        string Mainconn = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
         // GET: Owner
         public ActionResult Index()
         {
