@@ -294,7 +294,7 @@ var arrayMarker = [];
                     <!-- Start Single Product -->
                     <div class="single-product">
                         <div class="product-image">
-                            <img src="~/ShopGrids-free-lite/assets/images/products/product-1.jpg" alt="#">
+                            <img src="~/Upload/FrontImage/@product.product_img1" style="width:300px; height:300px; object-fit:scale-down;" alt="#">
                             <div class="button">
                                 <a href="@Url.Action("DetailsProduct", "User",  new { id = product.Product_id })" class="btn"><i class="lni lni-pencil"></i> Details</a>
                             </div>
@@ -304,6 +304,9 @@ var arrayMarker = [];
                             <h4 class="title">
                                 <a href="">@product.Product_name</a>
                             </h4>
+                            <ul class="review">
+                                <li><span>@product.Toko_name</span></li>
+                            </ul>
                             <ul class="review">
                                 <li><span>@product.address_owner</span></li>
                             </ul>

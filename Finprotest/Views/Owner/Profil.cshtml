@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css" type="text/css">
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <style>
         .gradient-custom {
             /* fallback for old browsers */
@@ -69,6 +71,16 @@
         $(".modal-body #banktype").val(banktype);
     });
 </script>
+@{
+    if (TempData["messsage"] != null)
+    {
+        <script type="text/javascript">
+              window.onload = function () {
+              swal("Success Add Data", '@TempData["messsage"]', "success");
+            };
+        </script>
+    }
+}
 <h1 class="text-white">PROFIL OWNER</h1>
 <br />
 <body>
@@ -200,15 +212,15 @@
                         <form action="/Owner/AddProfilOwner" method="post" id="sampleForm" enctype="multipart/form-data">
                             <div class="modal-body">
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default">Store Name</span><br />
+                                    <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Store Name</span><br />
                                     <input type="text" name="storename" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                                 </div>
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default">Profil Picture</span><br />
+                                    <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Profil Picture</span><br />
                                     <input class="form-control" type="file" name="profilpicture" id="formFile">
                                 </div>
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default">Bank Type</span><br />
+                                    <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Bank Type</span><br />
                                     <select class="form-select" name="banktype" aria-label="Default select example">
                                         <option selected>Select Bank Type</option>
                                         <option value="BCA">BCA</option>
@@ -217,58 +229,58 @@
                                     </select>
                                 </div>
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default">Rekening Number</span><br />
+                                    <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Rekening Number</span><br />
                                     <input class="form-control" type="number" name="norekening" id="formFile">
                                 </div>
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default">Phone Number</span><br />
+                                    <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Phone Number</span><br />
                                     <input class="form-control" type="number" name="nohp" id="formFile">
                                 </div>
                                 @*<div class="input-group mb-4">
-                                    <div style="height:300px; width:400px;" id="map"><div id="geocoder" class="geocoder"></div></div>
-                                    <script id="matikan">
-                                        mapboxgl.accessToken = 'pk.eyJ1Ijoidmlja3lqbmQiLCJhIjoiY2w5ZjVxNWl6MG5ydjNybXlka3FuY2ZoNCJ9.ZnazGQ7N4dEDKgQxMqYiHA';
-                                        const map = new mapboxgl.Map({
-                                            container: 'map',
-                                            // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-                                            style: 'mapbox://styles/mapbox/streets-v12',
-                                            center: [107.1704454149077, -6.28508748351949],
-                                            zoom: 15
-                                        });
-                                        // Add geolocate control to the map.
-                                        map.addControl(
-                                            new mapboxgl.GeolocateControl({
-                                                positionOptions: {
-                                                    enableHighAccuracy: true
-                                                },
-                                                // When active the map will receive updates to the device's location as it changes.
-                                                trackUserLocation: true,
-                                                // Draw an arrow next to the location dot to indicate which direction the device is heading.
-                                                showUserHeading: true
-                                            }), 'top-right'
-                                        );
-                                        // Add the control to the map.
-                                        const geocoder = new MapboxGeocoder({
-                                            accessToken: mapboxgl.accessToken,
-                                            mapboxgl: mapboxgl
-                                        });
-                                        document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
-                                        //Marker
-                                        let marker1 = null
-                                        map.on('click', function (e) {
-                                            if (marker1 == null) {
-                                                marker1 = new mapboxgl.Marker()
-                                                    .setLngLat(e.lngLat)
-                                                    .addTo(map);
-                                            } else {
-                                                marker1.setLngLat(e.lngLat)
-                                            }
-                                            lk = e.lngLat
-                                            document.getElementById("Marker11").value = e.lngLat.lng;
-                                            document.getElementById("Marker21").value = e.lngLat.lat;
-                                        });
-                                    </script>
-                                </div>*@
+                                        <div style="height:300px; width:400px;" id="map"><div id="geocoder" class="geocoder"></div></div>
+                                        <script id="matikan">
+                                            mapboxgl.accessToken = 'pk.eyJ1Ijoidmlja3lqbmQiLCJhIjoiY2w5ZjVxNWl6MG5ydjNybXlka3FuY2ZoNCJ9.ZnazGQ7N4dEDKgQxMqYiHA';
+                                            const map = new mapboxgl.Map({
+                                                container: 'map',
+                                                // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+                                                style: 'mapbox://styles/mapbox/streets-v12',
+                                                center: [107.1704454149077, -6.28508748351949],
+                                                zoom: 15
+                                            });
+                                            // Add geolocate control to the map.
+                                            map.addControl(
+                                                new mapboxgl.GeolocateControl({
+                                                    positionOptions: {
+                                                        enableHighAccuracy: true
+                                                    },
+                                                    // When active the map will receive updates to the device's location as it changes.
+                                                    trackUserLocation: true,
+                                                    // Draw an arrow next to the location dot to indicate which direction the device is heading.
+                                                    showUserHeading: true
+                                                }), 'top-right'
+                                            );
+                                            // Add the control to the map.
+                                            const geocoder = new MapboxGeocoder({
+                                                accessToken: mapboxgl.accessToken,
+                                                mapboxgl: mapboxgl
+                                            });
+                                            document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
+                                            //Marker
+                                            let marker1 = null
+                                            map.on('click', function (e) {
+                                                if (marker1 == null) {
+                                                    marker1 = new mapboxgl.Marker()
+                                                        .setLngLat(e.lngLat)
+                                                        .addTo(map);
+                                                } else {
+                                                    marker1.setLngLat(e.lngLat)
+                                                }
+                                                lk = e.lngLat
+                                                document.getElementById("Marker11").value = e.lngLat.lng;
+                                                document.getElementById("Marker21").value = e.lngLat.lat;
+                                            });
+                                        </script>
+                                    </div>*@
                                 <input type="hidden" class="form-control" id="Marker11" name="longitude" required />
                                 <input type="hidden" class="form-control" id="Marker21" name="lattitude" required />
                             </div>
@@ -290,85 +302,97 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-center" id="staticBackdropLabel">ADD NEW DATA</h5>
+                <h5 class="modal-title text-center" id="staticBackdropLabel">EDIT YOUR PROFIL DATA</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="/Owner/EditProfilOwner" method="post" id="sampleForm" enctype="multipart/form-data">
-                <div class="modal-body">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default">Store Name</span><br />
-                        <input type="text" name="storename" id="storename" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                @foreach (var rekening in ViewBag.uc)
+                {
+                    <div class="modal-body">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Store Name</span><br />
+                            <input type="text" name="storename" id="storename" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Profil Picture</span><br />
+                            <input class="form-control" type="file" name="profilpicture" id="profilpicture">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Bank Type</span><br />
+                            <select class="form-select" name="banktype" id="banktype" aria-label="Default select example">
+                                <option selected>Select Bank Type</option>
+                                <option value="BCA">BCA</option>
+                                <option value="BRI">BRI</option>
+                                <option value="BNI">BNI</option>
+                            </select>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Rekening Number</span><br />
+                            <input class="form-control" type="number" name="norekening" value="@rekening.Toko_norek" />
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Phone Number</span><br />
+                            <input class="form-control" type="number" name="nohp" id="nohp">
+                        </div>
+                        <div class="input-group mb-3">
+                            <div style="height:300px; width:400px;" id="maap"><div id="geocoder2" class="geocoder"></div></div>
+                            <script>
+                                mapboxgl.accessToken = 'pk.eyJ1Ijoidmlja3lqbmQiLCJhIjoiY2w5ZjVxNWl6MG5ydjNybXlka3FuY2ZoNCJ9.ZnazGQ7N4dEDKgQxMqYiHA';
+                                const maap = new mapboxgl.Map({
+                                    container: 'maap',
+                                    // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+                                    style: 'mapbox://styles/mapbox/streets-v12',
+                                    center: [@rekening.Toko_long, @rekening.Toko_lat],
+                                    zoom: 15
+                                });
+                                new mapboxgl.Popup({
+                                    closeButton: false,//<----
+                                    closeOnClick: false,
+                                    closeOnMove: true,
+                                    maxWidth: "auto"
+                                })
+                                    .setLngLat([@rekening.Toko_long, @rekening.Toko_lat])
+                                    .setHTML('<h4>Your Store</h4>')
+                                    .addTo(maap);
+                                // Add geolocate control to the map.
+                                maap.addControl(
+                                    new mapboxgl.GeolocateControl({
+                                        positionOptions: {
+                                            enableHighAccuracy: true
+                                        },
+                                        // When active the map will receive updates to the device's location as it changes.
+                                        trackUserLocation: true,
+                                        // Draw an arrow next to the location dot to indicate which direction the device is heading.
+                                        showUserHeading: true
+                                    }), 'top-right'
+                                );
+                                // Add the control to the map.
+                                const geocoder = new MapboxGeocoder({
+                                    accessToken: mapboxgl.accessToken,
+                                    mapboxgl: mapboxgl
+                                });
+                                document.getElementById('geocoder2').appendChild(geocoder.onAdd(maap));
+                                //Marker
+                                let marker1 = null
+                                maap.on('click', function (e) {
+                                    if (marker1 == null) {
+                                        marker1 = new mapboxgl.Marker()
+                                            .setLngLat(e.lngLat)
+                                            .addTo(maap);
+                                    } else {
+                                        marker1.setLngLat(e.lngLat)
+                                    }
+                                    lk = e.lngLat
+                                    document.getElementById("Marker111").value = e.lngLat.lng;
+                                    document.getElementById("Marker211").value = e.lngLat.lat;
+                                });
+                            </script>
+                        </div>
+                        <input type="hidden" class="form-control" name="longitude" id="Marker111" required />
+                        <input type="hidden" class="form-control" name="lattitude" id="Marker211" required />
+                        <input type="hidden" class="form-control" id="roomid" name="roomid" required />
                     </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default">Profil Picture</span><br />
-                        <input class="form-control" type="file" name="profilpicture" id="profilpicture">
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default">Bank Type</span><br />
-                        <select class="form-select" name="banktype" id="banktype" aria-label="Default select example">
-                            <option selected>Select Bank Type</option>
-                            <option value="BCA">BCA</option>
-                            <option value="BRI">BRI</option>
-                            <option value="BNI">BNI</option>
-                        </select>
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default">Rekening Number</span><br />
-                        <input class="form-control" type="text" name="norekening" id="norekening2" />
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default">Phone Number</span><br />
-                        <input class="form-control" type="number" name="nohp" id="nohp">
-                    </div>
-                    <div class="input-group mb-3">
-                        <div style="height:300px; width:400px;" id="maap"><div id="geocoder2" class="geocoder"></div></div>
-                        <script>
-                            mapboxgl.accessToken = 'pk.eyJ1Ijoidmlja3lqbmQiLCJhIjoiY2w5ZjVxNWl6MG5ydjNybXlka3FuY2ZoNCJ9.ZnazGQ7N4dEDKgQxMqYiHA';
-                            const maap = new mapboxgl.Map({
-                                container: 'maap',
-                                // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-                                style: 'mapbox://styles/mapbox/streets-v12',
-                                center: [107.1704454149077, -6.28508748351949],
-                                zoom: 15
-                            });
-                            // Add geolocate control to the map.
-                            maap.addControl(
-                                new mapboxgl.GeolocateControl({
-                                    positionOptions: {
-                                        enableHighAccuracy: true
-                                    },
-                                    // When active the map will receive updates to the device's location as it changes.
-                                    trackUserLocation: true,
-                                    // Draw an arrow next to the location dot to indicate which direction the device is heading.
-                                    showUserHeading: true
-                                }), 'top-right'
-                            );
-                            // Add the control to the map.
-                            const geocoder = new MapboxGeocoder({
-                                accessToken: mapboxgl.accessToken,
-                                mapboxgl: mapboxgl
-                            });
-                            document.getElementById('geocoder2').appendChild(geocoder.onAdd(maap));
-                            //Marker
-                            let marker1 = null
-                            maap.on('click', function (e) {
-                                if (marker1 == null) {
-                                    marker1 = new mapboxgl.Marker()
-                                        .setLngLat(e.lngLat)
-                                        .addTo(maap);
-                                } else {
-                                    marker1.setLngLat(e.lngLat)
-                                }
-                                lk = e.lngLat
-                                document.getElementById("Marker111").value = e.lngLat.lng;
-                                document.getElementById("Marker211").value = e.lngLat.lat;
-                            });
-                        </script>
-                    </div>
-                    <input type="text" class="form-control" name="longitude" id="Marker111" required />
-                    <input type="text" class="form-control" name="lattitude" id="Marker211" required />
-                    <input type="text" class="form-control" id="roomid" name="roomid" required />
-                </div>
+                }
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button class="btn btn-primary" type="submit">Save</button>
