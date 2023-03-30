@@ -113,37 +113,6 @@
         }
         reader.readAsDataURL(event.target.files[0]);
     }
-    function preview_image4(event) {
-        var reader = new FileReader();
-        reader.onload = function () {
-            var output = document.getElementById('output_image4');
-            output.height = "200";
-            output.width = "200";
-            output.src = reader.result;
-        }
-        reader.readAsDataURL(event.target.files[0]);
-    }
-    function preview_image5(event) {
-        var reader = new FileReader();
-        reader.onload = function () {
-            var output = document.getElementById('output_image5');
-            output.height = "200";
-            output.width = "200";
-            output.src = reader.result;
-        }
-        reader.readAsDataURL(event.target.files[0]);
-    }
-    function preview_image6(event) {
-        var reader = new FileReader();
-        reader.onload = function () {
-            var output = document.getElementById('output_image6');
-            output.height = "200";
-            output.width = "200";
-            output.src = reader.result;
-        }
-        reader.readAsDataURL(event.target.files[0]);
-    }
-
     $(document).on("click", ".open-editprofil", function () {
         var id = $(this).data('id');
         $(".modal-body #idproduct").val(id);
@@ -193,10 +162,12 @@
                                     <td class="text-center text-white">
                                         @if (dataproduk.product_status == "A")
                                         {
-                                            <span class="open-editalldata badge badge-boxed badge-soft-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop3"
+                                        <a href="@Url.Action("Product2", "Owner", new { id = dataproduk.Product_id})">
+                                            <span class="open-editalldata badge badge-boxed badge-soft-primary"
                                                   data-iddesk="@dataproduk.Deskripsi_id" data-deskripsiisi="@dataproduk.Deskripsi_isi" data-deskripsidetails="@dataproduk.Deskripsi_details"
                                                   data-deskripsikelebihan="@dataproduk.Deskripsi_kelebihan" data-namaproduk="@dataproduk.Product_name" data-artist="@dataproduk.artist_ID"
-                                                  data-kategori="@dataproduk.Kategori_ID"data-price="@dataproduk.product_harga" data-stock="@dataproduk.Product_stock" data-id="@dataproduk.Product_id">Edit Description</span>
+                                                  data-kategori="@dataproduk.Kategori_ID" data-price="@dataproduk.product_harga" data-stock="@dataproduk.Product_stock" data-id="@dataproduk.Product_id">Edit Description</span>
+                                        </a>
                                         }
                                         else
                                         {
@@ -204,7 +175,9 @@
                                         }
                                     </td>
                                     <td class="text-center text-dark">
-                                        <i class="fa fa-pencil-alt">Details</i>
+                                        <a href="@Url.Action("DetailsProduct", "Owner", new { id2 = dataproduk.Product_id})">
+                                            <i class="fa fa-pencil-alt">Details</i>
+                                        </a>
                                     </td>
                                 </tr>
                             }
@@ -225,142 +198,7 @@
         </div>
     </div>
 </div>
-<!-- Modal Edit product-->
-<div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title text-center" id="staticBackdropLabel">ADD NEW PRODUCT</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="/Owner/EditProductOwner" method="post" id="sampleForm" enctype="multipart/form-data">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Product Name</span><br />
-                        <input type="text" name="productname" id="productname" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    </div>
-                    <input type="text" name="idproduct" id="idproduct" />
-                    <div class="input-group mb-3">
-                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Product Artist</span><br />
-                        <select class="form-select" name="artist" id="artist" aria-label="Default select example">
-                            <option selected>Select Artist</option>
-                            <option value="1">BLACKPINK</option>
-                            <option value="2">BTS</option>
-                            <option value="3">EXO</option>
-                        </select>
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Product Kategori</span><br />
-                        <select class="form-select" name="kategori" id="kategori" aria-label="Default select example">
-                            <option selected>Select Kategori</option>
-                            <option value="1">Album</option>
-                            <option value="2">Baju</option>
-                            <option value="3">Celana</option>
-                        </select>
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Image Front</span><br />
-                        <input class="form-control" type="file" onchange="preview_image4(event)" name="frontimg" accept="image/*" id="formFile1">
-                    </div>
-                    <div class="card-body" id="dvPreview4">
-                        <center>
-                            <img id="output_image4" style="object-fit:scale-down;" />
-                        </center>
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Image Side</span><br />
-                        <input class="form-control" type="file" onchange="preview_image5(event)" name="sideimg" accept="image/*" id="formFile2">
-                    </div>
-                    <div class="card-body" id="dvPreview5">
-                        <center>
-                            <img id="output_image5" style="object-fit:scale-down;" />
-                        </center>
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Image Back</span><br />
-                        <input class="form-control" type="file" onchange="preview_image6(event)" name="backimg" accept="image/*" id="formFile3">
-                    </div>
-                    <div class="card-body" id="dvPreview6">
-                        <center>
-                            <img id="output_image6" style="object-fit:scale-down;" />
-                        </center>
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Product Price</span><br />
-                        <input class="form-control" type="number" name="price" id="price">
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Product Stock</span><br />
-                        <input class="form-control" type="number" name="stock" id="stock">
-                    </div>
-                    <button class="btn btn-primary" type="submit">Save</button>
-                </form>
-                <form action="/Owner/EditDeskripsiOwner" method="post" id="sampleForm" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">DESCRIPTION PRODUCT</label>
-                        <textarea class="form-control" name="deskripsiproduct" id="deskripsiproduct" rows="3"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">DESCRIPTION DETAILS</label>
-                        <textarea class="form-control" name="deskripsidetils" id="deskripsidetils" rows="3"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">DESCRIPTION PRODUCT ADVANTAGES</label>
-                        <textarea class="form-control" name="kelebihan" id="kelebihan" rows="3"></textarea>
-                    </div>
 
-                    <input type="hidden" name="iddesks" id="iddesk" />
-                    <input type="text" name="idProduct" id="idproduct2" />
-
-                    <div class="input-group mb-3">
-                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Image Additional</span><br />
-                        <input class="form-control" type="file" onchange="preview_image(event)" name="frontimg" accept="image/*" id="formFile1" multiple>
-                    </div>
-                    @*<div class="card-body" id="dvPreview">
-                        <center>
-                            <img id="output_image" style="object-fit:scale-down;" />
-                        </center>
-                    </div>
-                    <script>
-
-                    </script>*@
-                    <button class="btn btn-primary" type="submit">Save</button>
-                </form>
-                <script>
-                    $(document).on("click", ".open-editalldata", function () {
-                        var iddesk = $(this).data('iddesk');
-                        $(".modal-body #iddesk").val(iddesk);
-                        var deskripsiisi = $(this).data('deskripsiisi');
-                        $(".modal-body #deskripsiproduct").val(deskripsiisi);
-                        var deskripsidetails = $(this).data('deskripsidetails');
-                        $(".modal-body #deskripsidetils").val(deskripsidetails);
-                        var deskripsikelebihan = $(this).data('deskripsikelebihan');
-                        $(".modal-body #kelebihan").val(deskripsikelebihan);
-                        var namaproduk = $(this).data('namaproduk');
-                        $(".modal-body #productname").val(namaproduk);
-                        var artist = $(this).data('artist');
-                        $(".modal-body #artist").val(artist);
-                        var kategori = $(this).data('kategori');
-                        $(".modal-body #kategori").val(kategori);
-                        var price = $(this).data('price');
-                        $(".modal-body #price").val(price);
-                        var stock = $(this).data('stock');
-                        $(".modal-body #stock").val(stock);
-                        var id = $(this).data('id');
-                        $(".modal-body #idproduct").val(id);
-                        var id = $(this).data('id');
-                        $(".modal-body #idproduct2").val(id);
-                    });
-                </script>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn-primary" type="button">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--End Modal -->
 <!-- Modal add product-->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">

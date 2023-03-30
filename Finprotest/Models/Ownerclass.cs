@@ -36,5 +36,7 @@ namespace Finprotest.Models
         public string Deskripsi_isi { get; internal set; }
         public string Deskripsi_kelebihan { get; internal set; }
         public int Deskripsi_id { get; internal set; }
+        public string img_name { get; internal set; }
+        public int Img_id { get; internal set; }
     }
 }

@@ -1,0 +1,136 @@
+﻿
+@{
+    ViewBag.Title = "DetailsProduct";
+    Layout = "~/Views/Shared/Layout_Owner.cshtml";
+}
+<head>
+    <link rel="stylesheet" href="~/ShopGrids-free-lite/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/ShopGrids-free-lite/assets/css/LineIcons.3.0.css" />
+    <link rel="stylesheet" href="~/ShopGrids-free-lite/assets/css/tiny-slider.css" />
+    <link rel="stylesheet" href="~/ShopGrids-free-lite/assets/css/glightbox.min.css" />
+    <link rel="stylesheet" href="~/ShopGrids-free-lite/assets/css/main.css" />
+</head>
+<section class="item-details section bg-transparent">
+    <div class="container">
+        <div class="card">
+            <div class="card-header text-center" style="background-color:hotpink;"><h1>DETAILS PRODUCT</h1></div>
+        </div>
+        <br />
+        <div class="top-area">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-12 col-12">
+                    <div class="product-images">
+                        @foreach (var image in ViewBag.uc)
+                        {
+                            <main id="gallery">
+                                <div class="main-img">
+                                    <img src="~/Upload/FrontImage/@image.product_img1" style="width:550px; height:550px; object-fit:scale-down;" id="current" alt="#">
+                                </div>
+                                <div class="images">
+                                    <img src="~/Upload/FrontImage/@image.product_img1" style="width:150px; height:150px; object-fit:scale-down;" class="img" alt="#">
+                                    <img src="~/Upload/SideImg/@image.product_img2" style="width:150px; height:150px; object-fit:scale-down;" class="img" alt="#">
+                                    <img src="~/Upload/BackImg/@image.product_img3" style="width:150px; height:150px; object-fit:scale-down;" class="img" alt="#">
+                                    @foreach (var image2 in ViewBag.uc2)
+                                    {
+                                        <img src="~/Upload/ImageProduct/@image2.img_name" style="width:150px; height:150px; object-fit:scale-down;" class="img" alt="#">
+                                    }
+                                </div>
+                            </main>
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 col-12">
+                    @foreach (var productcart in ViewBag.uc)
+                    {
+                    <div class="product-info">
+                        <h2 class="title">@productcart.Product_name</h2>
+                        <p class="category">
+                            <i class="lni lni-tag"></i> Category:<a href="javascript:void(0)">
+                                @productcart.Kategori_Name
+                            </a>
+                        </p>
+                        <h3 class="price">RP.@productcart.RP</h3>
+                        @foreach (var deskripsi in ViewBag.uc3)
+                        {
+                            <p class="info-text">
+                                @deskripsi.Deskripsi_isi
+                            </p>
+                        }
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-12">
+                                <div class="form-group quantity">
+                                    <label for="color">Quantity</label>
+                                    <input type="number" name="kuantity" class="form-control" min="1" value="1" />
+                                    <input type="hidden" name="productid" class="form-control" value="@productcart.Product_id" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottom-content">
+                            <div class="row align-items-end">
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class="button cart-button">
+                                        <button class="btn" type="submit" style="width: 100%;">Add to Cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="product-details-info">
+            <div class="single-block">
+                <div class="row">
+                    <div class="col-lg-6 col-12">
+                        @foreach (var deskripsi2 in ViewBag.uc3)
+                        {
+                            <div class="info-body custom-responsive-margin">
+                                <h4>Details Product</h4>
+                                <p>
+                                    @deskripsi2.Deskripsi_details
+                                </p>
+                                <h4>Features</h4>
+                                <p>
+                                    @deskripsi2.Deskripsi_kelebihan
+                                </p>
+                                @*<ul class="features">
+                                        <li>Capture 4K30 Video and 12MP Photos</li>
+                                        <li>Game-Style Controller with Touchscreen</li>
+                                        <li>View Live Camera Feed</li>
+                                        <li>Full Control of HERO6 Black</li>
+                                        <li>Use App for Dedicated Camera Operation</li>
+                                    </ul>*@
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Item Details -->
+<!-- ========================= JS here ========================= -->
+<script src="~/ShopGrids-free-lite/assets/js/bootstrap.min.js"></script>
+<script src="~/ShopGrids-free-lite/assets/js/tiny-slider.js"></script>
+<script src="~/ShopGrids-free-lite/assets/js/glightbox.min.js"></script>
+<script src="~/ShopGrids-free-lite/assets/js/main.js"></script>
+<script type="text/javascript">
+    const current = document.getElementById("current");
+    const opacity = 0.6;
+    const imgs = document.querySelectorAll(".img");
+    imgs.forEach(img => {
+        img.addEventListener("click", (e) => {
+            //reset opacity
+            imgs.forEach(img => {
+                img.style.opacity = 1;
+            });
+            current.src = e.target.src;
+            //adding class
+            //current.classList.add("fade-in");
+            //opacity
+            e.target.style.opacity = opacity;
+        });
+    });
+</script>
+
