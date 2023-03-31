@@ -48,5 +48,10 @@ namespace Finprotest.Models
         public string Deskripsi_isi { get; internal set; }
         public string Deskripsi_details { get; internal set; }
         public string Deskripsi_kelebihan { get; internal set; }
+        public string Toko_nohp { get; internal set; }
+        public string Toko_bank { get; internal set; }
+        public string Toko_norek { get; internal set; }
+        public string username_owner { get; internal set; }
+        public string name_owner { get; internal set; }
     }
 }
