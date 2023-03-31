@@ -1784,6 +1784,11 @@
     <Content Include="Views\Owner\Order_masuk.cshtml" />
     <Content Include="Views\Owner\History_order.cshtml" />
     <Content Include="Views\Owner\Profil.cshtml" />
+    <Content Include="Views\Owner\Product2.cshtml" />
+    <Content Include="Views\Owner\DetailsProduct.cshtml" />
+    <Content Include="Views\User\Detail.cshtml" />
+    <Content Include="Views\User\Detailartis.cshtml" />
+    <Content Include="Views\User\Detailitem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

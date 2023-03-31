@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "Detailartis";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Start Trending Product Area -->
+<section class="trending-product section" style="margin-top: 12px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                @foreach (var data in ViewBag.uc4)
+                {
+                    <div class="section-title">
+                        <h2>ALL PRODUCT @data.artist_name</h2>
+                        <p>
+                            There are many variations of passages of Lorem Ipsum available, but the majority have
+                            suffered alteration in some form.
+                        </p>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var product in ViewBag.uc)
+            {
+                <div class="col-lg-3 col-md-6 col-12">
+                    <!-- Start Single Product -->
+                    <div class="single-product">
+                        <div class="product-image">
+                            <img src="~/Upload/FrontImage/@product.product_img1" style="width:300px; height:300px; object-fit:scale-down;" alt="#">
+                            <div class="button">
+                                <a href="@Url.Action("DetailsProduct", "User",  new { id = product.Product_id })" class="btn"><i class="lni lni-pencil"></i> Details</a>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="category">@product.Kategori_Name</span>
+                            <h4 class="title">
+                                <a href="">@product.Product_name</a>
+                            </h4>
+                            <ul class="review">
+                                <li><span>@product.Toko_name</span></li>
+                            </ul>
+                            <ul class="review">
+                                <li><span>@product.address_owner</span></li>
+                            </ul>
+                            <div class="price">
+                                <span>RP.@product.RP</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Single Product -->
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- End Trending Product Area -->

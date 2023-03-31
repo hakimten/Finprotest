@@ -75,8 +75,44 @@ namespace Finprotest.Controllers
                         uc2.Add(uc10);
                     }
                 }
+                String sqlquery3 = "select * from KategoriProduct";
+                SqlCommand sqlcomm3 = new SqlCommand(sqlquery3, sqlconn);
+                SqlDataAdapter sda3 = new SqlDataAdapter(sqlcomm3);
+                DataTable ds3 = new DataTable();
+                sda3.Fill(ds3);
+                List<userclass> uc3 = new List<userclass>();
+                {
+
+                    foreach (DataRow dr in ds3.Rows)
+                    {
+                        userclass uc10 = new userclass();
+                        uc10.Kategori_Name = Convert.ToString(dr["Kategori_Name"]);
+                        uc10.Kategori_ID = Convert.ToInt32(dr["Kategori_ID"]);
+
+                        uc3.Add(uc10);
+                    }
+                }
+                String sqlquery4 = "select * from artist_Db";
+                SqlCommand sqlcomm4 = new SqlCommand(sqlquery4, sqlconn);
+                SqlDataAdapter sda4 = new SqlDataAdapter(sqlcomm4);
+                DataTable ds4 = new DataTable();
+                sda4.Fill(ds4);
+                List<userclass> uc4 = new List<userclass>();
+                {
+
+                    foreach (DataRow dr in ds4.Rows)
+                    {
+                        userclass uc10 = new userclass();
+                        uc10.artist_name = Convert.ToString(dr["artist_name"]);
+                        uc10.artist_ID = Convert.ToInt32(dr["artist_ID"]);
+
+                        uc4.Add(uc10);
+                    }
+                }
                 ViewBag.uc = uc;
                 ViewBag.uc2 = uc2;
+                ViewBag.uc3 = uc3;
+                ViewBag.uc4 = uc4;
                 sqlconn.Close();
                 return View();
             }
@@ -163,6 +199,214 @@ namespace Finprotest.Controllers
             ViewBag.uc3 = uc3;
             sqlconn.Close();
             return View();
+        }
+        public ActionResult Detail(int Toko_id)
+        {
+            if (Session["id_user"] != null)
+            {
+                // display product owner 
+                SqlConnection sqlconn = new SqlConnection(Mainconn);
+                // display product owner 
+                String sqlquery2 = $"SELECT FORMAT(product_harga, 'N') AS RP, t1.Product_id, t1.Kategori_ID, t1.Product_name, t1.product_img1, t1.product_img2, t1.product_img3, t1.id_owner, t1.product_harga, t1.Product_stock, t1.artist_ID, t1.product_status, t2.address_owner, t3.Kategori_Name, t4.artist_name, t5.Toko_id, t5.Toko_name FROM Product_owner t1 JOIN account_owner t2 ON t1.id_owner = t2.id_owner JOIN KategoriProduct t3 ON t1.Kategori_ID = t3.Kategori_ID JOIN artist_Db t4 ON t1.artist_ID = t4.artist_ID JOIN Toko_Profil t5 ON t1.Toko_id = t5.Toko_id WHERE t5.Toko_id={Toko_id} AND t1.product_status = 'A'";
+                SqlCommand sqlcomm2 = new SqlCommand(sqlquery2, sqlconn);
+                SqlDataAdapter sda2 = new SqlDataAdapter(sqlcomm2);
+                DataTable ds2 = new DataTable();
+                sda2.Fill(ds2);
+                List<userclass> uc = new List<userclass>();
+                {
+
+                    foreach (DataRow dr in ds2.Rows)
+                    {
+                        userclass uc10 = new userclass();
+                        uc10.RP = Convert.ToString(dr["RP"]);
+                        uc10.Product_name = Convert.ToString(dr["Product_name"]);
+                        uc10.Toko_name = Convert.ToString(dr["Toko_name"]);
+                        uc10.product_img1 = Convert.ToString(dr["product_img1"]);
+                        uc10.product_img2 = Convert.ToString(dr["product_img2"]);
+                        uc10.product_img3 = Convert.ToString(dr["product_img3"]);
+                        uc10.product_status = Convert.ToString(dr["product_status"]);
+                        uc10.address_owner = Convert.ToString(dr["address_owner"]);
+                        uc10.Kategori_Name = Convert.ToString(dr["Kategori_Name"]);
+                        uc10.artist_name = Convert.ToString(dr["artist_name"]);
+                        uc10.Product_id = Convert.ToInt32(dr["Product_id"]);
+                        uc10.Kategori_ID = Convert.ToInt32(dr["Kategori_ID"]);
+                        uc10.id_owner = Convert.ToInt32(dr["id_owner"]);
+                        uc10.product_harga = Convert.ToInt32(dr["product_harga"]);
+                        uc10.Product_stock = Convert.ToInt32(dr["Product_stock"]);
+                        uc10.artist_ID = Convert.ToInt32(dr["artist_ID"]);
+                        uc10.Toko_id = Convert.ToInt32(dr["Toko_id"]);
+
+                        uc.Add(uc10);
+                    }
+                }
+                String sqlquery = $"SELECT t1.Toko_id, t1.Toko_name, t1.Toko_foto, t1.id_owner, t1.Toko_long, t1.Toko_lat, t1.Toko_nohp, t1.Toko_bank, Toko_norek, t1.Toko_status, t2.name_owner, t2.username_owner, t2.address_owner FROM Toko_Profil t1 JOIN account_owner t2 ON t1.id_owner = t2.id_owner WHERE t1.Toko_id = {Toko_id}";
+                SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
+                SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+                DataTable ds = new DataTable();
+                sda.Fill(ds);
+                List<userclass> uc2 = new List<userclass>();
+                {
+
+                    foreach (DataRow dr in ds.Rows)
+                    {
+                        userclass uc11 = new userclass();
+                        uc11.Toko_long = Convert.ToString(dr["Toko_long"]);
+                        uc11.Toko_lat = Convert.ToString(dr["Toko_lat"]);
+                        uc11.Toko_foto = Convert.ToString(dr["Toko_foto"]);
+                        uc11.Toko_name = Convert.ToString(dr["Toko_name"]);
+                        uc11.Toko_nohp = Convert.ToString(dr["Toko_nohp"]);
+                        uc11.Toko_bank = Convert.ToString(dr["Toko_bank"]);
+                        uc11.Toko_norek = Convert.ToString(dr["Toko_norek"]);
+                        uc11.address_owner = Convert.ToString(dr["address_owner"]);
+                        uc11.username_owner = Convert.ToString(dr["username_owner"]);
+                        uc11.name_owner = Convert.ToString(dr["name_owner"]);
+                        uc11.Toko_id = Convert.ToInt32(dr["Toko_id"]);
+                        uc11.id_owner = Convert.ToInt32(dr["id_owner"]);
+
+                        uc2.Add(uc11);
+                    }
+                }
+                ViewBag.uc = uc;
+                ViewBag.uc2 = uc2;
+                sqlconn.Close();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LoginOwner", "Login");
+            }
+        }
+        public ActionResult Detailitem(int Kategori_ID)
+        {
+            if (Session["id_user"] != null)
+            {
+                // display product owner 
+                SqlConnection sqlconn = new SqlConnection(Mainconn);
+                // display product owner 
+                String sqlquery2 = $"SELECT FORMAT(product_harga, 'N') AS RP, t1.Product_id, t1.Kategori_ID, t1.Product_name, t1.product_img1, t1.product_img2, t1.product_img3, t1.id_owner, t1.product_harga, t1.Product_stock, t1.artist_ID, t1.product_status, t2.address_owner, t3.Kategori_Name, t4.artist_name, t5.Toko_id, t5.Toko_name FROM Product_owner t1 JOIN account_owner t2 ON t1.id_owner = t2.id_owner JOIN KategoriProduct t3 ON t1.Kategori_ID = t3.Kategori_ID JOIN artist_Db t4 ON t1.artist_ID = t4.artist_ID JOIN Toko_Profil t5 ON t1.Toko_id = t5.Toko_id WHERE t1.Kategori_ID={Kategori_ID} AND t1.product_status = 'A'";
+                SqlCommand sqlcomm2 = new SqlCommand(sqlquery2, sqlconn);
+                SqlDataAdapter sda2 = new SqlDataAdapter(sqlcomm2);
+                DataTable ds2 = new DataTable();
+                sda2.Fill(ds2);
+                List<userclass> uc = new List<userclass>();
+                {
+
+                    foreach (DataRow dr in ds2.Rows)
+                    {
+                        userclass uc10 = new userclass();
+                        uc10.RP = Convert.ToString(dr["RP"]);
+                        uc10.Product_name = Convert.ToString(dr["Product_name"]);
+                        uc10.Toko_name = Convert.ToString(dr["Toko_name"]);
+                        uc10.product_img1 = Convert.ToString(dr["product_img1"]);
+                        uc10.product_img2 = Convert.ToString(dr["product_img2"]);
+                        uc10.product_img3 = Convert.ToString(dr["product_img3"]);
+                        uc10.product_status = Convert.ToString(dr["product_status"]);
+                        uc10.address_owner = Convert.ToString(dr["address_owner"]);
+                        uc10.Kategori_Name = Convert.ToString(dr["Kategori_Name"]);
+                        uc10.artist_name = Convert.ToString(dr["artist_name"]);
+                        uc10.Product_id = Convert.ToInt32(dr["Product_id"]);
+                        uc10.Kategori_ID = Convert.ToInt32(dr["Kategori_ID"]);
+                        uc10.id_owner = Convert.ToInt32(dr["id_owner"]);
+                        uc10.product_harga = Convert.ToInt32(dr["product_harga"]);
+                        uc10.Product_stock = Convert.ToInt32(dr["Product_stock"]);
+                        uc10.artist_ID = Convert.ToInt32(dr["artist_ID"]);
+                        uc10.Toko_id = Convert.ToInt32(dr["Toko_id"]);
+
+                        uc.Add(uc10);
+                    }
+                }
+                String sqlquery3 = $"select * from KategoriProduct where Kategori_ID={Kategori_ID}";
+                SqlCommand sqlcomm3 = new SqlCommand(sqlquery3, sqlconn);
+                SqlDataAdapter sda3 = new SqlDataAdapter(sqlcomm3);
+                DataTable ds3 = new DataTable();
+                sda3.Fill(ds3);
+                List<userclass> uc2 = new List<userclass>();
+                {
+
+                    foreach (DataRow dr in ds3.Rows)
+                    {
+                        userclass uc10 = new userclass();
+                        uc10.Kategori_Name = Convert.ToString(dr["Kategori_Name"]);
+                        uc10.Kategori_ID = Convert.ToInt32(dr["Kategori_ID"]);
+
+                        uc2.Add(uc10);
+                    }
+                }
+                ViewBag.uc = uc;
+                ViewBag.uc2 = uc2;
+                sqlconn.Close();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LoginOwner", "Login");
+            }
+        }
+        public ActionResult Detailartis(int artist_ID)
+        {
+            if (Session["id_user"] != null)
+            {
+                // display product owner 
+                SqlConnection sqlconn = new SqlConnection(Mainconn);
+                // display product owner 
+                String sqlquery2 = $"SELECT FORMAT(product_harga, 'N') AS RP, t1.Product_id, t1.Kategori_ID, t1.Product_name, t1.product_img1, t1.product_img2, t1.product_img3, t1.id_owner, t1.product_harga, t1.Product_stock, t1.artist_ID, t1.product_status, t2.address_owner, t3.Kategori_Name, t4.artist_name, t5.Toko_id, t5.Toko_name FROM Product_owner t1 JOIN account_owner t2 ON t1.id_owner = t2.id_owner JOIN KategoriProduct t3 ON t1.Kategori_ID = t3.Kategori_ID JOIN artist_Db t4 ON t1.artist_ID = t4.artist_ID JOIN Toko_Profil t5 ON t1.Toko_id = t5.Toko_id WHERE t1.artist_ID={artist_ID} AND t1.product_status = 'A'";
+                SqlCommand sqlcomm2 = new SqlCommand(sqlquery2, sqlconn);
+                SqlDataAdapter sda2 = new SqlDataAdapter(sqlcomm2);
+                DataTable ds2 = new DataTable();
+                sda2.Fill(ds2);
+                List<userclass> uc = new List<userclass>();
+                {
+
+                    foreach (DataRow dr in ds2.Rows)
+                    {
+                        userclass uc10 = new userclass();
+                        uc10.RP = Convert.ToString(dr["RP"]);
+                        uc10.Product_name = Convert.ToString(dr["Product_name"]);
+                        uc10.Toko_name = Convert.ToString(dr["Toko_name"]);
+                        uc10.product_img1 = Convert.ToString(dr["product_img1"]);
+                        uc10.product_img2 = Convert.ToString(dr["product_img2"]);
+                        uc10.product_img3 = Convert.ToString(dr["product_img3"]);
+                        uc10.product_status = Convert.ToString(dr["product_status"]);
+                        uc10.address_owner = Convert.ToString(dr["address_owner"]);
+                        uc10.Kategori_Name = Convert.ToString(dr["Kategori_Name"]);
+                        uc10.artist_name = Convert.ToString(dr["artist_name"]);
+                        uc10.Product_id = Convert.ToInt32(dr["Product_id"]);
+                        uc10.Kategori_ID = Convert.ToInt32(dr["Kategori_ID"]);
+                        uc10.id_owner = Convert.ToInt32(dr["id_owner"]);
+                        uc10.product_harga = Convert.ToInt32(dr["product_harga"]);
+                        uc10.Product_stock = Convert.ToInt32(dr["Product_stock"]);
+                        uc10.artist_ID = Convert.ToInt32(dr["artist_ID"]);
+                        uc10.Toko_id = Convert.ToInt32(dr["Toko_id"]);
+
+                        uc.Add(uc10);
+                    }
+                }
+                String sqlquery4 = $"select * from artist_Db where artist_ID = {artist_ID}";
+                SqlCommand sqlcomm4 = new SqlCommand(sqlquery4, sqlconn);
+                SqlDataAdapter sda4 = new SqlDataAdapter(sqlcomm4);
+                DataTable ds4 = new DataTable();
+                sda4.Fill(ds4);
+                List<userclass> uc4 = new List<userclass>();
+                {
+
+                    foreach (DataRow dr in ds4.Rows)
+                    {
+                        userclass uc10 = new userclass();
+                        uc10.artist_name = Convert.ToString(dr["artist_name"]);
+                        uc10.artist_ID = Convert.ToInt32(dr["artist_ID"]);
+
+                        uc4.Add(uc10);
+                    }
+                }
+                ViewBag.uc = uc;
+                ViewBag.uc4 = uc4;
+                sqlconn.Close();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LoginOwner", "Login");
+            }
         }
         //Add to cart product
         public ActionResult AddToCart(FormCollection form)

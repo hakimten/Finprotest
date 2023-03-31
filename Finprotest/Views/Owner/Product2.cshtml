@@ -1,0 +1,205 @@
+﻿
+@{
+    ViewBag.Title = "Product2";
+    Layout = "~/Views/Shared/Layout_Owner.cshtml";
+}
+<head>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+</head>
+<script>
+    function preview_image4(event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('output_image4');
+            output.height = "200";
+            output.width = "200";
+            output.src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+    function preview_image5(event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('output_image5');
+            output.height = "200";
+            output.width = "200";
+            output.src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+    function preview_image6(event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('output_image6');
+            output.height = "200";
+            output.width = "200";
+            output.src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
+
+<!-- Modal Edit product-->
+<div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="staticBackdropLabel">EDIT PRODUCT</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/Owner/EditProductOwner" method="post" id="sampleForm" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Product Name</span><br />
+                        <input type="text" name="productname" id="productname" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <input type="hidden" name="idproduct" id="idproduct" />
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Product Artist</span><br />
+                        <select class="form-select" name="artist" id="artist" aria-label="Default select example">
+                            <option selected>Select Artist</option>
+                            <option value="1">BLACKPINK</option>
+                            <option value="2">BTS</option>
+                            <option value="3">EXO</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Product Kategori</span><br />
+                        <select class="form-select" name="kategori" id="kategori" aria-label="Default select example">
+                            <option selected>Select Kategori</option>
+                            <option value="1">Album</option>
+                            <option value="2">Baju</option>
+                            <option value="3">Celana</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Image Front</span><br />
+                        <input class="form-control" type="file" onchange="preview_image4(event)" name="frontimg" accept="image/*" id="formFile1">
+                    </div>
+                    <div class="card-body" id="dvPreview4">
+                        <center>
+                            <img id="output_image4" style="object-fit:scale-down;" />
+                        </center>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Image Side</span><br />
+                        <input class="form-control" type="file" onchange="preview_image5(event)" name="sideimg" accept="image/*" id="formFile2">
+                    </div>
+                    <div class="card-body" id="dvPreview5">
+                        <center>
+                            <img id="output_image5" style="object-fit:scale-down;" />
+                        </center>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Image Back</span><br />
+                        <input class="form-control" type="file" onchange="preview_image6(event)" name="backimg" accept="image/*" id="formFile3">
+                    </div>
+                    <div class="card-body" id="dvPreview6">
+                        <center>
+                            <img id="output_image6" style="object-fit:scale-down;" />
+                        </center>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Product Price</span><br />
+                        <input class="form-control" type="number" name="price" id="price">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Product Stock</span><br />
+                        <input class="form-control" type="number" name="stock" id="stock">
+                    </div>
+                    <script>
+                        $(document).on("click", ".open-editalldata", function () {
+                            var iddesk = $(this).data('iddesk');
+                            $(".modal-body #iddesk").val(iddesk);
+                            //var deskripsiisi = $(this).data('deskripsiisi');
+                            //$(".modal-body #deskripsiproduct").val(deskripsiisi);
+                            //var deskripsidetails = $(this).data('deskripsidetails');
+                            //$(".modal-body #deskripsidetils").val(deskripsidetails);
+                            //var deskripsikelebihan = $(this).data('deskripsikelebihan');
+                            //$(".modal-body #kelebihan").val(deskripsikelebihan);
+                            var namaproduk = $(this).data('namaproduk');
+                            $(".modal-body #productname").val(namaproduk);
+                            var artist = $(this).data('artist');
+                            $(".modal-body #artist").val(artist);
+                            var kategori = $(this).data('kategori');
+                            $(".modal-body #kategori").val(kategori);
+                            var price = $(this).data('price');
+                            $(".modal-body #price").val(price);
+                            var stock = $(this).data('stock');
+                            $(".modal-body #stock").val(stock);
+                            var id = $(this).data('id');
+                            $(".modal-body #idproduct").val(id);
+                            var id = $(this).data('id');
+                            $(".modal-body #idproduct2").val(id);
+                        });
+                    </script>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--End Modal -->
+@foreach (var dataproduk in ViewBag.uc)
+{
+    <h1 class="text-center text-white">EDIT ALL DATA PRODUCT</h1>
+    <a class="open-editalldata btn btn-lg btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop3"
+       data-iddesk="@dataproduk.Deskripsi_id" data-deskripsiisi="@dataproduk.Deskripsi_isi" data-deskripsidetails="@dataproduk.Deskripsi_details"
+       data-deskripsikelebihan="@dataproduk.Deskripsi_kelebihan" data-namaproduk="@dataproduk.Product_name" data-artist="@dataproduk.artist_ID"
+       data-kategori="@dataproduk.Kategori_ID" data-price="@dataproduk.product_harga" data-stock="@dataproduk.Product_stock" data-id="@dataproduk.Product_id">
+        EDIT
+    </a>
+    <div class="card">
+        <div class="card-header"><h1 class="text-center">EDIT DESKRIPSI AND IMAGE @dataproduk.Product_name</h1></div>
+        <div class="card-body">
+            <form action="/Owner/EditDeskripsiOwner" method="post" id="sampleForm" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">DESCRIPTION PRODUCT</label>
+                    <textarea class="form-control" name="deskripsiproduct" id="deskripsiproduct" rows="3">@dataproduk.Deskripsi_isi</textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">DESCRIPTION DETAILS</label>
+                    <textarea class="form-control" name="deskripsidetils" id="deskripsidetils" rows="3">@dataproduk.Deskripsi_details</textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">DESCRIPTION PRODUCT ADVANTAGES</label>
+                    <textarea class="form-control" name="kelebihan" id="kelebihan" rows="3">@dataproduk.Deskripsi_kelebihan</textarea>
+                </div>
+
+                <input type="hidden" name="iddesks" id="iddesk" />
+                <input type="hidden" name="idProduct" value="@dataproduk.Product_id" />
+                <div class="card-body">
+                    <div class="row">
+                        @{ int a = 0;}
+                        @foreach (var image in ViewBag.uc2)
+                        {
+                            <div class="col-1">
+                                <img src="~/Upload/ImageProduct/@image.img_name" style="object-fit:scale-down; width:200px; height:200px;" />
+                                <input type="hidden" name="idfoto[@a]" value="@image.Img_id" />
+                            </div>
+                            a++;
+                        }
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default" style="width:150px;">Image Additional</span><br />
+                    <input class="form-control" type="file" onchange="preview_image(event)" name="frontimg2" accept="image/*" id="formFile1" multiple>
+                </div>
+                @*<div class="card-body" id="dvPreview">
+                        <center>
+                            <img id="output_image" style="object-fit:scale-down;" />
+                        </center>
+                    </div>
+                    <script>
+
+                    </script>*@
+                <center>
+                    <button class="btn btn-lg btn-success" type="submit">Save</button>
+                </center>
+            </form>
+        </div>
+    </div>
+}
