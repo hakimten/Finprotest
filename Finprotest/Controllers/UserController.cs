@@ -497,7 +497,7 @@ namespace Finprotest.Controllers
                         uc2.Add(uc10);
                     }
                 }
-                String sqlquery3 = " SELECT COUNT(Cart_id) AS VALIDASI FROM Cart_user WHERE id_user = '"+ SessionName +"' AND cart_status = 'CART'";
+                string sqlquery3 = "SELECT COUNT(Cart_id) AS VALIDASI FROM Cart_user WHERE id_user = '"+ SessionName +"' AND cart_status = 'CART'";
                 SqlCommand sqlcomm3 = new SqlCommand(sqlquery3, sqlconn);
                 SqlDataAdapter sda3 = new SqlDataAdapter(sqlcomm3);
                 DataTable ds3 = new DataTable();

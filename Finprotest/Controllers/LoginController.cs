@@ -46,7 +46,7 @@ namespace Finprotest.Controllers
 
                 FormsAuthentication.SetAuthCookie(u.username_admin, false);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Dashboard", "Admin");
             }
             ModelState.AddModelError("", "udah ada");
             if (Session["username_admin"] == null)

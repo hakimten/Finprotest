@@ -11,15 +11,14 @@ namespace Finprotest.Controllers
         // GET: Admin
         public ActionResult Dashboard()
         {
-            //if (Session["id_admin"] != null)
-            //{
-                
-            //}
-            //else
-            //{
-            //    return RedirectToAction("LoginAdmin", "Login");
-            //}
-            return View();
+            if (Session["id_admin"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LoginAdmin", "Login");
+            }
         }
     }
 }
