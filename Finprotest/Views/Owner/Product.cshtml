@@ -163,10 +163,7 @@
                                         @if (dataproduk.product_status == "A")
                                         {
                                         <a href="@Url.Action("Product2", "Owner", new { id = dataproduk.Product_id})">
-                                            <span class="open-editalldata badge badge-boxed badge-soft-primary"
-                                                  data-iddesk="@dataproduk.Deskripsi_id" data-deskripsiisi="@dataproduk.Deskripsi_isi" data-deskripsidetails="@dataproduk.Deskripsi_details"
-                                                  data-deskripsikelebihan="@dataproduk.Deskripsi_kelebihan" data-namaproduk="@dataproduk.Product_name" data-artist="@dataproduk.artist_ID"
-                                                  data-kategori="@dataproduk.Kategori_ID" data-price="@dataproduk.product_harga" data-stock="@dataproduk.Product_stock" data-id="@dataproduk.Product_id">Edit Description</span>
+                                            <span class="open-editalldata badge badge-boxed badge-soft-primary">Edit Description</span>
                                         </a>
                                         }
                                         else

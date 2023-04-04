@@ -12,7 +12,7 @@ namespace Finprotest.Controllers
 {
     public class UserController : Controller
     {
-        String Mainconn = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+        string Mainconn = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
         //string Mainconn = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
         // GET: User
         public ActionResult Index()
@@ -207,7 +207,8 @@ namespace Finprotest.Controllers
                 // display product owner 
                 SqlConnection sqlconn = new SqlConnection(Mainconn);
                 // display product owner 
-                String sqlquery2 = $"SELECT FORMAT(product_harga, 'N') AS RP, t1.Product_id, t1.Kategori_ID, t1.Product_name, t1.product_img1, t1.product_img2, t1.product_img3, t1.id_owner, t1.product_harga, t1.Product_stock, t1.artist_ID, t1.product_status, t2.address_owner, t3.Kategori_Name, t4.artist_name, t5.Toko_id, t5.Toko_name FROM Product_owner t1 JOIN account_owner t2 ON t1.id_owner = t2.id_owner JOIN KategoriProduct t3 ON t1.Kategori_ID = t3.Kategori_ID JOIN artist_Db t4 ON t1.artist_ID = t4.artist_ID JOIN Toko_Profil t5 ON t1.Toko_id = t5.Toko_id WHERE t5.Toko_id={Toko_id} AND t1.product_status = 'A'";
+                //String sqlquery2 = $"SELECT FORMAT(product_harga, 'N') AS RP, t1.Product_id, t1.Kategori_ID, t1.Product_name, t1.product_img1, t1.product_img2, t1.product_img3, t1.id_owner, t1.product_harga, t1.Product_stock, t1.artist_ID, t1.product_status, t2.address_owner, t3.Kategori_Name, t4.artist_name, t5.Toko_id, t5.Toko_name FROM Product_owner t1 JOIN account_owner t2 ON t1.id_owner = t2.id_owner JOIN KategoriProduct t3 ON t1.Kategori_ID = t3.Kategori_ID JOIN artist_Db t4 ON t1.artist_ID = t4.artist_ID JOIN Toko_Profil t5 ON t1.Toko_id = t5.Toko_id WHERE t5.Toko_id={Toko_id} AND t1.product_status = 'A'";
+                String sqlquery2 = $"SELECT FORMAT(product_harga, 'N') AS RP, t1.Product_id, t1.Kategori_ID, t1.Product_name, t1.product_img1, t1.product_img2, t1.product_img3, t1.id_owner, t1.product_harga, t1.Product_stock, t1.artist_ID, t1.product_status, t2.address_owner, t3.Kategori_Name, t4.artist_name, t5.Toko_id, t5.Toko_name FROM Product_owner t1 JOIN account_owner t2 ON t1.id_owner = t2.id_owner JOIN KategoriProduct t3 ON t1.Kategori_ID = t3.Kategori_ID JOIN artist_Db t4 ON t1.artist_ID = t4.artist_ID JOIN Toko_Profil t5 ON t1.id_owner = t5.id_owner WHERE t5.Toko_id={Toko_id} AND t1.product_status = 'A'";
                 SqlCommand sqlcomm2 = new SqlCommand(sqlquery2, sqlconn);
                 SqlDataAdapter sda2 = new SqlDataAdapter(sqlcomm2);
                 DataTable ds2 = new DataTable();
@@ -283,7 +284,8 @@ namespace Finprotest.Controllers
                 // display product owner 
                 SqlConnection sqlconn = new SqlConnection(Mainconn);
                 // display product owner 
-                String sqlquery2 = $"SELECT FORMAT(product_harga, 'N') AS RP, t1.Product_id, t1.Kategori_ID, t1.Product_name, t1.product_img1, t1.product_img2, t1.product_img3, t1.id_owner, t1.product_harga, t1.Product_stock, t1.artist_ID, t1.product_status, t2.address_owner, t3.Kategori_Name, t4.artist_name, t5.Toko_id, t5.Toko_name FROM Product_owner t1 JOIN account_owner t2 ON t1.id_owner = t2.id_owner JOIN KategoriProduct t3 ON t1.Kategori_ID = t3.Kategori_ID JOIN artist_Db t4 ON t1.artist_ID = t4.artist_ID JOIN Toko_Profil t5 ON t1.Toko_id = t5.Toko_id WHERE t1.Kategori_ID={Kategori_ID} AND t1.product_status = 'A'";
+                String sqlquery2 = $"SELECT FORMAT(product_harga, 'N') AS RP, t1.Product_id, t1.Kategori_ID, t1.Product_name, t1.product_img1, t1.product_img2, t1.product_img3, t1.id_owner, t1.product_harga, t1.Product_stock, t1.artist_ID, t1.product_status, t2.address_owner, t3.Kategori_Name, t4.artist_name, t5.Toko_id, t5.Toko_name FROM Product_owner t1 JOIN account_owner t2 ON t1.id_owner = t2.id_owner JOIN KategoriProduct t3 ON t1.Kategori_ID = t3.Kategori_ID JOIN artist_Db t4 ON t1.artist_ID = t4.artist_ID JOIN Toko_Profil t5 ON t1.id_owner = t5.id_owner WHERE t1.Kategori_ID={Kategori_ID} AND t1.product_status = 'A'";
+                //String sqlquery2 = $"SELECT FORMAT(product_harga, 'N') AS RP, t1.Product_id, t1.Kategori_ID, t1.Product_name, t1.product_img1, t1.product_img2, t1.product_img3, t1.id_owner, t1.product_harga, t1.Product_stock, t1.artist_ID, t1.product_status, t2.address_owner, t3.Kategori_Name, t4.artist_name, t5.Toko_id, t5.Toko_name FROM Product_owner t1 JOIN account_owner t2 ON t1.id_owner = t2.id_owner JOIN KategoriProduct t3 ON t1.Kategori_ID = t3.Kategori_ID JOIN artist_Db t4 ON t1.artist_ID = t4.artist_ID JOIN Toko_Profil t5 ON t1.Toko_id = t5.Toko_id WHERE t1.Kategori_ID={Kategori_ID} AND t1.product_status = 'A'";
                 SqlCommand sqlcomm2 = new SqlCommand(sqlquery2, sqlconn);
                 SqlDataAdapter sda2 = new SqlDataAdapter(sqlcomm2);
                 DataTable ds2 = new DataTable();
@@ -349,7 +351,8 @@ namespace Finprotest.Controllers
                 // display product owner 
                 SqlConnection sqlconn = new SqlConnection(Mainconn);
                 // display product owner 
-                String sqlquery2 = $"SELECT FORMAT(product_harga, 'N') AS RP, t1.Product_id, t1.Kategori_ID, t1.Product_name, t1.product_img1, t1.product_img2, t1.product_img3, t1.id_owner, t1.product_harga, t1.Product_stock, t1.artist_ID, t1.product_status, t2.address_owner, t3.Kategori_Name, t4.artist_name, t5.Toko_id, t5.Toko_name FROM Product_owner t1 JOIN account_owner t2 ON t1.id_owner = t2.id_owner JOIN KategoriProduct t3 ON t1.Kategori_ID = t3.Kategori_ID JOIN artist_Db t4 ON t1.artist_ID = t4.artist_ID JOIN Toko_Profil t5 ON t1.Toko_id = t5.Toko_id WHERE t1.artist_ID={artist_ID} AND t1.product_status = 'A'";
+                String sqlquery2 = $"SELECT FORMAT(product_harga, 'N') AS RP, t1.Product_id, t1.Kategori_ID, t1.Product_name, t1.product_img1, t1.product_img2, t1.product_img3, t1.id_owner, t1.product_harga, t1.Product_stock, t1.artist_ID, t1.product_status, t2.address_owner, t3.Kategori_Name, t4.artist_name, t5.Toko_id, t5.Toko_name FROM Product_owner t1 JOIN account_owner t2 ON t1.id_owner = t2.id_owner JOIN KategoriProduct t3 ON t1.Kategori_ID = t3.Kategori_ID JOIN artist_Db t4 ON t1.artist_ID = t4.artist_ID JOIN Toko_Profil t5 ON t1.id_owner = t5.id_owner WHERE t1.artist_ID={artist_ID} AND t1.product_status = 'A'";
+                //String sqlquery2 = $"SELECT FORMAT(product_harga, 'N') AS RP, t1.Product_id, t1.Kategori_ID, t1.Product_name, t1.product_img1, t1.product_img2, t1.product_img3, t1.id_owner, t1.product_harga, t1.Product_stock, t1.artist_ID, t1.product_status, t2.address_owner, t3.Kategori_Name, t4.artist_name, t5.Toko_id, t5.Toko_name FROM Product_owner t1 JOIN account_owner t2 ON t1.id_owner = t2.id_owner JOIN KategoriProduct t3 ON t1.Kategori_ID = t3.Kategori_ID JOIN artist_Db t4 ON t1.artist_ID = t4.artist_ID JOIN Toko_Profil t5 ON t1.Toko_id = t5.Toko_id WHERE t1.artist_ID={artist_ID} AND t1.product_status = 'A'";
                 SqlCommand sqlcomm2 = new SqlCommand(sqlquery2, sqlconn);
                 SqlDataAdapter sda2 = new SqlDataAdapter(sqlcomm2);
                 DataTable ds2 = new DataTable();

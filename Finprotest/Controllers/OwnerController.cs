@@ -13,7 +13,7 @@ namespace Finprotest.Controllers
 {
     public class OwnerController : Controller
     {
-        String Mainconn = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+        string Mainconn = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
         //string Mainconn = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
         // GET: Owner
         public ActionResult Index()
@@ -33,7 +33,7 @@ namespace Finprotest.Controllers
             {
                 string SessionName = Session["id_owner"].ToString();
                 SqlConnection sqlconn = new SqlConnection(Mainconn);
-                String sqlquery = "SELECT t1.Product_id, t1.Kategori_ID, t1.Product_name, t1.product_img1, t1.product_img2, t1.product_img3, t1.id_owner, t1.product_harga, t1.Product_stock, t1.artist_ID, t1.product_status, t2.Kategori_Name, t3.name_owner, t4.artist_name, t5.Deskripsi_id, t5.Deskripsi_isi, t5.Deskripsi_details, t5.Deskripsi_kelebihan FROM Product_owner t1 JOIN KategoriProduct t2 ON t1.Kategori_ID = t2.Kategori_ID JOIN account_owner t3 ON t1.id_owner = t3.id_owner JOIN artist_Db t4 ON t1.artist_ID = t4.artist_ID JOIN Deskripsi_product t5 ON t1.Product_id = t5.Product_id  WHERE t1.id_owner = '" + SessionName + "'";
+                String sqlquery = "SELECT t1.Product_id, t1.Kategori_ID, t1.Product_name, t1.product_img1, t1.product_img2, t1.product_img3, t1.id_owner, t1.product_harga, t1.Product_stock, t1.artist_ID, t1.product_status, t2.Kategori_Name, t3.name_owner, t4.artist_name  FROM Product_owner t1 JOIN KategoriProduct t2 ON t1.Kategori_ID = t2.Kategori_ID JOIN account_owner t3 ON t1.id_owner = t3.id_owner JOIN artist_Db t4 ON t1.artist_ID = t4.artist_ID WHERE t1.id_owner = '" + SessionName + "'";
                 SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
                 sqlconn.Open();
                 SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
@@ -43,6 +43,35 @@ namespace Finprotest.Controllers
                 {
 
                     foreach (DataRow dr in ds.Rows)
+                    {
+                        Ownerclass uc10 = new Ownerclass();
+                        uc10.Product_name = Convert.ToString(dr["Product_name"]);
+                        uc10.product_img1 = Convert.ToString(dr["product_img1"]);
+                        uc10.product_img2 = Convert.ToString(dr["product_img2"]);
+                        uc10.product_img3 = Convert.ToString(dr["product_img3"]);
+                        uc10.product_status = Convert.ToString(dr["product_status"]);
+                        uc10.Kategori_Name = Convert.ToString(dr["Kategori_Name"]);
+                        uc10.name_owner = Convert.ToString(dr["name_owner"]);
+                        uc10.artist_name = Convert.ToString(dr["artist_name"]);
+                        uc10.Product_id = Convert.ToInt32(dr["Product_id"]);
+                        uc10.Kategori_ID = Convert.ToInt32(dr["Kategori_ID"]);
+                        uc10.id_owner = Convert.ToInt32(dr["id_owner"]);
+                        uc10.product_harga = Convert.ToInt32(dr["product_harga"]);
+                        uc10.Product_stock = Convert.ToInt32(dr["Product_stock"]);
+                        uc10.artist_ID = Convert.ToInt32(dr["artist_ID"]);
+
+                        uc.Add(uc10);
+                    }
+                }
+                String sqlquery2 = "SELECT t1.Product_id, t1.Kategori_ID, t1.Product_name, t1.product_img1, t1.product_img2, t1.product_img3, t1.id_owner, t1.product_harga, t1.Product_stock, t1.artist_ID, t1.product_status, t2.Kategori_Name, t3.name_owner, t4.artist_name, t5.Deskripsi_id, t5.Deskripsi_isi, t5.Deskripsi_details, t5.Deskripsi_kelebihan FROM Product_owner t1 JOIN KategoriProduct t2 ON t1.Kategori_ID = t2.Kategori_ID JOIN account_owner t3 ON t1.id_owner = t3.id_owner JOIN artist_Db t4 ON t1.artist_ID = t4.artist_ID JOIN Deskripsi_product t5 ON t1.Product_id = t5.Product_id  WHERE t1.id_owner = '" + SessionName + "'";
+                SqlCommand sqlcomm2 = new SqlCommand(sqlquery2, sqlconn);
+                SqlDataAdapter sda2 = new SqlDataAdapter(sqlcomm2);
+                DataTable ds2 = new DataTable();
+                sda2.Fill(ds2);
+                List<Ownerclass> uc2 = new List<Ownerclass>();
+                {
+
+                    foreach (DataRow dr in ds2.Rows)
                     {
                         Ownerclass uc10 = new Ownerclass();
                         uc10.Product_name = Convert.ToString(dr["Product_name"]);
@@ -64,10 +93,11 @@ namespace Finprotest.Controllers
                         uc10.Product_stock = Convert.ToInt32(dr["Product_stock"]);
                         uc10.artist_ID = Convert.ToInt32(dr["artist_ID"]);
 
-                        uc.Add(uc10);
+                        uc2.Add(uc10);
                     }
                 }
                 ViewBag.uc = uc;
+                ViewBag.uc2 = uc2;
                 sqlconn.Close();
                 return View();
             }

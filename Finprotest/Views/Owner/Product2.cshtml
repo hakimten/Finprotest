@@ -41,7 +41,7 @@
 
 <!-- Modal Edit product-->
 <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title text-center" id="staticBackdropLabel">EDIT PRODUCT</h5>
@@ -176,7 +176,7 @@
                         @{ int a = 0;}
                         @foreach (var image in ViewBag.uc2)
                         {
-                            <div class="col-1">
+                            <div class="col-3">
                                 <img src="~/Upload/ImageProduct/@image.img_name" style="object-fit:scale-down; width:200px; height:200px;" />
                                 <input type="hidden" name="idfoto[@a]" value="@image.Img_id" />
                             </div>
