@@ -1,0 +1,156 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/Layout_Admin.cshtml";
+}
+<head>
+    <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <style>
+        body {
+            background: #f5f5f5;
+            margin-top: 20px;
+        }
+
+        .card {
+            border: none;
+            -webkit-box-shadow: 1px 0 20px rgba(96,93,175,.05);
+            box-shadow: 1px 0 20px rgba(96,93,175,.05);
+            margin-bottom: 30px;
+        }
+
+        .table th {
+            font-weight: 500;
+            color: #827fc0;
+        }
+
+        .table thead {
+            /*background-color: #f3f2f7;*/
+            background: rgb(244,244,244);
+            background: linear-gradient(0deg, rgba(244,244,244,1) 0%, rgba(219,135,189,1) 100%);
+        }
+
+        .table > tbody > tr > td, .table > tfoot > tr > td, .table > thead > tr > td {
+            padding: 14px 12px;
+            vertical-align: middle;
+        }
+
+        .table tr:nth-child(even) td {
+            background-color: plum;
+        }
+
+        .table tr:nth-child(odd) td {
+            background-color: rosybrown;
+        }
+
+        .thumb-sm {
+            height: 32px;
+            width: 32px;
+        }
+
+        .badge-soft-warning {
+            /*background-color: rgba(248,201,85,.2);
+            color: #f8c955;*/
+            background: rgb(29,123,187);
+            background: linear-gradient(0deg, rgba(29,123,187,1) 0%, rgba(227,5,99,1) 100%);
+            color: white;
+        }
+
+        .badge {
+            font-weight: 500;
+        }
+
+        .badge-soft-primary {
+            /*background-color: rgba(96,93,175,.2);*/
+            background: rgb(34,193,195);
+            background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+            color: indigo;
+            /*color: #605daf;*/
+            /*background-color: deeppink;*/
+        }
+
+        .modal-xl {
+            width: 90%;
+            max-width: 750px;
+        }
+    </style>
+</head>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+    $(document).ready(function () {
+        $('#example2').DataTable();
+    });
+</script>
+<h1 class="text-white">Welcome to Admin Page, Hakim</h1>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="header-title pb-3 mt-0">Account Owner Need to Approve</h5>
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0" id="example">
+                        <thead>
+                            <tr class="align-self-center">
+                                <th class="text-center">Owner Username</th>
+                                <th class="text-center">Owner Name</th>
+                                <th class="text-center">Address</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center text-white">Annisa</td>
+                                <td class="text-center text-white">Ica123</td>
+                                <td class="text-center text-white">jl.bandar pulau pekan</td>
+                                <td class="text-center text-white">
+                                    <span class="open-editprofil badge badge-boxed badge-soft-warning">Approve</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--end table-responsive-->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="header-title pb-3 mt-0">Product Owner Need to Approve</h5>
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0" id="example2">
+                        <thead>
+                            <tr class="align-self-center">
+                                <th class="text-center">Owner Product</th>
+                                <th class="text-center">Name store</th>
+                                <th class="text-center">Owner Name</th>
+                                <th class="text-center">Store Address</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center text-white">Blackpink full album second</td>
+                                <td class="text-center text-white">Ica Store</td>
+                                <td class="text-center text-white">Annisa</td>
+                                <td class="text-center text-white">jl.bandar pulau pekan</td>
+                                <td class="text-center text-white">
+                                    <span class="open-editprofil badge badge-boxed badge-soft-warning">Approve</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--end table-responsive-->
+            </div>
+        </div>
+    </div>
+</div>
+
