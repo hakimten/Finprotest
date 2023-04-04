@@ -183,10 +183,10 @@
                                                     </div>
                                                     <div class="col-md-9 text-left mt-sm-2">
                                                         <h4>@product.Product_name</h4>
-                                                        <input type="text" name="cartid[@i]" value="@product.Cart_id" />
+                                                        <input type="hidden" name="cartid[@i]" value="@product.Cart_id" />
                                                         <p class="font-weight-light">@product.Kategori_Name</p>
-                                                        <input type="text" class="harga" onchange="sum();" value="@product.product_harga" />
-                                                        <input type="text" class="hasilharga3" value="@jumlah" name="subtotal[@i]" />
+                                                        <input type="hidden" class="harga" onchange="sum();" value="@product.product_harga" />
+                                                        <input type="hidden" class="hasilharga3" value="@jumlah" name="subtotal[@i]" />
                                                     </div>
                                                 </div>
                                             </td>

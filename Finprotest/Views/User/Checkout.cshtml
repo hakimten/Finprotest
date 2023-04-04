@@ -65,7 +65,7 @@
             <h2>Checkout form</h2>
         </div>
         <a href="~/User/AddressUser">
-            <label class="btn btn-lg btn-primary">ADD ADDRESS</label>
+            <label class="btn btn-lg btn-primary" style="margin-left: 40px; margin-top:30px;">ADD ADDRESS</label>
         </a>
         <br />
         <div class="row g-5" style="margin-left: 20px; margin-right:20px;">
@@ -84,7 +84,7 @@
                                 <h6 class="my-0">@product.Product_name</h6>
                                 <small class="text-muted">@product.Kategori_Name</small>
                                 <input type="hidden" name="cartid[@i]" value="@product.Cart_id" />
-                                <input type="text" name="productid[@i]" value="@product.Product_id" />
+                                <input type="hidden" name="productid[@i]" value="@product.Product_id" />
                                 <input type="hidden" class="harga" onchange="sum();" value="@product.product_harga" />
                                 <input type="hidden" class="hasilharga3" value="@jumlah" name="subtotal[@i]" />
                                 <input type="hidden" class="form-control form-control-lg text-center quantity2" value="@product.Cart_kuantity" min="1" max="@product.Product_stock" name="quantity[@i]" step="1" data-decimals="0" required>
@@ -114,7 +114,7 @@
                                         <p class="text-black">
                                             @dataalamat.name_buyer,@dataalamat.no_hpbuy,@dataalamat.alamt_name, Jawa Barat, Bekasi, Indonesia, 21274
                                         </p>
-                                        <input type="number" value="@dataalamat.almt_Id" name="alamat"/>
+                                        <input type="hidden" value="@dataalamat.almt_Id" name="alamat"/>
                                     </div>
                                 </div>
                             </div>
