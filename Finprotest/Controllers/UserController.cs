@@ -21,7 +21,7 @@ namespace Finprotest.Controllers
             {
                 //menampilkan lattitude & longitude Toko
                 SqlConnection sqlconn = new SqlConnection(Mainconn);
-                String sqlquery = "select * from Toko_Profil";
+                string sqlquery = "select * from Toko_Profil";
                 SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
                 sqlconn.Open();
                 SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
@@ -156,7 +156,7 @@ namespace Finprotest.Controllers
                     uc.Add(uc10);
                 }
             }
-            //menampilkan lattitude & longitude Toko
+            //display image product
             String sqlquery = $"SELECT * from Image_product WHERE Product_id = {id}";
             SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
             SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
@@ -175,7 +175,7 @@ namespace Finprotest.Controllers
                     uc2.Add(uc10);
                 }
             }
-            //menampilkan lattitude & longitude Toko
+            //display description product
             String sqlquery3 = $"SELECT * from Deskripsi_product WHERE Product_id = {id}";
             SqlCommand sqlcomm3 = new SqlCommand(sqlquery3, sqlconn);
             SqlDataAdapter sda3 = new SqlDataAdapter(sqlcomm3);
@@ -420,7 +420,8 @@ namespace Finprotest.Controllers
             string productid = form["productid"];
 
             myConnection.ConnectionString = Mainconn;
-            string Query3 = "INSERT INTO Cart_user (Product_id, Cart_kuantity, id_user, cart_status, tanggal_pembelian) VALUES (@Product_id, @Cart_kuantity, @id_user, 'CART', CURRENT_TIMESTAMP)";
+            string Query3 = "INSERT INTO Cart_user (Product_id, Cart_kuantity, id_user, cart_status, tanggal_pembelian) " +
+                "VALUES (@Product_id, @Cart_kuantity, @id_user, 'CART', CURRENT_TIMESTAMP)";
             using (SqlCommand sqlmethod = new SqlCommand(Query3, myConnection))
             {
                 sqlmethod.Parameters.AddWithValue("@Product_id", productid);
