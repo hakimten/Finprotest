@@ -103,14 +103,16 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach(var dataakun in ViewBag.uc2) {
                             <tr>
-                                <td class="text-center text-white">Annisa</td>
-                                <td class="text-center text-white">Ica123</td>
-                                <td class="text-center text-white">jl.bandar pulau pekan</td>
+                                <td class="text-center text-white">@dataakun.username_owner</td>
+                                <td class="text-center text-white">@dataakun.name_owner</td>
+                                <td class="text-center text-white">@dataakun.address_owner</td>
                                 <td class="text-center text-white">
-                                    <span class="open-editprofil badge badge-boxed badge-soft-warning">Approve</span>
+                                    <span class="open-editprofil badge badge-boxed badge-soft-warning" data-idacc="@dataakun.id_owner">Delete</span>
                                 </td>
                             </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -129,22 +131,24 @@
                         <thead>
                             <tr class="align-self-center">
                                 <th class="text-center">Owner Product</th>
-                                <th class="text-center">Name store</th>
+                                <th class="text-center">Store Name</th>
                                 <th class="text-center">Owner Name</th>
                                 <th class="text-center">Store Address</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach (var dataproduct in ViewBag.uc) {
                             <tr>
-                                <td class="text-center text-white">Blackpink full album second</td>
-                                <td class="text-center text-white">Ica Store</td>
-                                <td class="text-center text-white">Annisa</td>
-                                <td class="text-center text-white">jl.bandar pulau pekan</td>
+                                <td class="text-center text-white">@dataproduct.Product_name</td>
+                                <td class="text-center text-white">@dataproduct.Toko_name</td>
+                                <td class="text-center text-white">@dataproduct.username_owner</td>
+                                <td class="text-center text-white">@dataproduct.address_owner</td>
                                 <td class="text-center text-white">
-                                    <span class="open-editprofil badge badge-boxed badge-soft-warning">Approve</span>
+                                    <span class="open-editprofil badge badge-boxed badge-soft-warning" data-id="@dataproduct.Toko_id">Approve</span>
                                 </td>
                             </tr>
+                            }
                         </tbody>
                     </table>
                 </div>

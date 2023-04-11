@@ -202,138 +202,140 @@
                 <h5 class="modal-title" id="staticBackdropLabel">Add New Address</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <div class="row g-3">
-                    <div class="col-sm-6">
-                        <label for="firstName" class="form-label">Name User</label>
-                        <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
-                        <div class="invalid-feedback">
-                            Valid first name is required.
+            <form action="/User/AddNewAddress" method="post" id="sampleForm" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label for="firstName" class="form-label">Name User</label>
+                            <input type="text" class="form-control" name="firstName" placeholder="" value="" required>
+                            <div class="invalid-feedback">
+                                Valid first name is required.
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col-sm-6">
-                        <label for="lastName" class="form-label">Phone Number</label>
-                        <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
-                        <div class="invalid-feedback">
-                            Valid last name is required.
+                        <div class="col-sm-6">
+                            <label for="lastName" class="form-label">Phone Number</label>
+                            <input type="text" class="form-control" name="nohp" placeholder="" value="" required>
+                            <div class="invalid-feedback">
+                                Valid last name is required.
+                            </div>
                         </div>
-                    </div>
-                    <center>
-                        <div class="col-12" id="map" style="height: 300px; width:400px;">
+                        <center>
+                            <div class="col-12" id="map" style="height: 300px; width:400px;">
 
+                            </div>
+                            <script>
+                                mapboxgl.accessToken = 'pk.eyJ1Ijoidmlja3lqbmQiLCJhIjoiY2w5ZjVxNWl6MG5ydjNybXlka3FuY2ZoNCJ9.ZnazGQ7N4dEDKgQxMqYiHA';
+                                const map = new mapboxgl.Map({
+                                    container: 'map',
+                                    // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+                                    style: 'mapbox://styles/mapbox/streets-v12',
+
+                                    center: [107.17058, -6.28509],
+                                    zoom: 15
+                                });
+
+                                // Add geolocate control to the map.
+                                map.addControl(
+                                    new mapboxgl.GeolocateControl({
+                                        positionOptions: {
+                                            enableHighAccuracy: true
+                                        },
+                                        // When active the map will receive updates to the device's location as it changes.
+                                        trackUserLocation: true,
+                                        // Draw an arrow next to the location dot to indicate which direction the device is heading.
+                                        showUserHeading: true
+                                    })
+                                );
+                                const geocoder = new MapboxGeocoder({
+                                    // Initialize the geocoder
+                                    accessToken: mapboxgl.accessToken, // Set the access token
+                                    mapboxgl: mapboxgl, // Set the mapbox-gl instance
+                                    marker: false // Do not use the default marker style
+                                });
+
+                                // Add the geocoder to the map
+                                map.addControl(geocoder);
+
+                                //Marker
+                                let marker = null
+                                map.on('click', function (e) {
+                                    if (marker == null) {
+                                        marker = new mapboxgl.Marker()
+                                            .setLngLat(e.lngLat)
+                                            .addTo(map);
+                                    } else {
+                                        marker.setLngLat(e.lngLat)
+                                    }
+                                    lk = e.lngLat
+                                    document.getElementById("longitude").value = e.lngLat.lng;
+                                    document.getElementById("lattitude").value = e.lngLat.lat;
+                                });
+                            </script>
+                        </center>
+                        <div class="col-12">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" class="form-control" name="address" placeholder="Plaza street" required>
+                            <div class="invalid-feedback">
+                                Please enter your shipping address.
+                            </div>
                         </div>
-                        <script>
-                            mapboxgl.accessToken = 'pk.eyJ1Ijoidmlja3lqbmQiLCJhIjoiY2w5ZjVxNWl6MG5ydjNybXlka3FuY2ZoNCJ9.ZnazGQ7N4dEDKgQxMqYiHA';
-                            const map = new mapboxgl.Map({
-                                container: 'map',
-                                // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-                                style: 'mapbox://styles/mapbox/streets-v12',
 
-                                center: [107.17058, -6.28509],
-                                zoom: 15
-                            });
-
-                            // Add geolocate control to the map.
-                            map.addControl(
-                                new mapboxgl.GeolocateControl({
-                                    positionOptions: {
-                                        enableHighAccuracy: true
-                                    },
-                                    // When active the map will receive updates to the device's location as it changes.
-                                    trackUserLocation: true,
-                                    // Draw an arrow next to the location dot to indicate which direction the device is heading.
-                                    showUserHeading: true
-                                })
-                            );
-                            const geocoder = new MapboxGeocoder({
-                                // Initialize the geocoder
-                                accessToken: mapboxgl.accessToken, // Set the access token
-                                mapboxgl: mapboxgl, // Set the mapbox-gl instance
-                                marker: false // Do not use the default marker style
-                            });
-
-                            // Add the geocoder to the map
-                            map.addControl(geocoder);
-
-                            //Marker
-                            let marker = null
-                            map.on('click', function (e) {
-                                if (marker == null) {
-                                    marker = new mapboxgl.Marker()
-                                        .setLngLat(e.lngLat)
-                                        .addTo(map);
-                                } else {
-                                    marker.setLngLat(e.lngLat)
-                                }
-                                lk = e.lngLat
-                                document.getElementById("longitude").value = e.lngLat.lng;
-                                document.getElementById("lattitude").value = e.lngLat.lat;
-                            });
-                        </script>
-                    </center>
-                    <div class="col-12">
-                        <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="address" placeholder="Plaza street" required>
-                        <div class="invalid-feedback">
-                            Please enter your shipping address.
+                        <div class="col-6">
+                            <label for="address2" class="form-label">Address 2 <span class="text-muted">(Optional)</span></label>
+                            <input type="text" class="form-control" id="lattitude" name="lattitude" placeholder="Apartment or suite">
                         </div>
-                    </div>
-
-                    <div class="col-6">
-                        <label for="address2" class="form-label">Address 2 <span class="text-muted">(Optional)</span></label>
-                        <input type="text" class="form-control" id="lattitude" placeholder="Apartment or suite">
-                    </div>
-                    <div class="col-6">
-                        <label for="address2" class="form-label">Address 2 <span class="text-muted">(Optional)</span></label>
-                        <input type="text" class="form-control" id="longitude" placeholder="Apartment or suite">
-                    </div>
-
-                    <div class="col-md-3">
-                        <label for="country" class="form-label">Country</label>
-                        <select class="form-select" id="country" required>
-                            <option value="">Choose...</option>
-                            <option value="1">Indonesia</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            Please select a valid country.
+                        <div class="col-6">
+                            <label for="address2" class="form-label">Address 2 <span class="text-muted">(Optional)</span></label>
+                            <input type="text" class="form-control" id="longitude" name="longitude" placeholder="Apartment or suite">
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="country" class="form-label">Province</label>
-                        <select class="form-select" id="country" required>
-                            <option value="">Choose...</option>
-                            <option value="1">Jawa Barat</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            Please select a valid country.
-                        </div>
-                    </div>
 
-                    <div class="col-md-3">
-                        <label for="state" class="form-label">Kabupaten</label>
-                        <select class="form-select" id="state" required>
-                            <option value="">Choose...</option>
-                            <option value="1">Bekasi</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            Please provide a valid state.
+                        <div class="col-md-3">
+                            <label for="country" class="form-label">Country</label>
+                            <select class="form-select" name="country" required>
+                                <option value="">Choose...</option>
+                                <option value="1">Indonesia</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a valid country.
+                            </div>
                         </div>
-                    </div>
+                        <div class="col-md-3">
+                            <label for="country" class="form-label">Province</label>
+                            <select class="form-select" name="prov" required>
+                                <option value="">Choose...</option>
+                                <option value="1">Jawa Barat</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a valid country.
+                            </div>
+                        </div>
 
-                    <div class="col-md-3">
-                        <label for="zip" class="form-label">Zip</label>
-                        <input type="text" class="form-control" id="zip" placeholder="" required>
-                        <div class="invalid-feedback">
-                            Zip code required.
+                        <div class="col-md-3">
+                            <label for="state" class="form-label">Kabupaten</label>
+                            <select class="form-select" name="kab" required>
+                                <option value="">Choose...</option>
+                                <option value="1">Bekasi</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please provide a valid state.
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="zip" class="form-label">Zip</label>
+                            <input type="text" class="form-control" name="zip" placeholder="" required>
+                            <div class="invalid-feedback">
+                                Zip code required.
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Understood</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

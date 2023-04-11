@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,8 +13,8 @@ namespace Finprotest.Controllers
 {
     public class UserController : Controller
     {
-        string Mainconn = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
-        //string Mainconn = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
+        //string Mainconn = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+        string Mainconn = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
         // GET: User
         public ActionResult Index()
         {
@@ -463,7 +464,7 @@ namespace Finprotest.Controllers
                     }
                 }
                 // display product owner 
-                String sqlquery2 = "SELECT FORMAT(product_harga, 'N') AS RP, t1.Product_id, t1.Kategori_ID, t1.Product_name, t1.product_img1, t1.product_img2, t1.product_img3, t1.id_owner, t1.product_harga, t1.Product_stock, t1.artist_ID, t1.product_status, t2.address_owner, t3.Kategori_Name, t4.artist_name, t5.Cart_id, t5.Cart_kuantity, t5.total_harga, t5.cart_status, t5.id_user FROM Product_owner t1 JOIN account_owner t2 ON t1.id_owner = t2.id_owner JOIN KategoriProduct t3 ON t1.Kategori_ID = t3.Kategori_ID JOIN artist_Db t4 ON t1.artist_ID = t4.artist_ID JOIN Cart_user t5 ON t1.Product_id = t5.Product_id WHERE t5.cart_status = 'CART' AND t5.id_user = '"+ SessionName +"'";
+                String sqlquery2 = "SELECT FORMAT(product_harga, 'N') AS RP, t1.Product_id, t1.Kategori_ID, t1.Product_name, t1.product_img1, t1.product_img2, t1.product_img3, t1.id_owner, t1.product_harga, t1.Product_stock, t1.artist_ID, t1.product_status, t2.address_owner, t3.Kategori_Name, t4.artist_name, t5.Cart_id, t5.Cart_kuantity, t5.total_harga, t5.cart_status, t5.id_user FROM Product_owner t1 JOIN account_owner t2 ON t1.id_owner = t2.id_owner JOIN KategoriProduct t3 ON t1.Kategori_ID = t3.Kategori_ID JOIN artist_Db t4 ON t1.artist_ID = t4.artist_ID JOIN Cart_user t5 ON t1.Product_id = t5.Product_id WHERE t5.cart_status = 'CART' AND t5.id_user = '" + SessionName + "'";
                 SqlCommand sqlcomm2 = new SqlCommand(sqlquery2, sqlconn);
                 SqlDataAdapter sda2 = new SqlDataAdapter(sqlcomm2);
                 DataTable ds2 = new DataTable();
@@ -498,7 +499,7 @@ namespace Finprotest.Controllers
                         uc2.Add(uc10);
                     }
                 }
-                string sqlquery3 = "SELECT COUNT(Cart_id) AS VALIDASI FROM Cart_user WHERE id_user = '"+ SessionName +"' AND cart_status = 'CART'";
+                string sqlquery3 = "SELECT COUNT(Cart_id) AS VALIDASI FROM Cart_user WHERE id_user = '" + SessionName + "' AND cart_status = 'CART'";
                 SqlCommand sqlcomm3 = new SqlCommand(sqlquery3, sqlconn);
                 SqlDataAdapter sda3 = new SqlDataAdapter(sqlcomm3);
                 DataTable ds3 = new DataTable();
@@ -530,7 +531,8 @@ namespace Finprotest.Controllers
             if (Session["id_user"] != null)
             {
                 List<userclass> jc = new List<userclass>();
-                var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+                //var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+                var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
                 SqlConnection myConnection = new SqlConnection();
                 myConnection.ConnectionString = connectionString;
                 myConnection.Open();
@@ -684,7 +686,8 @@ namespace Finprotest.Controllers
         {
             if (Session["id_user"] != null)
             {
-                var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+                //var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+                var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
                 SqlConnection myConnection = new SqlConnection();
                 myConnection.ConnectionString = connectionString;
                 myConnection.Open();
@@ -767,7 +770,7 @@ namespace Finprotest.Controllers
                 string SessionName = Session["id_user"].ToString();
                 //menampilkan lattitude & longitude Toko
                 SqlConnection sqlconn = new SqlConnection(Mainconn);
-                String sqlquery = "SELECT * from alamat_user WHERE id_user = '"+ SessionName +"'";
+                String sqlquery = "SELECT * from alamat_user WHERE id_user = '" + SessionName + "'";
                 SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
                 sqlconn.Open();
                 SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
@@ -803,9 +806,175 @@ namespace Finprotest.Controllers
                 return RedirectToAction("LoginUser", "Login");
             }
         }
+        public ActionResult AddNewAddress(FormCollection form)
+        {
+            if (Session["id_user"] != null)
+            {
+                //var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+                var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
+                SqlConnection myConnection = new SqlConnection();
+                myConnection.ConnectionString = connectionString;
+                myConnection.Open();
+                string SessionName = Session["id_user"].ToString();
+                string firstName = form["firstName"];
+                string nohp = form["nohp"];
+                string address = form["address"];
+                string lattitude = form["lattitude"];
+                string longitude = form["longitude"];
+                string country = form["country"];
+                string prov = form["prov"];
+                string kab = form["kab"];
+                string zip = form["zip"];
+                SqlConnection sqlconn2 = new SqlConnection(Mainconn);
+                string Query3 = "INSERT INTO alamat_user (alamt_name, zip_code, prov_id, country_id, kab_id, lattitude_user, longitude_user, name_buyer, no_hpbuy, id_user) VALUES (@alamt_name, @zip_code, @prov_id, @country_id, @kab_id, @lattitude_user, @longitude_user, @name_buyer, @no_hpbuy, @id_user)";
+                using (SqlCommand sqlmethod = new SqlCommand(Query3, sqlconn2))
+                {
+                    sqlmethod.Parameters.AddWithValue("@alamt_name", address);
+                    sqlmethod.Parameters.AddWithValue("@zip_code", zip);
+                    sqlmethod.Parameters.AddWithValue("@prov_id", prov);
+                    sqlmethod.Parameters.AddWithValue("@country_id", country);
+                    sqlmethod.Parameters.AddWithValue("@lattitude_user", lattitude);
+                    sqlmethod.Parameters.AddWithValue("@longitude_user", longitude);
+                    sqlmethod.Parameters.AddWithValue("@name_buyer", firstName);
+                    sqlmethod.Parameters.AddWithValue("@no_hpbuy", nohp);
+                    sqlmethod.Parameters.AddWithValue("@id_user", SessionName);
+                    sqlmethod.Parameters.AddWithValue("@kab_id", kab);
+                    sqlconn2.Open();
+                    sqlmethod.ExecuteNonQuery();
+                    TempData["messsage"] = "success";
+                    sqlconn2.Close();
+                }
+                return RedirectToAction("AddressUser");
+            }
+            else
+            {
+                return RedirectToAction("LoginUser", "Login");
+            }
+        }
         public ActionResult ConfirmOrderUser()
         {
-            return View();
+            if (Session["id_user"] != null)
+            {
+                SqlConnection sqlconn = new SqlConnection(Mainconn);
+                int Method = 0;
+                string method = "SELECT * FROM checkout_user";
+                SqlDataAdapter damethod = new SqlDataAdapter(method, sqlconn);
+                DataTable dtmethod = new DataTable();
+                damethod.Fill(dtmethod);
+                foreach (DataRow dr in dtmethod.Rows)
+                {
+                    Method = (int)dr["cout_id"];
+                }
+
+                string SessionName = Session["id_user"].ToString();
+                //menampilkan lattitude & longitude Toko
+                String sqlquery = "SELECT t1.cout_id, t1.all_total, t1.almt_Id, t1.pay_ID, t1.eks_id, t2.lattitude_user, t2.longitude_user, t3.eks_harga FROM checkout_user t1 JOIN alamat_user t2 ON t1.almt_Id = t2.almt_Id JOIN Ekspedis_c t3 ON t1.eks_id = t3.eks_id WHERE t1.cout_id = '" + Method +"'";
+                SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
+                sqlconn.Open();
+                SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+                DataTable ds = new DataTable();
+                sda.Fill(ds);
+                List<userclass> uc = new List<userclass>();
+                {
+
+                    foreach (DataRow dr in ds.Rows)
+                    {
+                        userclass uc10 = new userclass();
+                        uc10.lattitude_user = Convert.ToString(dr["lattitude_user"]);
+                        uc10.longitude_user = Convert.ToString(dr["longitude_user"]);
+                        uc10.cout_id = Convert.ToInt32(dr["cout_id"]);
+                        uc10.all_total = Convert.ToInt32(dr["all_total"]);
+                        uc10.almt_Id = Convert.ToInt32(dr["almt_Id"]);
+                        uc10.eks_id = Convert.ToInt32(dr["eks_id"]);
+                        uc10.eks_harga = Convert.ToInt32(dr["eks_harga"]);
+                        uc10.pay_ID = Convert.ToInt32(dr["pay_ID"]);
+
+                        uc.Add(uc10);
+                    }
+                }
+                ViewBag.uc = uc;
+                sqlconn.Close();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LoginUser", "Login");
+            }
+        }
+        public ActionResult cancelorder(FormCollection form)
+        {
+            if (Session["id_user"] != null)
+            {
+                //var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+                var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
+                SqlConnection myConnection = new SqlConnection();
+                myConnection.ConnectionString = connectionString;
+                myConnection.Open();
+                string SessionName = Session["id_user"].ToString();
+                string itemid = form["itemid"];
+                SqlConnection sqlconn2 = new SqlConnection(Mainconn);
+                string Query3 = "DELETE FROM Cart_user WHERE cout_id = '"+ itemid +"'";
+                using (SqlCommand sqlmethod = new SqlCommand(Query3, sqlconn2))
+                {
+                    sqlconn2.Open();
+                    sqlmethod.ExecuteNonQuery();
+                    TempData["messsage"] = "success";
+                    sqlconn2.Close();
+                }
+                string Query4 = "DELETE FROM checkout_user WHERE cout_id = '" + itemid + "'";
+                using (SqlCommand sqlmethod = new SqlCommand(Query4, sqlconn2))
+                {
+                    sqlconn2.Open();
+                    sqlmethod.ExecuteNonQuery();
+                    TempData["messsage"] = "success";
+                    sqlconn2.Close();
+                }
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("LoginUser", "Login");
+            }
+        }
+        public ActionResult confirmorder(FormCollection form, HttpPostedFileBase buktipembayaran)
+        {
+            if (Session["id_user"] != null)
+            {
+                string sewnPatternImage = "BuktiPembayaran" + "-" + DateTime.Now.ToString("(yyyyMMdd)(Hmmss)(tt)") + Path.GetExtension(buktipembayaran.FileName);
+                //newFileName = DateTime.Now.ToString("yyyyMMdd") + "-" + sewnPatternImage.Trim() + sewnPatternImage;
+                string filePathsewnPattern = Path.Combine(Server.MapPath("/gambar/BuktiPembayaran/"), sewnPatternImage);
+                buktipembayaran.SaveAs(filePathsewnPattern);
+
+                //var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+                var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
+                SqlConnection myConnection = new SqlConnection();
+                myConnection.ConnectionString = connectionString;
+                myConnection.Open();
+                string SessionName = Session["id_user"].ToString();
+                string itemid = form["itemid"];
+                SqlConnection sqlconn2 = new SqlConnection(Mainconn);
+                string Query3 = "UPDATE Cart_user SET cart_status = 'PAYMENT' WHERE cout_id = '" + itemid + "'";
+                using (SqlCommand sqlmethod = new SqlCommand(Query3, sqlconn2))
+                {
+                    sqlconn2.Open();
+                    sqlmethod.ExecuteNonQuery();
+                    TempData["messsage"] = "success";
+                    sqlconn2.Close();
+                }
+                string Query4 = "UPDATE checkout_user SET cout_status = 'PAYMENT', payment_history='"+ sewnPatternImage +"' WHERE cout_id = '" + itemid + "'";
+                using (SqlCommand sqlmethod = new SqlCommand(Query4, sqlconn2))
+                {
+                    sqlconn2.Open();
+                    sqlmethod.ExecuteNonQuery();
+                    TempData["messsage"] = "success";
+                    sqlconn2.Close();
+                }
+                return RedirectToAction("ConfirmOrderUser");
+            }
+            else
+            {
+                return RedirectToAction("LoginUser", "Login");
+            }
         }
     }
 }

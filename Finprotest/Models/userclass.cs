@@ -53,5 +53,10 @@ namespace Finprotest.Models
         public string Toko_norek { get; internal set; }
         public string username_owner { get; internal set; }
         public string name_owner { get; internal set; }
+        public int cout_id { get; internal set; }
+        public int all_total { get; internal set; }
+        public int eks_id { get; internal set; }
+        public int eks_harga { get; internal set; }
+        public int pay_ID { get; internal set; }
     }
 }
