@@ -1,7 +1,7 @@
 ﻿
 @{
-    ViewBag.Title = "History_order";
-    Layout = "~/Views/Shared/Layout_Owner.cshtml";
+    ViewBag.Title = "HistoryOrder";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
 }
 <head>
     <
@@ -99,7 +99,7 @@
         //object.DataTable();
     });
 </script>
-<h1 class="text-center">HISTORY ORDER OWNER FINISH</h1>
+<h1 class="text-center">History Order payment</h1>
 <br />
 <div class="card bg-light">
     <div class="card-body">
@@ -139,7 +139,7 @@
                                                     {
                                                         <tr>
                                                             <td class="text-dark text-center">
-                                                                <img src="~/Upload/FrontImage/@data2.product_img1" style="width: 200px; height: 200px; object-fit:scale-down;" />
+                                                                <img src="~/Upload/FrontImage/@data2.product_img1" style="width: 200px; height: 200px; object-fit:scale-down;"/>
                                                             </td>
                                                             <td class="text-dark text-center"><h4>@data2.Product_name</h4></td>
                                                             <td class="text-dark text-center"><h4>@data2.Cart_kuantity</h4></td>
@@ -172,3 +172,5 @@
         </table>
     </div>
 </div>
+
+

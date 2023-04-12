@@ -1794,6 +1794,10 @@
     <Content Include="Views\User\Detailartis.cshtml" />
     <Content Include="Views\User\Detailitem.cshtml" />
     <Content Include="Views\Admin\Dashboard.cshtml" />
+    <Content Include="Views\User\HistoryOrder.cshtml" />
+    <Content Include="Views\User\HistoryOrderCheckout.cshtml" />
+    <Content Include="Views\User\HistoryOrderFinish.cshtml" />
+    <Content Include="Views\User\ConfirmOrderUser2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

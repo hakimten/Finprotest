@@ -3,6 +3,134 @@
     ViewBag.Title = "Product_soldout";
     Layout = "~/Views/Shared/Layout_Owner.cshtml";
 }
+<h1 class="text-white text-center">PRODUCT SOLD OUT</h1>
+<head>
+    <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <style>
+        body {
+            background: #f5f5f5;
+            margin-top: 20px;
+        }
 
-<h2>Product_soldout</h2>
+        .card {
+            border: none;
+            -webkit-box-shadow: 1px 0 20px rgba(96,93,175,.05);
+            box-shadow: 1px 0 20px rgba(96,93,175,.05);
+            margin-bottom: 30px;
+        }
 
+        .table th {
+            font-weight: 500;
+            color: #827fc0;
+        }
+
+        .table thead {
+            /*background-color: #f3f2f7;*/
+            background: rgb(244,244,244);
+            background: linear-gradient(0deg, rgba(244,244,244,1) 0%, rgba(219,135,189,1) 100%);
+        }
+
+        .table > tbody > tr > td, .table > tfoot > tr > td, .table > thead > tr > td {
+            padding: 14px 12px;
+            vertical-align: middle;
+        }
+
+        .table tr:nth-child(even) td {
+            background-color: plum;
+        }
+
+        .table tr:nth-child(odd) td {
+            background-color: rosybrown;
+        }
+
+        .thumb-sm {
+            height: 32px;
+            width: 32px;
+        }
+
+        .badge-soft-warning {
+            /*background-color: rgba(248,201,85,.2);
+            color: #f8c955;*/
+            background: rgb(29,123,187);
+            background: linear-gradient(0deg, rgba(29,123,187,1) 0%, rgba(227,5,99,1) 100%);
+            color: white;
+        }
+
+        .badge {
+            font-weight: 500;
+        }
+
+        .badge-soft-primary {
+            /*background-color: rgba(96,93,175,.2);*/
+            background: rgb(34,193,195);
+            background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+            color: indigo;
+            /*color: #605daf;*/
+            /*background-color: deeppink;*/
+        }
+
+        .modal-xl {
+            width: 90%;
+            max-width: 750px;
+        }
+    </style>
+</head>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="header-title pb-3 mt-0">Payments</h5>
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0" id="example">
+                        <thead>
+                            <tr class="align-self-center">
+                                <th class="text-center">Product Name</th>
+                                <th class="text-center">Owner Name</th>
+                                <th class="text-center">Kategori</th>
+                                <th class="text-center">Artist</th>
+                                <th class="text-center">Product Price</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var dataproduk in ViewBag.uc)
+                            {
+                                <tr>
+                                    <td class="text-center text-white">@dataproduk.Product_name</td>
+                                    <td class="text-white"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="thumb-sm rounded-circle mr-2"> @dataproduk.name_owner</td>
+                                    <td class="text-center text-white">@dataproduk.Kategori_Name</td>
+                                    <td class="text-center text-white">@dataproduk.artist_name</td>
+                                    <td class="text-center text-white">Rp.@dataproduk.product_harga</td>
+                                    <td class="text-center text-dark">
+                                        <a class="btn btn-lg btn-success" data-id="@dataproduk.Product_id">
+                                            <i class="fa fa-plus-circle">ADD STOCK</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+
+                            @*<tr>
+                                    <td class="text-center text-white">New Office Building</td>
+                                    <td class="text-white"><img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" class="thumb-sm rounded-circle mr-2"> Frank M. Lyons</td>
+                                    <td class="text-center text-white">Paypal</td>
+                                    <td class="text-center text-white">15/7/2018</td>
+                                    <td class="text-center text-white">$35,000</td>
+                                    <td class="text-center text-white"><span class="badge badge-boxed badge-soft-primary">Edit Description</span></td>
+                                </tr>*@
+                        </tbody>
+                    </table>
+                </div>
+                <!--end table-responsive-->
+            </div>
+        </div>
+    </div>
+</div>

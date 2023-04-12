@@ -901,6 +901,56 @@ namespace Finprotest.Controllers
                 return RedirectToAction("LoginUser", "Login");
             }
         }
+        public ActionResult ConfirmOrderUser2(int id)
+        {
+            if (Session["id_user"] != null)
+            {
+                SqlConnection sqlconn = new SqlConnection(Mainconn);
+                int Method = 0;
+                string method = "SELECT * FROM checkout_user";
+                SqlDataAdapter damethod = new SqlDataAdapter(method, sqlconn);
+                DataTable dtmethod = new DataTable();
+                damethod.Fill(dtmethod);
+                foreach (DataRow dr in dtmethod.Rows)
+                {
+                    Method = (int)dr["cout_id"];
+                }
+
+                string SessionName = Session["id_user"].ToString();
+                //menampilkan lattitude & longitude Toko
+                String sqlquery = $"SELECT t1.cout_id, t1.all_total, t1.almt_Id, t1.pay_ID, t1.eks_id, t2.lattitude_user, t2.longitude_user, t3.eks_harga FROM checkout_user t1 JOIN alamat_user t2 ON t1.almt_Id = t2.almt_Id JOIN Ekspedis_c t3 ON t1.eks_id = t3.eks_id WHERE t1.cout_id = {id}";
+                SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
+                sqlconn.Open();
+                SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+                DataTable ds = new DataTable();
+                sda.Fill(ds);
+                List<userclass> uc = new List<userclass>();
+                {
+
+                    foreach (DataRow dr in ds.Rows)
+                    {
+                        userclass uc10 = new userclass();
+                        uc10.lattitude_user = Convert.ToString(dr["lattitude_user"]);
+                        uc10.longitude_user = Convert.ToString(dr["longitude_user"]);
+                        uc10.cout_id = Convert.ToInt32(dr["cout_id"]);
+                        uc10.all_total = Convert.ToInt32(dr["all_total"]);
+                        uc10.almt_Id = Convert.ToInt32(dr["almt_Id"]);
+                        uc10.eks_id = Convert.ToInt32(dr["eks_id"]);
+                        uc10.eks_harga = Convert.ToInt32(dr["eks_harga"]);
+                        uc10.pay_ID = Convert.ToInt32(dr["pay_ID"]);
+
+                        uc.Add(uc10);
+                    }
+                }
+                ViewBag.uc = uc;
+                sqlconn.Close();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LoginUser", "Login");
+            }
+        }
         public ActionResult cancelorder(FormCollection form)
         {
             if (Session["id_user"] != null)
@@ -961,7 +1011,7 @@ namespace Finprotest.Controllers
                     TempData["messsage"] = "success";
                     sqlconn2.Close();
                 }
-                string Query4 = "UPDATE checkout_user SET cout_status = 'PAYMENT', payment_history='"+ sewnPatternImage +"' WHERE cout_id = '" + itemid + "'";
+                string Query4 = "UPDATE checkout_user SET cout_status = 'PAYMENT', payment_history='"+ sewnPatternImage + "', updated_at = CURRENT_TIMESTAMP WHERE cout_id = '" + itemid + "'";
                 using (SqlCommand sqlmethod = new SqlCommand(Query4, sqlconn2))
                 {
                     sqlconn2.Open();
@@ -970,6 +1020,174 @@ namespace Finprotest.Controllers
                     sqlconn2.Close();
                 }
                 return RedirectToAction("ConfirmOrderUser");
+            }
+            else
+            {
+                return RedirectToAction("LoginUser", "Login");
+            }
+        }
+        public ActionResult HistoryOrder()
+        {
+            if (Session["id_user"] != null)
+            {
+                string SessionName = Session["id_user"].ToString();
+                //menampilkan lattitude & longitude Toko
+                SqlConnection sqlconn = new SqlConnection(Mainconn);
+                string sqlquery = $"SELECT * FROM checkout_user WHERE cout_status = 'PAYMENT'";
+                SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
+                sqlconn.Open();
+                SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+                DataTable ds = new DataTable();
+                sda.Fill(ds);
+                List<userclass> uc = new List<userclass>();
+                List<userclass> uc2 = new List<userclass>();
+                foreach (DataRow dr in ds.Rows)
+                {
+                    userclass data = new userclass();
+                    data.cout_id = (int)dr["cout_id"];
+                    data.updated_at = (DateTime)dr["updated_at"];
+                    uc.Add(data);
+                    string sqlquery2 = $"SELECT t1.Cart_id, t1.Product_id, t1.Cart_kuantity, t1.total_harga, t1.id_user, t1.cout_id, t2.Product_name, t2.product_img1 FROM Cart_user t1 JOIN Product_owner t2 ON t1.Product_id = t2.Product_id WHERE t1.cout_id = '{data.cout_id}' AND t1.id_user = '"+ SessionName +"'";
+                    SqlCommand sqlcomm2 = new SqlCommand(sqlquery2, sqlconn);
+                    SqlDataAdapter sda2 = new SqlDataAdapter(sqlcomm2);
+                    DataTable ds2 = new DataTable();
+                    sda2.Fill(ds2);
+                    foreach (DataRow dr1 in ds2.Rows)
+                    {
+                        userclass data2 = new userclass();
+                        //data2.swr_toy = (string)dr1["swr_toy"];
+                        //data2.swr_desc = (string)dr1["swr_desc"];
+                        //data2.swr_rem = (string)dr1["swr_rem"];
+                        //data2.created_at = (DateTime)dr1["created_at"];
+                        //data2.update_at = (DateTime)dr1["update_at"];
+                        //data2.swr_purN = (string)dr1["swr_purN"];
+                        data2.product_img1 = (string)dr1["product_img1"];
+                        data2.Product_name = (string)dr1["Product_name"];
+                        data2.Cart_id = Convert.ToInt32(dr1["Cart_id"]);
+                        data2.Product_id = Convert.ToInt32(dr1["Product_id"]);
+                        data2.Cart_kuantity = Convert.ToInt32(dr1["Cart_kuantity"]);
+                        data2.total_harga = Convert.ToInt32(dr1["total_harga"]);
+                        data2.id_user = Convert.ToInt32(dr1["id_user"]);
+                        data2.cout_id = Convert.ToInt32(dr1["cout_id"]);
+                        uc2.Add(data2);
+                    }
+                }
+                ViewBag.uc = uc;
+                ViewBag.uc2 = uc2;
+                sqlconn.Close();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LoginUser", "Login");
+            }
+        }
+        public ActionResult HistoryOrderCheckout()
+        {
+            if (Session["id_user"] != null)
+            {
+                string SessionName = Session["id_user"].ToString();
+                //menampilkan lattitude & longitude Toko
+                SqlConnection sqlconn = new SqlConnection(Mainconn);
+                string sqlquery = $"SELECT * FROM checkout_user WHERE cout_status = 'CHECKOUT'";
+                SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
+                sqlconn.Open();
+                SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+                DataTable ds = new DataTable();
+                sda.Fill(ds);
+                List<userclass> uc = new List<userclass>();
+                List<userclass> uc2 = new List<userclass>();
+                foreach (DataRow dr in ds.Rows)
+                {
+                    userclass data = new userclass();
+                    data.cout_id = (int)dr["cout_id"];
+                    data.updated_at = (DateTime)dr["updated_at"];
+                    uc.Add(data);
+                    string sqlquery2 = $"SELECT t1.Cart_id, t1.Product_id, t1.Cart_kuantity, t1.total_harga, t1.id_user, t1.cout_id, t2.Product_name, t2.product_img1 FROM Cart_user t1 JOIN Product_owner t2 ON t1.Product_id = t2.Product_id WHERE t1.cout_id = '{data.cout_id}' AND t1.id_user = '" + SessionName + "'";
+                    SqlCommand sqlcomm2 = new SqlCommand(sqlquery2, sqlconn);
+                    SqlDataAdapter sda2 = new SqlDataAdapter(sqlcomm2);
+                    DataTable ds2 = new DataTable();
+                    sda2.Fill(ds2);
+                    foreach (DataRow dr1 in ds2.Rows)
+                    {
+                        userclass data2 = new userclass();
+                        //data2.swr_toy = (string)dr1["swr_toy"];
+                        //data2.swr_desc = (string)dr1["swr_desc"];
+                        //data2.swr_rem = (string)dr1["swr_rem"];
+                        //data2.created_at = (DateTime)dr1["created_at"];
+                        //data2.update_at = (DateTime)dr1["update_at"];
+                        //data2.swr_purN = (string)dr1["swr_purN"];
+                        data2.product_img1 = (string)dr1["product_img1"];
+                        data2.Product_name = (string)dr1["Product_name"];
+                        data2.Cart_id = Convert.ToInt32(dr1["Cart_id"]);
+                        data2.Product_id = Convert.ToInt32(dr1["Product_id"]);
+                        data2.Cart_kuantity = Convert.ToInt32(dr1["Cart_kuantity"]);
+                        data2.total_harga = Convert.ToInt32(dr1["total_harga"]);
+                        data2.id_user = Convert.ToInt32(dr1["id_user"]);
+                        data2.cout_id = Convert.ToInt32(dr1["cout_id"]);
+                        uc2.Add(data2);
+                    }
+                }
+                ViewBag.uc = uc;
+                ViewBag.uc2 = uc2;
+                sqlconn.Close();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LoginUser", "Login");
+            }
+        }
+        public ActionResult HistoryOrderFinish()
+        {
+            if (Session["id_user"] != null)
+            {
+                string SessionName = Session["id_user"].ToString();
+                //menampilkan lattitude & longitude Toko
+                SqlConnection sqlconn = new SqlConnection(Mainconn);
+                string sqlquery = $"SELECT * FROM checkout_user WHERE cout_status = 'FINISH'";
+                SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
+                sqlconn.Open();
+                SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+                DataTable ds = new DataTable();
+                sda.Fill(ds);
+                List<userclass> uc = new List<userclass>();
+                List<userclass> uc2 = new List<userclass>();
+                foreach (DataRow dr in ds.Rows)
+                {
+                    userclass data = new userclass();
+                    data.cout_id = (int)dr["cout_id"];
+                    data.updated_at = (DateTime)dr["updated_at"];
+                    uc.Add(data);
+                    string sqlquery2 = $"SELECT t1.Cart_id, t1.Product_id, t1.Cart_kuantity, t1.total_harga, t1.id_user, t1.cout_id, t2.Product_name, t2.product_img1 FROM Cart_user t1 JOIN Product_owner t2 ON t1.Product_id = t2.Product_id WHERE t1.cout_id = '{data.cout_id}' AND t1.id_user = '" + SessionName + "'";
+                    SqlCommand sqlcomm2 = new SqlCommand(sqlquery2, sqlconn);
+                    SqlDataAdapter sda2 = new SqlDataAdapter(sqlcomm2);
+                    DataTable ds2 = new DataTable();
+                    sda2.Fill(ds2);
+                    foreach (DataRow dr1 in ds2.Rows)
+                    {
+                        userclass data2 = new userclass();
+                        //data2.swr_toy = (string)dr1["swr_toy"];
+                        //data2.swr_desc = (string)dr1["swr_desc"];
+                        //data2.swr_rem = (string)dr1["swr_rem"];
+                        //data2.created_at = (DateTime)dr1["created_at"];
+                        //data2.update_at = (DateTime)dr1["update_at"];
+                        //data2.swr_purN = (string)dr1["swr_purN"];
+                        data2.product_img1 = (string)dr1["product_img1"];
+                        data2.Product_name = (string)dr1["Product_name"];
+                        data2.Cart_id = Convert.ToInt32(dr1["Cart_id"]);
+                        data2.Product_id = Convert.ToInt32(dr1["Product_id"]);
+                        data2.Cart_kuantity = Convert.ToInt32(dr1["Cart_kuantity"]);
+                        data2.total_harga = Convert.ToInt32(dr1["total_harga"]);
+                        data2.id_user = Convert.ToInt32(dr1["id_user"]);
+                        data2.cout_id = Convert.ToInt32(dr1["cout_id"]);
+                        uc2.Add(data2);
+                    }
+                }
+                ViewBag.uc = uc;
+                ViewBag.uc2 = uc2;
+                sqlconn.Close();
+                return View();
             }
             else
             {

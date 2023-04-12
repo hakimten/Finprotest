@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewBag.Title = "ConfirmOrderUser2";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+<head>
+
+</head>
+<br />
+<br />
+<section>
+    <div class="center" style="text-align:center">
+        <div class="container">
+            @foreach (var data in ViewBag.uc)
+            {
+                if (data.pay_ID == 1)
+                {
+                    <h2 class="header">WAITING PAYMENT</h2>
+
+                    <p>BCA TRANSFER</p>
+
+                    <center>
+                        <img class="bank-transfer-img" src="~/gambar/bca.png" width="300" height="300" />
+                    </center>
+
+                    <p>ACCOUNT NUMBER : <h6>12037251763</h6></p>
+
+                    <p>SEND TRANSFER RECEIPT HERE:</p>
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        Upload Approval Photo
+                    </button>
+
+                    <br />
+                    <p>YOUR PAYMENT WILL BE PROCESSED SHORTLY...</p>
+                    <p>WAIT UNTIL THE CONFIRMATION !!!</p>
+                    <br />
+
+                    <p> YOUR ORDER TOTAL: <h6>Rp. @data.all_total</h6></p>
+                }
+                else if (data.pay_ID == 2)
+                {
+                    <h2 class="section-header">WAITING PAYMENT</h2>
+
+                    <p>OVO TRANSFER</p>
+
+                    <center>
+                        <img class="bank-transfer-img" src="~/gambar/ovo.jpg" width="300" height="300" />
+                    </center>
+
+                    <p>ACCOUNT NUMBER : <h6>085126563299</h6></p>
+
+                    <p>SEND TRANSFER RECEIPT HERE:</p>
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        Upload Approval Photo
+                    </button>
+
+                    <br />
+                    <p>YOUR PAYMENT WILL BE PROCESSED SHORTLY...</p>
+                    <p>WAIT UNTIL THE CONFIRMATION !!!</p>
+                    <br />
+
+                    @*<p>SERVE: <h6></h6></p>
+
+                        <p>YOUR TABLE NUMBER: <h6></h6></p>
+
+                        <p>MERCHANT: <h6></h6></p>*@
+
+                    <p>YOUR ORDER TOTAL: <h6>Rp. @data.all_total</h6></p>
+                }
+
+            }
+        </div>
+    </div>
+</section>
+<br />
+<center>
+    <div>
+        <form action="/User/cancelorder" method="post" enctype="multipart/form-data">
+            @foreach (var data1 in ViewBag.uc)
+            {
+                <input type="hidden" value="@data1.cout_id" name="itemid" />
+            }
+            <button type="submit" class="btn btn-danger">Cancel Order</button>
+        </form>
+    </div>
+    <label>NEED HELP? CALL EXT: 9316</label>
+</center>
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/User/confirmorder" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    PLease Upload your proof of payment
+                    <div class="mb-3">
+                        @foreach (var data1 in ViewBag.uc)
+                        {
+                            <input type="hidden" value="@data1.cout_id" name="itemid" />
+                        }
+                        <label for="formFile" class="form-label">Upload Image</label>
+                        <input class="form-control" type="file" id="formFile" name="buktipembayaran">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

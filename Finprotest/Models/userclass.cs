@@ -58,5 +58,7 @@ namespace Finprotest.Models
         public int eks_id { get; internal set; }
         public int eks_harga { get; internal set; }
         public int pay_ID { get; internal set; }
+        public DateTime updated_at { get; internal set; }
+        public string name_user { get; internal set; }
     }
 }

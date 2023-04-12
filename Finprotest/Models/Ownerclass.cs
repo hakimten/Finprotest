@@ -38,5 +38,22 @@ namespace Finprotest.Models
         public int Deskripsi_id { get; internal set; }
         public string img_name { get; internal set; }
         public int Img_id { get; internal set; }
+        public int cout_id { get; internal set; }
+        public int eks_harga { get; internal set; }
+        public int all_total { get; internal set; }
+        public int eks_id { get; internal set; }
+        public int pay_ID { get; internal set; }
+        public int id_user { get; internal set; }
+        public int almt_Id { get; internal set; }
+        public string cout_status { get; internal set; }
+        public string payment_name { get; internal set; }
+        public string payment_history { get; internal set; }
+        public string eks_name { get; internal set; }
+        public string alamt_name { get; internal set; }
+        public string lattitude_user { get; internal set; }
+        public string longitude_user { get; internal set; }
+        public string no_hpbuy { get; internal set; }
+        public string name_user { get; internal set; }
+        public DateTime updated_at { get; internal set; }
     }
 }

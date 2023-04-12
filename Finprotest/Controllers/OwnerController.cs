@@ -508,6 +508,40 @@ namespace Finprotest.Controllers
         {
             if (Session["id_owner"] != null)
             {
+                string SessionName = Session["id_owner"].ToString();
+                SqlConnection sqlconn = new SqlConnection(Mainconn);
+                String sqlquery = "SELECT t1.Product_id, t1.Kategori_ID, t1.Product_name, t1.product_img1, t1.product_img2, t1.product_img3, t1.id_owner, t1.product_harga, t1.Product_stock, t1.artist_ID, t1.product_status, t2.Kategori_Name, t3.name_owner, t4.artist_name  FROM Product_owner t1 JOIN KategoriProduct t2 ON t1.Kategori_ID = t2.Kategori_ID JOIN account_owner t3 ON t1.id_owner = t3.id_owner JOIN artist_Db t4 ON t1.artist_ID = t4.artist_ID WHERE t1.id_owner = '" + SessionName + "' AND t1.Product_stock = '0'";
+                SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
+                sqlconn.Open();
+                SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+                DataTable ds = new DataTable();
+                sda.Fill(ds);
+                List<Ownerclass> uc = new List<Ownerclass>();
+                {
+
+                    foreach (DataRow dr in ds.Rows)
+                    {
+                        Ownerclass uc10 = new Ownerclass();
+                        uc10.Product_name = Convert.ToString(dr["Product_name"]);
+                        uc10.product_img1 = Convert.ToString(dr["product_img1"]);
+                        uc10.product_img2 = Convert.ToString(dr["product_img2"]);
+                        uc10.product_img3 = Convert.ToString(dr["product_img3"]);
+                        uc10.product_status = Convert.ToString(dr["product_status"]);
+                        uc10.Kategori_Name = Convert.ToString(dr["Kategori_Name"]);
+                        uc10.name_owner = Convert.ToString(dr["name_owner"]);
+                        uc10.artist_name = Convert.ToString(dr["artist_name"]);
+                        uc10.Product_id = Convert.ToInt32(dr["Product_id"]);
+                        uc10.Kategori_ID = Convert.ToInt32(dr["Kategori_ID"]);
+                        uc10.id_owner = Convert.ToInt32(dr["id_owner"]);
+                        uc10.product_harga = Convert.ToInt32(dr["product_harga"]);
+                        uc10.Product_stock = Convert.ToInt32(dr["Product_stock"]);
+                        uc10.artist_ID = Convert.ToInt32(dr["artist_ID"]);
+
+                        uc.Add(uc10);
+                    }
+                }
+                ViewBag.uc = uc;
+                sqlconn.Close();
                 return View();
             }
             else
@@ -519,23 +553,60 @@ namespace Finprotest.Controllers
         {
             if (Session["id_owner"] != null)
             {
-                return View();
+                var products = GetProducts();
+                var priorityProducts = products.Where(p => p.eks_name == "PREMIUM").OrderBy(p => p.updated_at);
+                var standardProducts = products.Where(p => p.eks_name == "STANDAR").OrderBy(p => p.updated_at);
+                var model = priorityProducts.Concat(standardProducts);
+
+                return View(model);
             }
             else
             {
                 return RedirectToAction("LoginOwner", "Login");
             }
         }
-        public ActionResult History_order()
+        private List<Ownerclass> GetProducts()
         {
-            if (Session["id_owner"] != null)
+            List<Ownerclass> persons = new List<Ownerclass>();
+            using (SqlConnection connection = new SqlConnection(Mainconn))
             {
-                return View();
+                string session1 = Session["id_owner"].ToString();
+                connection.Open();
+                string query = "SELECT t1.cout_id, t1.all_total, t1.eks_id, t1.pay_ID, t1.id_user, t1.id_owner, t1.almt_Id, t1.cout_status, t1.payment_history, t1.updated_at, t2.eks_name, t2.eks_harga, t3.payment_name, t4.alamt_name, t4.lattitude_user, t4.longitude_user, t4.no_hpbuy, t5.name_user FROM checkout_user t1 JOIN Ekspedis_c t2 ON t1.eks_id = t2.eks_id JOIN paymentMethod t3 ON t1.pay_ID = t3.pay_ID JOIN alamat_user t4 ON t1.almt_Id = t4.almt_Id JOIN account_user t5 ON t1.id_user = t5.id_user WHERE t1.id_owner = '"+ session1 + "' AND t1.cout_status = 'PAYMENT'";
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Ownerclass person = new Ownerclass();
+                    person.cout_id = (int)reader["cout_id"];
+                    person.eks_harga = (int)reader["eks_harga"];
+                    person.all_total = (int)reader["all_total"];
+                    person.eks_id = (int)reader["eks_id"];
+                    person.pay_ID = (int)reader["pay_ID"];
+                    person.id_user = (int)reader["id_user"];
+                    person.id_owner = (int)reader["id_owner"];
+                    person.almt_Id = (int)reader["almt_Id"];
+                    person.cout_status = (string)reader["cout_status"];
+                    person.payment_name = (string)reader["payment_name"];
+                    if (reader["payment_history"] == DBNull.Value)
+                    {
+
+                    }
+                    else
+                    {
+                        person.payment_history = (string)reader["payment_history"];
+                    }
+                    person.eks_name = (string)reader["eks_name"];
+                    person.alamt_name = (string)reader["alamt_name"];
+                    person.lattitude_user = (string)reader["lattitude_user"];
+                    person.longitude_user = (string)reader["longitude_user"];
+                    person.no_hpbuy = (string)reader["no_hpbuy"];
+                    person.name_user = (string)reader["name_user"];
+                    person.updated_at = (DateTime)reader["updated_at"];
+                    persons.Add(person);
+                }
             }
-            else
-            {
-                return RedirectToAction("LoginOwner", "Login");
-            }
+            return persons;
         }
         public ActionResult Profil()
         {
@@ -685,6 +756,63 @@ namespace Finprotest.Controllers
             else
             {
                 return RedirectToAction("LoginOwner", "Login");
+            }
+        }
+        public ActionResult History_order()
+        {
+            if (Session["id_owner"] != null)
+            {
+                string SessionName = Session["id_owner"].ToString();
+                //menampilkan lattitude & longitude Toko
+                SqlConnection sqlconn = new SqlConnection(Mainconn);
+                string sqlquery = $"SELECT * FROM checkout_user WHERE cout_status = 'FINISH'";
+                SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
+                sqlconn.Open();
+                SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+                DataTable ds = new DataTable();
+                sda.Fill(ds);
+                List<userclass> uc = new List<userclass>();
+                List<userclass> uc2 = new List<userclass>();
+                foreach (DataRow dr in ds.Rows)
+                {
+                    userclass data = new userclass();
+                    data.cout_id = (int)dr["cout_id"];
+                    data.updated_at = (DateTime)dr["updated_at"];
+                    uc.Add(data);
+                    string sqlquery2 = $" SELECT t1.Cart_id, t1.Product_id, t1.Cart_kuantity, t1.total_harga, t1.id_user, t1.cout_id, t2.Product_name, t2.product_img1, t2.id_owner, t3.name_user FROM Cart_user t1 JOIN Product_owner t2 ON t1.Product_id = t2.Product_id JOIN account_user t3 ON t1.id_user = t3.id_user WHERE t1.cout_id = '{data.cout_id}' AND t1.id_owner = '" + SessionName + "'";
+                    SqlCommand sqlcomm2 = new SqlCommand(sqlquery2, sqlconn);
+                    SqlDataAdapter sda2 = new SqlDataAdapter(sqlcomm2);
+                    DataTable ds2 = new DataTable();
+                    sda2.Fill(ds2);
+                    foreach (DataRow dr1 in ds2.Rows)
+                    {
+                        userclass data2 = new userclass();
+                        //data2.swr_toy = (string)dr1["swr_toy"];
+                        //data2.swr_desc = (string)dr1["swr_desc"];
+                        //data2.swr_rem = (string)dr1["swr_rem"];
+                        //data2.created_at = (DateTime)dr1["created_at"];
+                        //data2.update_at = (DateTime)dr1["update_at"];
+                        //data2.swr_purN = (string)dr1["swr_purN"];
+                        data2.name_user = (string)dr1["name_user"];
+                        data2.product_img1 = (string)dr1["product_img1"];
+                        data2.Product_name = (string)dr1["Product_name"];
+                        data2.Cart_id = Convert.ToInt32(dr1["Cart_id"]);
+                        data2.Product_id = Convert.ToInt32(dr1["Product_id"]);
+                        data2.Cart_kuantity = Convert.ToInt32(dr1["Cart_kuantity"]);
+                        data2.total_harga = Convert.ToInt32(dr1["total_harga"]);
+                        data2.id_user = Convert.ToInt32(dr1["id_user"]);
+                        data2.cout_id = Convert.ToInt32(dr1["cout_id"]);
+                        uc2.Add(data2);
+                    }
+                }
+                ViewBag.uc = uc;
+                ViewBag.uc2 = uc2;
+                sqlconn.Close();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LoginUser", "Login");
             }
         }
     }
