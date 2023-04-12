@@ -22,16 +22,26 @@ namespace Finprotest.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            if (Session["id_user"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LoginUser", "Login");
+            }
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            if (Session["id_user"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LoginUser", "Login");
+            }
         }
     }
 }
