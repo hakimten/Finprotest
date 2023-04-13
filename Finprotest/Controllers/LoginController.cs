@@ -1,6 +1,9 @@
 ﻿using Finprotest.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,6 +13,8 @@ namespace Finprotest.Controllers
 {
     public class LoginController : Controller
     {
+        //string Mainconn = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+        string Mainconn = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
         //latihan1Entities entity = new latihan1Entities();
         HakimEntities entity = new HakimEntities();
         // GET: Login
@@ -131,5 +136,92 @@ namespace Finprotest.Controllers
             }
             return View();
         }
+        [HttpPost]
+        public ActionResult registeruser(FormCollection form)
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
+            //var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+            SqlConnection myConnection = new SqlConnection();
+            myConnection.ConnectionString = connectionString;
+            myConnection.Open();
+            var name = form["name"].ToString();
+            var username = form["username"].ToString();
+            var phone = form["phone"].ToString();
+            var password = form["password"].ToString();
+            var pass = encrypt.GetMD5(password);
+            var address = form["address"].ToString();
+            string gender = form["gender"].ToString();
+            //int group = 2;
+            SqlCommand checktusername = new SqlCommand("select * from account_user where username_user = '" + username + "'", myConnection);
+            SqlDataAdapter sd = new SqlDataAdapter(checktusername);
+            DataTable dtt = new DataTable();
+            sd.Fill(dtt);
+            if (dtt.Rows.Count > 0)
+            {
+            }
+            else
+            {
+                SqlConnection sqlconn = new SqlConnection(connectionString);
+                string query7 = "INSERT INTO account_user(name_user, username_user, password_user, address_user, phone, gender_user, created_at, update_at)" +
+                    " values (@name_user, @username_user, @password_user, @address_user, @phone, @gender_user, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+                SqlCommand sqlcomm = new SqlCommand(query7, sqlconn);
+                sqlconn.Open();
+                sqlcomm.Parameters.AddWithValue("@name_user", name);
+                sqlcomm.Parameters.AddWithValue("@username_user", username);
+                sqlcomm.Parameters.AddWithValue("@password_user", pass);
+                sqlcomm.Parameters.AddWithValue("@address_user", address);
+                sqlcomm.Parameters.AddWithValue("@phone", phone);
+                sqlcomm.Parameters.AddWithValue("@gender_user", gender);
+                sqlcomm.ExecuteNonQuery();
+                sqlconn.Close();
+            }
+
+            myConnection.Close();
+            return RedirectToAction("LoginUser", "Login");
+        }
+        [HttpPost]
+        public ActionResult registerOwner(FormCollection form)
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
+            //var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+            SqlConnection myConnection = new SqlConnection();
+            myConnection.ConnectionString = connectionString;
+            myConnection.Open();
+            var name = form["name"].ToString();
+            var username = form["username"].ToString();
+            var phone = form["phone"].ToString();
+            var password = form["password"].ToString();
+            var pass = encrypt.GetMD5(password);
+            var address = form["address"].ToString();
+            string gender = form["gender"].ToString();
+            //int group = 2;
+            SqlCommand checktusername = new SqlCommand("select * from account_owner where username_owner = '" + username + "'", myConnection);
+            SqlDataAdapter sd = new SqlDataAdapter(checktusername);
+            DataTable dtt = new DataTable();
+            sd.Fill(dtt);
+            if (dtt.Rows.Count > 0)
+            {
+            }
+            else
+            {
+                SqlConnection sqlconn = new SqlConnection(connectionString);
+                string query7 = "INSERT INTO account_owner(name_owner, username_owner, password_owner, address_owner, phone, gender_owner, created_at, update_at)" +
+                    " values (@name_owner, @username_owner, @password_owner, @address_owner, @phone, @gender_owner, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+                SqlCommand sqlcomm = new SqlCommand(query7, sqlconn);
+                sqlconn.Open();
+                sqlcomm.Parameters.AddWithValue("@name_owner", name);
+                sqlcomm.Parameters.AddWithValue("@username_owner", username);
+                sqlcomm.Parameters.AddWithValue("@password_owner", pass);
+                sqlcomm.Parameters.AddWithValue("@address_owner", address);
+                sqlcomm.Parameters.AddWithValue("@phone", phone);
+                sqlcomm.Parameters.AddWithValue("@gender_owner", gender);
+                sqlcomm.ExecuteNonQuery();
+                sqlconn.Close();
+            }
+
+            myConnection.Close();
+            return RedirectToAction("LoginOwner", "Login");
+        }
     }
+
 }

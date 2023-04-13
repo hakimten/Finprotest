@@ -1019,7 +1019,7 @@ namespace Finprotest.Controllers
                     TempData["messsage"] = "success";
                     sqlconn2.Close();
                 }
-                return RedirectToAction("ConfirmOrderUser");
+                return RedirectToAction("Index");
             }
             else
             {
@@ -1033,7 +1033,7 @@ namespace Finprotest.Controllers
                 string SessionName = Session["id_user"].ToString();
                 //menampilkan lattitude & longitude Toko
                 SqlConnection sqlconn = new SqlConnection(Mainconn);
-                string sqlquery = $"SELECT * FROM checkout_user WHERE cout_status = 'PAYMENT'";
+                string sqlquery = $"SELECT * FROM checkout_user WHERE cout_status = 'PAYMENT' AND id_user = '" + SessionName + "'";
                 SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
                 sqlconn.Open();
                 SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
@@ -1089,7 +1089,7 @@ namespace Finprotest.Controllers
                 string SessionName = Session["id_user"].ToString();
                 //menampilkan lattitude & longitude Toko
                 SqlConnection sqlconn = new SqlConnection(Mainconn);
-                string sqlquery = $"SELECT * FROM checkout_user WHERE cout_status = 'CHECKOUT'";
+                string sqlquery = $"SELECT * FROM checkout_user WHERE cout_status = 'CHECKOUT' AND id_user = '" + SessionName + "'";
                 SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
                 sqlconn.Open();
                 SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
@@ -1145,7 +1145,7 @@ namespace Finprotest.Controllers
                 string SessionName = Session["id_user"].ToString();
                 //menampilkan lattitude & longitude Toko
                 SqlConnection sqlconn = new SqlConnection(Mainconn);
-                string sqlquery = $"SELECT * FROM checkout_user WHERE cout_status = 'FINISH'";
+                string sqlquery = $"SELECT * FROM checkout_user WHERE cout_status = 'FINISH' AND id_user = '"+ SessionName +"'";
                 SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
                 sqlconn.Open();
                 SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);

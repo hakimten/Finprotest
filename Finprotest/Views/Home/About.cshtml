@@ -1,7 +1,19 @@
-﻿@*@{
-    ViewBag.Title = "About";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
-
-<p>Use this area to provide additional information.</p>*@
+﻿<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+        Pilih opsi
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li>
+            <input class="form-check-input" type="checkbox" value="option1" id="option1" onclick="checkboxClicked('option1')">
+            <label class="form-check-label" for="option1">Opsi 1</label>
+        </li>
+        <li>
+            <input class="form-check-input" type="checkbox" value="option2" id="option2" onclick="checkboxClicked('option2')">
+            <label class="form-check-label" for="option2">Opsi 2</label>
+        </li>
+        <li>
+            <input class="form-check-input" type="checkbox" value="option3" id="option3" onclick="checkboxClicked('option3')">
+            <label class="form-check-label" for="option3">Opsi 3</label>
+        </li>
+    </ul>
+</div>

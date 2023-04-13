@@ -130,7 +130,6 @@
                                                     <th class="text-center">Product Name</th>
                                                     <th class="text-center">Quantity</th>
                                                     <th class="text-center">ALl Price</th>
-                                                    <th class="text-center">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -145,11 +144,6 @@
                                                             <td class="text-dark text-center"><h4>@data2.Product_name</h4></td>
                                                             <td class="text-dark text-center"><h4>@data2.Cart_kuantity</h4></td>
                                                             <td class="text-dark text-center"><h4>RP.@data2.total_harga</h4></td>
-                                                            <td class="text-dark text-center">
-                                                                <a class="btn btn-lg btn-warning" href="@Url.Action("ConfirmOrderUser2", "User",  new { id = data.cout_id })">
-                                                                    PAY ITEM
-                                                                </a>
-                                                            </td>
                                                         </tr>
                                                     }
                                                 }
@@ -166,7 +160,11 @@
                                                     </tr>
                                                 </tfoot>*@
                                         </table>
-                                        <div class="panel-footer bg-secondary text-center"><h3 class="text-dark">All Data Order</h3></div>
+                                        <div class="panel-footer bg-secondary text-center">
+                                            <a class="btn btn-lg btn-warning" href="@Url.Action("ConfirmOrderUser2", "User",  new { id = data.cout_id })">
+                                                PAY ITEM
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

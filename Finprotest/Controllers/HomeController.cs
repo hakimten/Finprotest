@@ -22,14 +22,7 @@ namespace Finprotest.Controllers
 
         public ActionResult About()
         {
-            if (Session["id_user"] != null)
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("LoginUser", "Login");
-            }
+            return View();
         }
 
         public ActionResult Contact()
