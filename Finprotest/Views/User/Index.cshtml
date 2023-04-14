@@ -287,10 +287,77 @@ var arrayMarker = [];
                 </div>
             </div>
         </div>
-        <div class="row">
+        <!-- contoh elemen select dengan opsi nilai yang berbeda -->
+        <select id="my-select" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+            <option selected>Choose for filter product</option>
+            <option value="option1">Most Expensive</option>
+            <option value="option2">Cheapest</option>
+            <option value="option3">lots of stock</option>
+            <option value="option4">little stock</option>
+        </select>
+        <script>
+            $(document).ready(function () {
+                // ketika nilai elemen select berubah
+                $("#my-select").change(function () {
+                    // ambil nilai dari elemen select
+                    var selectedValue = $(this).val();
+
+                    // periksa nilai opsi yang dipilih
+                    if (selectedValue === "option1") {
+                        var $wrap = $('.outer');
+                        $wrap.find('.child').sort(function (b, a) {
+                            return + a.getAttribute('data-percentage') -
+                                +b.getAttribute('data-percentage');
+                        })
+                            .appendTo($wrap);
+                        down.innerHTML = "Elements sorted";
+                        // lakukan sesuatu untuk opsi 1
+                        console.log("Opsi 1 dipilih");
+
+                    } else if (selectedValue === "option2") {
+                        var $wrap = $('.outer');
+                        $wrap.find('.child').sort(function (a, b) {
+                            return + a.getAttribute('data-percentage') -
+                                +b.getAttribute('data-percentage');
+                        })
+                            .appendTo($wrap);
+                        down.innerHTML = "Elements sorted";
+                        // lakukan sesuatu untuk opsi 2
+                        console.log("Opsi 2 dipilih");
+
+                    } else if (selectedValue === "option3") {
+                        var $wrap = $('.outer');
+                        $wrap.find('.child').sort(function (b, a) {
+                            return + a.getAttribute('data-stock') -
+                                +b.getAttribute('data-stock');
+                        })
+                            .appendTo($wrap);
+                        down.innerHTML = "Elements sorted";
+                        // lakukan sesuatu untuk opsi 3
+                        console.log("Opsi 3 dipilih");
+
+                    } else if (selectedValue === "option4") {
+                        var $wrap = $('.outer');
+                        $wrap.find('.child').sort(function (a, b) {
+                            return + a.getAttribute('data-stock') -
+                                +b.getAttribute('data-stock');
+                        })
+                            .appendTo($wrap);
+                        down.innerHTML = "Elements sorted";
+                        // lakukan sesuatu untuk opsi 3
+                        console.log("Opsi 3 dipilih");
+
+                    } else {
+                        // lakukan sesuatu jika opsi tidak dikenali
+                        console.log("Opsi tidak dikenali");
+                    }
+                });
+            });
+        </script>
+        <div class="row outer">
             @foreach (var product in ViewBag.uc2)
             {
-                <div class="col-lg-3 col-md-6 col-12">
+                <div class="child col-lg-3 col-md-6 col-12" data-percentage="@product.product_harga" data-stock="@product.Product_stock">
                     <!-- Start Single Product -->
                     <div class="single-product">
                         <div class="product-image">
@@ -309,6 +376,9 @@ var arrayMarker = [];
                             </ul>
                             <ul class="review">
                                 <li><span>@product.address_owner</span></li>
+                            </ul>
+                            <ul class="review">
+                                <li><span>@product.Product_stock</span></li>
                             </ul>
                             <div class="price">
                                 <span>RP.@product.RP</span>
