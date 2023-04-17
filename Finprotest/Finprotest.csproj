@@ -1798,6 +1798,8 @@
     <Content Include="Views\User\HistoryOrderCheckout.cshtml" />
     <Content Include="Views\User\HistoryOrderFinish.cshtml" />
     <Content Include="Views\User\ConfirmOrderUser2.cshtml" />
+    <Content Include="Views\Owner\EstimasiWaktu.cshtml" />
+    <Content Include="Views\User\statusorder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

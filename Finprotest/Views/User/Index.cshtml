@@ -294,6 +294,9 @@ var arrayMarker = [];
             <option value="option2">Cheapest</option>
             <option value="option3">lots of stock</option>
             <option value="option4">little stock</option>
+            <option value="option5">heaviest</option>
+            <option value="option6">Small</option>
+            <option value="option7">Best Selling</option>
         </select>
         <script>
             $(document).ready(function () {
@@ -347,7 +350,40 @@ var arrayMarker = [];
                         // lakukan sesuatu untuk opsi 3
                         console.log("Opsi 3 dipilih");
 
-                    } else {
+                    } else if (selectedValue === "option5") {
+                        var $wrap = $('.outer');
+                        $wrap.find('.child').sort(function (b, a) {
+                            return + a.getAttribute('data-berat') -
+                                +b.getAttribute('data-berat');
+                        })
+                            .appendTo($wrap);
+                        down.innerHTML = "Elements sorted";
+                        // lakukan sesuatu untuk opsi 3
+                        console.log("Opsi 3 dipilih");
+
+                    }else if (selectedValue === "option6") {
+                        var $wrap = $('.outer');
+                        $wrap.find('.child').sort(function (a, b) {
+                            return + a.getAttribute('data-berat') -
+                                +b.getAttribute('data-berat');
+                        })
+                            .appendTo($wrap);
+                        down.innerHTML = "Elements sorted";
+                        // lakukan sesuatu untuk opsi 3
+                        console.log("Opsi 3 dipilih");
+
+                    }else if (selectedValue === "option7") {
+                        var $wrap = $('.outer');
+                        $wrap.find('.child').sort(function (b, a) {
+                            return + a.getAttribute('data-terlaris') -
+                                +b.getAttribute('data-terlaris');
+                        })
+                            .appendTo($wrap);
+                        down.innerHTML = "Elements sorted";
+                        // lakukan sesuatu untuk opsi 3
+                        console.log("Opsi 3 dipilih");
+
+                    }else {
                         // lakukan sesuatu jika opsi tidak dikenali
                         console.log("Opsi tidak dikenali");
                     }
@@ -357,7 +393,7 @@ var arrayMarker = [];
         <div class="row outer">
             @foreach (var product in ViewBag.uc2)
             {
-                <div class="child col-lg-3 col-md-6 col-12" data-percentage="@product.product_harga" data-stock="@product.Product_stock">
+                <div class="child col-lg-3 col-md-6 col-12" data-percentage="@product.product_harga" data-stock="@product.Product_stock" data-terlaris="@product.product_terjual" data-berat="@product.Berat">
                     <!-- Start Single Product -->
                     <div class="single-product">
                         <div class="product-image">
@@ -378,7 +414,13 @@ var arrayMarker = [];
                                 <li><span>@product.address_owner</span></li>
                             </ul>
                             <ul class="review">
-                                <li><span>@product.Product_stock</span></li>
+                                <li><span>Stock : @product.Product_stock</span></li>
+                            </ul>
+                            <ul class="review">
+                                <li><span>sold : @product.product_terjual</span></li>
+                            </ul>
+                            <ul class="review">
+                                <li><span>Heavy : @product.Berat</span></li>
                             </ul>
                             <div class="price">
                                 <span>RP.@product.RP</span>

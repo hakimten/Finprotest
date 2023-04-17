@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -814,6 +815,151 @@ namespace Finprotest.Controllers
             {
                 return RedirectToAction("LoginUser", "Login");
             }
+        }
+        public ActionResult EstimasiWaktu(int id)
+        {
+            if (Session["id_owner"] != null)
+            {
+                string SessionName = Session["id_owner"].ToString();
+                SqlConnection sqlconn = new SqlConnection(Mainconn);
+                String sqlquery = $"SELECT t1.cout_id, t1.all_total, t1.eks_id, t1.pay_ID, t1.id_user, t1.id_owner, t1.almt_Id, t1.cout_status, t1.payment_history, t1.updated_at, t2.eks_name, t2.eks_harga, t3.payment_name, t4.alamt_name, t4.lattitude_user, t4.longitude_user, t4.no_hpbuy, t5.name_user, t6.Toko_name, t6.Toko_long, t6.Toko_lat FROM checkout_user t1 JOIN Ekspedis_c t2 ON t1.eks_id = t2.eks_id JOIN paymentMethod t3 ON t1.pay_ID = t3.pay_ID JOIN alamat_user t4 ON t1.almt_Id = t4.almt_Id JOIN account_user t5 ON t1.id_user = t5.id_user JOIN Toko_Profil t6 ON t1.id_owner = t6.id_owner WHERE t1.cout_id = {id}";
+                SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
+                sqlconn.Open();
+                SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+                DataTable ds = new DataTable();
+                sda.Fill(ds);
+                List<Ownerclass> uc = new List<Ownerclass>();
+                {
+
+                    foreach (DataRow reader in ds.Rows)
+                    {
+                        Ownerclass person = new Ownerclass();
+                        person.cout_id = (int)reader["cout_id"];
+                        person.eks_harga = (int)reader["eks_harga"];
+                        person.all_total = (int)reader["all_total"];
+                        person.eks_id = (int)reader["eks_id"];
+                        person.pay_ID = (int)reader["pay_ID"];
+                        person.id_user = (int)reader["id_user"];
+                        person.id_owner = (int)reader["id_owner"];
+                        person.almt_Id = (int)reader["almt_Id"];
+                        person.cout_status = (string)reader["cout_status"];
+                        person.payment_name = (string)reader["payment_name"];
+                        if (reader["payment_history"] == DBNull.Value)
+                        {
+
+                        }
+                        else
+                        {
+                            person.payment_history = (string)reader["payment_history"];
+                        }
+                        person.eks_name = (string)reader["eks_name"];
+                        person.alamt_name = (string)reader["alamt_name"];
+                        person.lattitude_user = (string)reader["lattitude_user"];
+                        person.longitude_user = (string)reader["longitude_user"];
+                        person.Toko_name = (string)reader["Toko_name"];
+                        person.Toko_long = (string)reader["Toko_long"];
+                        person.Toko_lat = (string)reader["Toko_lat"];
+                        person.no_hpbuy = (string)reader["no_hpbuy"];
+                        person.name_user = (string)reader["name_user"];
+                        person.updated_at = (DateTime)reader["updated_at"];
+                        uc.Add(person);
+                    }
+                }
+                String sqlquery2 = $"SELECT COUNT (Cart_id) AS ITEM FROM Cart_user WHERE cout_id = {id}";
+                SqlCommand sqlcomm2 = new SqlCommand(sqlquery2, sqlconn);
+                SqlDataAdapter sda2 = new SqlDataAdapter(sqlcomm2);
+                DataTable ds2 = new DataTable();
+                sda2.Fill(ds2);
+                List<Ownerclass> uc2 = new List<Ownerclass>();
+                {
+
+                    foreach (DataRow reader in ds2.Rows)
+                    {
+                        Ownerclass person = new Ownerclass();
+                        person.ITEM = (int)reader["ITEM"];
+                        uc2.Add(person);
+                    }
+                }
+                String sqlquery3 = $"SELECT SUM(Cart_kuantity) AS QUANTITY FROM Cart_user WHERE cout_id = {id}";
+                SqlCommand sqlcomm3 = new SqlCommand(sqlquery3, sqlconn);
+                SqlDataAdapter sda3 = new SqlDataAdapter(sqlcomm3);
+                DataTable ds3 = new DataTable();
+                sda3.Fill(ds3);
+                List<Ownerclass> uc3 = new List<Ownerclass>();
+                {
+
+                    foreach (DataRow reader in ds3.Rows)
+                    {
+                        Ownerclass person = new Ownerclass();
+                        person.QUANTITY = (int)reader["QUANTITY"];
+                        uc3.Add(person);
+                    }
+                }
+                ViewBag.uc = uc;
+                ViewBag.uc2 = uc2;
+                ViewBag.uc3 = uc3;
+                sqlconn.Close();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LoginOwner", "Login");
+            }
+        }
+        public ActionResult ConfirmProductPremium(FormCollection form, double kmjarak, double waktupenyiapan, string paydate)
+        {
+            SqlConnection myConnection = new SqlConnection();
+            string idcout = form["idcout"];
+            string noresi = form["noresi"];
+
+            string item = form["item"];
+            double Itemcart = Convert.ToDouble(item);
+
+            string kuantity = form["kuantity"];
+            double Kuantitycart = Convert.ToDouble(kuantity);
+
+            DateTime waktuPengiriman;
+            if (!DateTime.TryParseExact(paydate, "dd/MM/yyyy HH:mm:ss", null, System.Globalization.DateTimeStyles.None, out waktuPengiriman))
+            {
+                //Jika waktu yang dimasukkan tidak valid, maka gunakan waktu saat ini
+                //waktuPengiriman = DateTime.Now;
+                waktuPengiriman = DateTime.Now;
+                //waktuPengiriman = Convert.ToDateTime(form["paydate"]);
+            }
+            waktuPengiriman = waktuPengiriman.AddHours(kmjarak * 3 + Itemcart * 2 + Kuantitycart * 2 +  waktupenyiapan);
+
+            myConnection.ConnectionString = Mainconn;
+            string Query3 = "INSERT Estimasi_waktu (cout_id, estimasi_sampai, no_resi, status, waktu_pengiriman) VALUES (@cout_id, @estimasi_sampai, @no_resi, 'DIKEMAS', CURRENT_TIMESTAMP)";
+            using (SqlCommand sqlmethod = new SqlCommand(Query3, myConnection))
+            {
+                sqlmethod.Parameters.AddWithValue("@cout_id", idcout);
+                sqlmethod.Parameters.AddWithValue("@estimasi_sampai", waktuPengiriman);
+                sqlmethod.Parameters.AddWithValue("@no_resi", noresi);
+                myConnection.Open();
+                sqlmethod.ExecuteNonQuery();
+                TempData["messsage"] = "success";
+                myConnection.Close();
+            }
+            string Query4 = "UPDATE checkout_user SET cout_status = 'DIKEMAS' WHERE cout_id = @cout_id";
+            using (SqlCommand sqlmethod = new SqlCommand(Query4, myConnection))
+            {
+                sqlmethod.Parameters.AddWithValue("@cout_id", idcout);
+                myConnection.Open();
+                sqlmethod.ExecuteNonQuery();
+                TempData["messsage"] = "success";
+                myConnection.Close();
+            }
+            string Query5 = "UPDATE Cart_user SET cart_status = 'DIKEMAS' WHERE cout_id = @cout_id";
+            using (SqlCommand sqlmethod = new SqlCommand(Query5, myConnection))
+            {
+                sqlmethod.Parameters.AddWithValue("@cout_id", idcout);
+                myConnection.Open();
+                sqlmethod.ExecuteNonQuery();
+                TempData["messsage"] = "success";
+                myConnection.Close();
+            }
+
+            return RedirectToAction("Order_masuk");
         }
     }
 }

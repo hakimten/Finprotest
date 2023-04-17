@@ -55,5 +55,7 @@ namespace Finprotest.Models
         public string no_hpbuy { get; internal set; }
         public string name_user { get; internal set; }
         public DateTime updated_at { get; internal set; }
+        public int ITEM { get; internal set; }
+        public int QUANTITY { get; internal set; }
     }
 }

@@ -44,7 +44,7 @@ namespace Finprotest.Controllers
                     }
                 }
                 // display product owner 
-                String sqlquery2 = "SELECT FORMAT(product_harga, 'N') AS RP, t1.Product_id, t1.Kategori_ID, t1.Product_name, t1.product_img1, t1.product_img2, t1.product_img3, t1.id_owner, t1.product_harga, t1.Product_stock, t1.artist_ID, t1.product_status, t2.address_owner, t3.Kategori_Name, t4.artist_name, t5.Toko_id, t5.Toko_name FROM Product_owner t1 JOIN account_owner t2 ON t1.id_owner = t2.id_owner JOIN KategoriProduct t3 ON t1.Kategori_ID = t3.Kategori_ID JOIN artist_Db t4 ON t1.artist_ID = t4.artist_ID JOIN Toko_Profil t5 ON t1.id_owner = t5.id_owner WHERE t1.product_status = 'A'";
+                String sqlquery2 = "SELECT FORMAT(product_harga, 'N') AS RP, t1.Product_id, t1.Kategori_ID, t1.Product_name, t1.product_img1, t1.product_img2, t1.product_img3, t1.id_owner, t1.Berat, t1.product_harga, t1.Product_stock, t1.product_terjual, t1.artist_ID, t1.product_status, t2.address_owner, t3.Kategori_Name, t4.artist_name, t5.Toko_id, t5.Toko_name FROM Product_owner t1 JOIN account_owner t2 ON t1.id_owner = t2.id_owner JOIN KategoriProduct t3 ON t1.Kategori_ID = t3.Kategori_ID JOIN artist_Db t4 ON t1.artist_ID = t4.artist_ID JOIN Toko_Profil t5 ON t1.id_owner = t5.id_owner WHERE t1.product_status = 'A'";
                 SqlCommand sqlcomm2 = new SqlCommand(sqlquery2, sqlconn);
                 SqlDataAdapter sda2 = new SqlDataAdapter(sqlcomm2);
                 DataTable ds2 = new DataTable();
@@ -72,6 +72,8 @@ namespace Finprotest.Controllers
                         uc10.Product_stock = Convert.ToInt32(dr["Product_stock"]);
                         uc10.artist_ID = Convert.ToInt32(dr["artist_ID"]);
                         uc10.Toko_id = Convert.ToInt32(dr["Toko_id"]);
+                        uc10.product_terjual = Convert.ToInt32(dr["product_terjual"]);
+                        uc10.Berat = Convert.ToInt32(dr["Berat"]);
 
                         uc2.Add(uc10);
                     }
@@ -697,7 +699,7 @@ namespace Finprotest.Controllers
                 string payment = form["payment"];
                 string shipping = form["shipping"];
                 SqlConnection sqlconn2 = new SqlConnection(Mainconn);
-                string Query3 = "INSERT INTO checkout_user (all_total, pay_ID, eks_id,  id_user, almt_Id, cout_status, created_at, updated_at) VALUES (@all_total, @pay_ID, @eks_id, @id_user, @almt_Id, 'CHECKOUT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+                string Query3 = "INSERT INTO checkout_user (all_total, pay_ID, eks_id,  id_user, id_owner, almt_Id, cout_status, created_at, updated_at) VALUES (@all_total, @pay_ID, @eks_id, @id_user, '1', @almt_Id, 'CHECKOUT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
                 using (SqlCommand sqlmethod = new SqlCommand(Query3, sqlconn2))
                 {
                     sqlmethod.Parameters.AddWithValue("@all_total", totalharga);
@@ -741,7 +743,7 @@ namespace Finprotest.Controllers
                 string varString3 = "";
                 for (int i = 0; i < cartid.Count(); i++)
                 {
-                    varString3 += $"UPDATE Product_owner SET Product_stock = Product_stock - (SELECT (Cart_kuantity) FROM Cart_user where Cart_id = @Cart_id{i}) WHERE Product_id = @Product_id{i};";
+                    varString3 += $"UPDATE Product_owner SET Product_stock = Product_stock - (SELECT (Cart_kuantity) FROM Cart_user where Cart_id = @Cart_id{i}), product_terjual = product_terjual + (SELECT (Cart_kuantity) FROM Cart_user where Cart_id = @Cart_id{i}) WHERE Product_id = @Product_id{i};";
                 }
                 SqlCommand sqlcommm3 = new SqlCommand(varString3, sqlconn3);
                 sqlconn3.Open();
@@ -950,6 +952,56 @@ namespace Finprotest.Controllers
             {
                 return RedirectToAction("LoginUser", "Login");
             }
+        } 
+        public ActionResult statusorder(int id)
+        {
+            if (Session["id_user"] != null)
+            {
+                SqlConnection sqlconn = new SqlConnection(Mainconn);
+                int Method = 0;
+                string method = "SELECT * FROM checkout_user";
+                SqlDataAdapter damethod = new SqlDataAdapter(method, sqlconn);
+                DataTable dtmethod = new DataTable();
+                damethod.Fill(dtmethod);
+                foreach (DataRow dr in dtmethod.Rows)
+                {
+                    Method = (int)dr["cout_id"];
+                }
+
+                string SessionName = Session["id_user"].ToString();
+                //menampilkan lattitude & longitude Toko
+                String sqlquery = $"SELECT t1.estimasi_ID, t1.cout_id, t1.estimasi_sampai, t1.no_resi, t1.status, t1.waktu_pengiriman, t2.all_total, t2.created_at, t2.updated_at FROM Estimasi_waktu t1 JOIN checkout_user t2 ON t1.cout_id = t2.cout_id WHERE t1.cout_id = {id}";
+                SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
+                sqlconn.Open();
+                SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+                DataTable ds = new DataTable();
+                sda.Fill(ds);
+                List<userclass> uc = new List<userclass>();
+                {
+
+                    foreach (DataRow dr in ds.Rows)
+                    {
+                        userclass uc10 = new userclass();
+                        uc10.lattitude_user = Convert.ToString(dr["lattitude_user"]);
+                        uc10.longitude_user = Convert.ToString(dr["longitude_user"]);
+                        uc10.cout_id = Convert.ToInt32(dr["cout_id"]);
+                        uc10.all_total = Convert.ToInt32(dr["all_total"]);
+                        uc10.almt_Id = Convert.ToInt32(dr["almt_Id"]);
+                        uc10.eks_id = Convert.ToInt32(dr["eks_id"]);
+                        uc10.eks_harga = Convert.ToInt32(dr["eks_harga"]);
+                        uc10.pay_ID = Convert.ToInt32(dr["pay_ID"]);
+
+                        uc.Add(uc10);
+                    }
+                }
+                ViewBag.uc = uc;
+                sqlconn.Close();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LoginUser", "Login");
+            }
         }
         public ActionResult cancelorder(FormCollection form)
         {
@@ -1033,7 +1085,7 @@ namespace Finprotest.Controllers
                 string SessionName = Session["id_user"].ToString();
                 //menampilkan lattitude & longitude Toko
                 SqlConnection sqlconn = new SqlConnection(Mainconn);
-                string sqlquery = $"SELECT * FROM checkout_user WHERE cout_status = 'PAYMENT' AND id_user = '" + SessionName + "'";
+                string sqlquery = $"SELECT * FROM checkout_user WHERE cout_status = 'DIKEMAS' AND id_user = '" + SessionName + "'";
                 SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
                 sqlconn.Open();
                 SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
