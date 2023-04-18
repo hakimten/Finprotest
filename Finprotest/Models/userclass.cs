@@ -62,5 +62,11 @@ namespace Finprotest.Models
         public string name_user { get; internal set; }
         public int product_terjual { get; internal set; }
         public int Berat { get; internal set; }
+        public string estimasi_sampai { get; internal set; }
+        public string no_resi { get; internal set; }
+        public string status { get; internal set; }
+        public DateTime waktu_pengiriman { get; internal set; }
+        public DateTime created_at { get; internal set; }
+        public int estimasi_ID { get; internal set; }
     }
 }

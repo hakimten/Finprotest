@@ -189,6 +189,7 @@ namespace Finprotest.Controllers
                 string kategori = form["kategori"];
                 string price = form["price"];
                 string stock = form["stock"];
+                string weight = form["weight"];
 
                 string sewnPatternImage = "FrontImageproduct" + "-" + DateTime.Now.ToString("(yyyyMMdd)(Hmmss)(tt)") + Path.GetExtension(frontimg.FileName);
                 //newFileName = DateTime.Now.ToString("yyyyMMdd") + "-" + sewnPatternImage.Trim() + sewnPatternImage;
@@ -206,7 +207,7 @@ namespace Finprotest.Controllers
                 sideimg.SaveAs(filePathsewnPattern2);
 
                 myConnection.ConnectionString = Mainconn;
-                string Query3 = "INSERT INTO Product_owner (Kategori_ID, Product_name, product_img1, product_img2, product_img3, id_owner, product_harga, Product_stock, artist_ID, product_status) VALUES (@Kategori_ID, @Product_name, @product_img1, @product_img2, @product_img3, @id_owner, @product_harga, @Product_stock, @artist_ID,'B')";
+                string Query3 = "INSERT INTO Product_owner (Kategori_ID, Product_name, product_img1, product_img2, product_img3, id_owner, product_harga, Product_stock, artist_ID, product_status, Berat) VALUES (@Kategori_ID, @Product_name, @product_img1, @product_img2, @product_img3, @id_owner, @product_harga, @Product_stock, @artist_ID,'B', @Berat)";
                 using (SqlCommand sqlmethod = new SqlCommand(Query3, myConnection))
                 {
                     sqlmethod.Parameters.AddWithValue("@Kategori_ID", kategori);
@@ -218,6 +219,7 @@ namespace Finprotest.Controllers
                     sqlmethod.Parameters.AddWithValue("@product_harga", price);
                     sqlmethod.Parameters.AddWithValue("@Product_stock", stock);
                     sqlmethod.Parameters.AddWithValue("@artist_ID", artist);
+                    sqlmethod.Parameters.AddWithValue("@Berat", weight);
                     myConnection.Open();
                     sqlmethod.ExecuteNonQuery();
                     TempData["messsage"] = "success";
