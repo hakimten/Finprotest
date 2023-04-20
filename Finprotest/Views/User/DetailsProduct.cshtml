@@ -3,6 +3,24 @@
     ViewBag.Title = "DetailsProduct";
     Layout = "~/Views/Shared/_Layout2.cshtml";
 }
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+    <link href="~/Bootstrap 5/assets/css/cartdesign.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+</head>
+
+<script>
+    $(document).ready(function () {
+        $('#kuantity, #berat').change(function () {
+            const quantity = $('#kuantity').val();
+            const weight = $('#berat').val();
+            if (quantity && weight) { // pastikan kedua nilai sudah diisi
+                $('#Totalberat').val(quantity * weight);
+            }
+        });
+    });
+</script>
 <!-- Start Item Details -->
 <form method="post" action="/User/AddToCart" enctype="multipart/form-data">
     <section class="item-details section">
@@ -15,20 +33,22 @@
                 <div class="row align-items-center">
                     <div class="col-lg-6 col-md-12 col-12">
                         <div class="product-images">
-                            @foreach(var image in ViewBag.uc) {
-                            <main id="gallery">
-                                <div class="main-img">
-                                    <img src="~/Upload/FrontImage/@image.product_img1" style="width:550px; height:550px; object-fit:scale-down;" id="current" alt="#">
-                                </div>
-                                <div class="images">
-                                    <img src="~/Upload/FrontImage/@image.product_img1" style="width:150px; height:150px; object-fit:scale-down;" class="img" alt="#">
-                                    <img src="~/Upload/SideImg/@image.product_img2" style="width:150px; height:150px; object-fit:scale-down;" class="img" alt="#">
-                                    <img src="~/Upload/BackImg/@image.product_img3" style="width:150px; height:150px; object-fit:scale-down;" class="img" alt="#">
-                                    @foreach(var image2 in ViewBag.uc2) {
-                                    <img src="~/Upload/ImageProduct/@image2.img_name" style="width:150px; height:150px; object-fit:scale-down;" class="img" alt="#">
-                                    }
-                                </div>
-                            </main>
+                            @foreach (var image in ViewBag.uc)
+                            {
+                                <main id="gallery">
+                                    <div class="main-img">
+                                        <img src="~/Upload/FrontImage/@image.product_img1" style="width:550px; height:550px; object-fit:scale-down;" id="current" alt="#">
+                                    </div>
+                                    <div class="images">
+                                        <img src="~/Upload/FrontImage/@image.product_img1" style="width:150px; height:150px; object-fit:scale-down;" class="img" alt="#">
+                                        <img src="~/Upload/SideImg/@image.product_img2" style="width:150px; height:150px; object-fit:scale-down;" class="img" alt="#">
+                                        <img src="~/Upload/BackImg/@image.product_img3" style="width:150px; height:150px; object-fit:scale-down;" class="img" alt="#">
+                                        @foreach (var image2 in ViewBag.uc2)
+                                        {
+                                            <img src="~/Upload/ImageProduct/@image2.img_name" style="width:150px; height:150px; object-fit:scale-down;" class="img" alt="#">
+                                        }
+                                    </div>
+                                </main>
                             }
                         </div>
                     </div>
@@ -43,17 +63,20 @@
                                     </a>
                                 </p>
                                 <h3 class="price">RP.@productcart.RP</h3>
-                                @foreach(var deskripsi in ViewBag.uc3) {
-                                <p class="info-text">
-                                    @deskripsi.Deskripsi_isi
-                                </p>
+                                @foreach (var deskripsi in ViewBag.uc3)
+                                {
+                                    <p class="info-text">
+                                        @deskripsi.Deskripsi_isi
+                                    </p>
                                 }
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-12">
                                         <div class="form-group quantity">
                                             <label for="color">Quantity</label>
-                                            <input type="number" name="kuantity" class="form-control" min="1" value="1" />
-                                            <input type="hidden" name="productid" class="form-control"  value="@productcart.Product_id" />
+                                            <input type="number" name="kuantity" class="form-control" id="kuantity" min="1" value="1" />
+                                            <input type="hidden" name="productid" class="form-control" value="@productcart.Product_id" />
+                                            <input type="text" id="berat" name="berat" class="form-control" value="@productcart.Berat" />
+                                            <input type="text" name="Totalberat" id="Totalberat" class="form-control" />
                                         </div>
                                     </div>
                                 </div>
@@ -75,24 +98,25 @@
                 <div class="single-block">
                     <div class="row">
                         <div class="col-lg-6 col-12">
-                            @foreach(var deskripsi2 in ViewBag.uc3) {
-                            <div class="info-body custom-responsive-margin">
-                                <h4>Details Product</h4>
-                                <p>
-                                    @deskripsi2.Deskripsi_details
-                                </p>
-                                <h4>Features</h4>
-                                <p>
-                                    @deskripsi2.Deskripsi_kelebihan
-                                </p>
-                                @*<ul class="features">
-                                    <li>Capture 4K30 Video and 12MP Photos</li>
-                                    <li>Game-Style Controller with Touchscreen</li>
-                                    <li>View Live Camera Feed</li>
-                                    <li>Full Control of HERO6 Black</li>
-                                    <li>Use App for Dedicated Camera Operation</li>
-                                </ul>*@
-                            </div>
+                            @foreach (var deskripsi2 in ViewBag.uc3)
+                            {
+                                <div class="info-body custom-responsive-margin">
+                                    <h4>Details Product</h4>
+                                    <p>
+                                        @deskripsi2.Deskripsi_details
+                                    </p>
+                                    <h4>Features</h4>
+                                    <p>
+                                        @deskripsi2.Deskripsi_kelebihan
+                                    </p>
+                                    @*<ul class="features">
+                                            <li>Capture 4K30 Video and 12MP Photos</li>
+                                            <li>Game-Style Controller with Touchscreen</li>
+                                            <li>View Live Camera Feed</li>
+                                            <li>Full Control of HERO6 Black</li>
+                                            <li>Use App for Dedicated Camera Operation</li>
+                                        </ul>*@
+                                </div>
                             }
                         </div>
                     </div>

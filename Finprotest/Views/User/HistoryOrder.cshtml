@@ -160,7 +160,13 @@
                                                     </tr>
                                                 </tfoot>*@
                                         </table>
-                                        <div class="panel-footer bg-secondary text-center"><h3 class="text-dark">All Data Order</h3></div>
+                                        <center>
+                                            <div class="panel-footer bg-warning">
+                                                <a class="bg-warning" href="@Url.Action("statusorder", "User",  new { id = data.cout_id })">
+                                                    <h3 class="text-dark text-center">CHECK STATUS</h3>
+                                                </a>
+                                            </div>
+                                        </center>
                                     </div>
                                 </div>
                             </div>

@@ -57,6 +57,8 @@
             setTimeout(() => {
                 let qtys = document.querySelectorAll('.quantity2')
                 let harga = document.querySelectorAll('.hargabarang')
+                let berat = document.querySelectorAll('.berat')
+                let jumlahberat = document.querySelectorAll('.jumlahberat')
                 let hasilHarga = document.querySelectorAll('.harga')
                 let hasilHarga3 = document.querySelectorAll('.hasilharga3')
 
@@ -64,6 +66,7 @@
                     qty.addEventListener('change', (e) => {
 
                         hasilHarga3[qtyIndex].value = parseInt(hasilHarga[qtyIndex].value) * parseInt(e.target.value)
+                        jumlahberat[qtyIndex].value = parseInt(berat[qtyIndex].value) * parseInt(e.target.value)
                         harga[qtyIndex].innerHTML = formatter.format(parseInt(hasilHarga[qtyIndex].value) * parseInt(e.target.value)).replace('Rp', '')
                         $('#sampleForm').trigger('submit');
                         TotalAll()
@@ -175,6 +178,7 @@
                                     @foreach (var product in ViewBag.uc2)
                                     {
                                         var jumlah = product.product_harga * product.Cart_kuantity;
+                                        var jumlah2 = product.Berat * product.Cart_kuantity;
                                         <tr class="datarow">
                                             <td data-th="Product">
                                                 <div class="row">
@@ -193,6 +197,8 @@
                                             <td data-th="Price"><span class="hargabarang">RP.@jumlah</span></td>
                                             <td data-th="Quantity">
                                                 <input type="number" class="form-control form-control-lg text-center quantity2" value="@product.Cart_kuantity" min="1" max="@product.Product_stock" name="quantity[@i]" step="1" data-decimals="0" required>
+                                                <input type="text" class="berat" value="@product.Berat" />
+                                                <input type="text" class="jumlahberat" name="jumlahberat[@i]" value="@jumlah2" />
                                             </td>
                                             <td class="actions" data-th="">
                                                 <div class="text-right">

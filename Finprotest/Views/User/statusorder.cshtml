@@ -1,0 +1,160 @@
+﻿
+@{
+    ViewBag.Title = "statusorder";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<head>
+    <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <style>
+        body {
+            background: #f5f5f5;
+            margin-top: 20px;
+        }
+
+        .card {
+            border: none;
+            -webkit-box-shadow: 1px 0 20px rgba(96,93,175,.05);
+            box-shadow: 1px 0 20px rgba(96,93,175,.05);
+            margin-bottom: 30px;
+        }
+
+        .table th {
+            font-weight: 500;
+            color: #827fc0;
+        }
+
+        .table thead {
+            /*background-color: #f3f2f7;*/
+            background: rgb(244,244,244);
+            background: linear-gradient(0deg, rgba(244,244,244,1) 0%, rgba(219,135,189,1) 100%);
+        }
+
+        .table > tbody > tr > td, .table > tfoot > tr > td, .table > thead > tr > td {
+            padding: 14px 12px;
+            vertical-align: middle;
+        }
+
+        .table tr:nth-child(even) td {
+            background-color: plum;
+        }
+
+        .table tr:nth-child(odd) td {
+            background-color: rosybrown;
+        }
+
+        .thumb-sm {
+            height: 32px;
+            width: 32px;
+        }
+
+        .badge-soft-warning {
+            /*background-color: rgba(248,201,85,.2);
+            color: #f8c955;*/
+            background: rgb(29,123,187);
+            background: linear-gradient(0deg, rgba(29,123,187,1) 0%, rgba(227,5,99,1) 100%);
+            color: white;
+        }
+
+        .badge {
+            font-weight: 500;
+        }
+
+        .badge-soft-primary {
+            /*background-color: rgba(96,93,175,.2);*/
+            background: rgb(34,193,195);
+            background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+            color: indigo;
+            /*color: #605daf;*/
+            /*background-color: deeppink;*/
+        }
+
+        .modal-xl {
+            width: 90%;
+            max-width: 750px;
+        }
+    </style>
+</head>
+<h1 class="text-dark text-center">STATUS ORDER</h1>
+<div class="card" style="margin-left:20px; margin-right:20px;">
+    <div class="card-body">
+        <table class="table table-hover mb-0" id="example">
+            <thead>
+                <tr class="align-self-center">
+                    <th class="text-center"><h2>Pic</h2></th>
+                    <th class="text-center"><h2>Product Name</h2></th>
+                    <th class="text-center"><h2>Quantity</h2></th>
+                    <th class="text-center"><h2>Price</h2></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dataproduk in ViewBag.uc2)
+                {
+                    <tr>
+                        <td class="text-center text-white">
+                            <img src="~/Upload/FrontImage/@dataproduk.product_img1" style="width:150px; height: 150px; object-fit:scale-down;" />
+                        </td>
+                        <td class="text-center text-white"><h3>@dataproduk.Product_name</h3></td>
+                        <td class="text-center text-white"><h3>@dataproduk.Cart_kuantity</h3></td>
+                        <td class="text-center text-white"><h3>Rp.@dataproduk.total_harga</h3></td>
+                    </tr>
+                }
+
+                @*<tr>
+                        <td class="text-center text-white">New Office Building</td>
+                        <td class="text-white"><img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" class="thumb-sm rounded-circle mr-2"> Frank M. Lyons</td>
+                        <td class="text-center text-white">Paypal</td>
+                        <td class="text-center text-white">15/7/2018</td>
+                        <td class="text-center text-white">$35,000</td>
+                        <td class="text-center text-white"><span class="badge badge-boxed badge-soft-primary">Edit Description</span></td>
+                    </tr>*@
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="card" style="margin-left:20px; margin-right:20px;">
+    <div class="card-body">
+        @foreach (var data in ViewBag.uc)
+        {
+            <div class="input-group mb-3">
+                <span class="input-group-text text-white bg-dark" id="inputGroup-sizing-default" style="width:200px;">ALL Total Price</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="RP. @data.all_total" readonly>
+            </div>
+        <div class="input-group mb-3">
+                <span class="input-group-text text-white bg-dark" id="inputGroup-sizing-default" style="width:200px;">Order Time</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="@data.created_at" readonly>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text text-white bg-dark" id="inputGroup-sizing-default" style="width:200px;">Payment Time</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="@data.updated_at" readonly>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text text-white bg-dark" id="inputGroup-sizing-default" style="width:200px;">Packaging Time</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="@data.waktu_pengiriman" readonly>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text text-white bg-dark" id="inputGroup-sizing-default" style="width:200px;">Resi Number</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="@data.no_resi" readonly>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text text-white bg-dark" id="inputGroup-sizing-default" style="width:200px;">Status Order</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="@data.status" readonly>
+            </div>
+        }
+    </div>
+</div>
+@foreach (var datastatus in ViewBag.uc)
+{
+    <div class="card" style="margin-left:20px; margin-right:20px;">
+        <div class="card-header">
+            <h2 class="text-center">Estimated Arrival</h2>
+        </div>
+        <div class="card-body">
+            <h3 class="text-center">@datastatus.estimasi_sampai</h3>
+        </div>
+    </div>
+}
