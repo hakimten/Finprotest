@@ -77,11 +77,13 @@
                         </div>
                         <input type="hidden" name="kmjarak" id="kmjarak" />
                         <input type="hidden" name="idcout" value="@dataval.cout_id" />
-                        @foreach(var data in ViewBag.uc2) { 
-                        <input type="hidden" name="item" value="@data.ITEM" />
+                        @foreach (var data in ViewBag.uc2)
+                        {
+                            <input type="hidden" name="item" value="@data.ITEM" />
                         }
-                        @foreach(var data2 in ViewBag.uc3) { 
-                        <input type="hidden" name="kuantity" value="@data2.QUANTITY" />
+                        @foreach (var data2 in ViewBag.uc3)
+                        {
+                            <input type="hidden" name="kuantity" value="@data2.QUANTITY" />
                         }
                     </div>
                     <script>
@@ -164,7 +166,155 @@
     }
     else if (dataval.eks_name == "STANDAR")
     {
+        <div class="card">
+            <div class="card-header">
+                <h1>CONFIRM ORDER @dataval.name_user</h1>
+            </div>
+            <form method="post" action="/Owner/ConfirmProductStandar" enctype="multipart/form-data">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default">Ekspedisi Name</span>
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="elspedisi" value="@dataval.eks_name">
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default">Setup Time</span>
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="waktupenyiapan" value="96">
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default">Pay Date</span>
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="paydate" value="@dataval.updated_at">
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default">NO Resi</span>
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="noresi" value="NONE">
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div id='mapp' style='width: 1040px; height: 380px; margin: 0 auto;'>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default">Longitude Owner</span>
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="paydate" value="@dataval.Toko_long" readonly>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default">Latitude Owner</span>
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="paydate" value="@dataval.Toko_lat" readonly>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default">Longitude User</span>
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="paydate" value="@dataval.longitude_user" readonly>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default">Latitude User</span>
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="paydate" value="@dataval.lattitude_user" readonly>
+                            </div>
+                        </div>
+                        <input type="hidden" name="kmjarak" id="kmjarak2" />
+                        <input type="hidden" name="idcout" value="@dataval.cout_id" />
+                        @foreach (var data in ViewBag.uc2)
+                        {
+                            <input type="hidden" name="item" value="@data.ITEM" />
+                        }
+                        @foreach (var data2 in ViewBag.uc3)
+                        {
+                            <input type="hidden" name="kuantity" value="@data2.QUANTITY" />
+                        }
+                    </div>
+                    <script>
+                        mapboxgl.accessToken = 'pk.eyJ1Ijoidmlja3lqbmQiLCJhIjoiY2w5ZjVxNWl6MG5ydjNybXlka3FuY2ZoNCJ9.ZnazGQ7N4dEDKgQxMqYiHA';
+                        const mapp = new mapboxgl.Map({
+                            container: 'mapp',
+                            // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+                            style: 'mapbox://styles/mapbox/streets-v12',
+                        });
+                        mapp.on('style.load', () => {
+                            mapp.setFog({}); // Set the default atmosphere style
+                        });
 
+                        //navigation control
+                        mapp.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+
+                        // Add geolocate control to the map.
+                        mapp.addControl(
+                            new mapboxgl.GeolocateControl({
+                                positionOptions: {
+                                    enableHighAccuracy: true
+                                },
+                                // When active the map will receive updates to the device's location as it changes.
+                                trackUserLocation: true,
+                                // Draw an arrow next to the location dot to indicate which direction the device is heading.
+                                showUserHeading: true
+                            }), 'bottom-right'
+                        );
+                        mapp.addControl(
+                            new MapboxDirections({
+                                accessToken: mapboxgl.accessToken
+
+                            }),
+                            'top-left'
+                        );
+
+
+                        //Load Direction from clicking gps and from database
+                        var directions = new MapboxDirections({
+                            accessToken: mapboxgl.accessToken
+                        });
+                        //Load map and fiind direction by current location and select the sorthest distance to location
+                        mapp.on('load', function () {
+                            navigator.geolocation.getCurrentPosition(function (position) {
+                                directions.setOrigin([@dataval.longitude_user, @dataval.lattitude_user]); //set according to current location
+                                directions.setDestination([@dataval.Toko_long, @dataval.Toko_lat]); //set according to current location
+                            });
+                        });
+
+                        function calculateDistance(lat1, lon1, lat2, lon2) {
+                            const R = 6371; // radius of the earth in km
+                            const dLat = (lat2 - lat1) * Math.PI / 180;
+                            const dLon = (lon2 - lon1) * Math.PI / 180;
+                            const a =
+                                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+                            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                            const distance = R * c;
+                            return distance.toFixed(2); // distance in km, rounded to 2 decimal places
+                        }
+
+                        // example usage:
+                        const lat1 = @dataval.lattitude_user; // latitude of first point
+                        const lon1 = @dataval.longitude_user; // longitude of first point
+                        const lat2 = @dataval.Toko_lat; // latitude of second point
+                        const lon2 = @dataval.Toko_long; // longitude of second point
+                        const distance = calculateDistance(lat1, lon1, lat2, lon2);
+                        console.log(distance); // output: 5573.28
+                        $("#kmjarak2").val(distance);
+                    </script>
+                </div>
+                <div class="card-footer">
+                    <center>
+                        <button type="submit" class="btn btn-lg btn-success">SAVE CONFIRM</button>
+                    </center>
+                </div>
+            </form>
+        </div>
     }
 }
 

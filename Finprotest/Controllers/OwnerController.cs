@@ -575,7 +575,7 @@ namespace Finprotest.Controllers
             {
                 string session1 = Session["id_owner"].ToString();
                 connection.Open();
-                string query = "SELECT t1.cout_id, t1.all_total, t1.eks_id, t1.pay_ID, t1.id_user, t1.id_owner, t1.almt_Id, t1.cout_status, t1.payment_history, t1.updated_at, t2.eks_name, t2.eks_harga, t3.payment_name, t4.alamt_name, t4.lattitude_user, t4.longitude_user, t4.no_hpbuy, t5.name_user FROM checkout_user t1 JOIN Ekspedis_c t2 ON t1.eks_id = t2.eks_id JOIN paymentMethod t3 ON t1.pay_ID = t3.pay_ID JOIN alamat_user t4 ON t1.almt_Id = t4.almt_Id JOIN account_user t5 ON t1.id_user = t5.id_user WHERE t1.id_owner = '"+ session1 + "' AND t1.cout_status = 'PAYMENT'";
+                string query = "SELECT t1.cout_id, t1.all_total, t1.eks_id, t1.pay_ID, t1.id_user, t1.id_owner, t1.almt_Id, t1.cout_status, t1.payment_history, t1.updated_at, t2.eks_name, t2.eks_harga, t3.payment_name, t4.alamt_name, t4.lattitude_user, t4.longitude_user, t4.no_hpbuy, t5.name_user FROM checkout_user t1 JOIN Ekspedis_c t2 ON t1.eks_id = t2.eks_id JOIN paymentMethod t3 ON t1.pay_ID = t3.pay_ID JOIN alamat_user t4 ON t1.almt_Id = t4.almt_Id JOIN account_user t5 ON t1.id_user = t5.id_user WHERE t1.id_owner = '" + session1 + "' AND t1.cout_status = 'PAYMENT'";
                 SqlCommand command = new SqlCommand(query, connection);
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
@@ -928,7 +928,62 @@ namespace Finprotest.Controllers
                 waktuPengiriman = DateTime.Now;
                 //waktuPengiriman = Convert.ToDateTime(form["paydate"]);
             }
-            waktuPengiriman = waktuPengiriman.AddHours(kmjarak * 3 + Itemcart * 2 + Kuantitycart * 2 +  waktupenyiapan);
+            waktuPengiriman = waktuPengiriman.AddHours(kmjarak * 3 + Itemcart * 2 + Kuantitycart * 2 + waktupenyiapan);
+
+            myConnection.ConnectionString = Mainconn;
+            string Query3 = "INSERT Estimasi_waktu (cout_id, estimasi_sampai, no_resi, status, waktu_pengiriman) VALUES (@cout_id, @estimasi_sampai, @no_resi, 'DIKEMAS', CURRENT_TIMESTAMP)";
+            using (SqlCommand sqlmethod = new SqlCommand(Query3, myConnection))
+            {
+                sqlmethod.Parameters.AddWithValue("@cout_id", idcout);
+                sqlmethod.Parameters.AddWithValue("@estimasi_sampai", waktuPengiriman);
+                sqlmethod.Parameters.AddWithValue("@no_resi", noresi);
+                myConnection.Open();
+                sqlmethod.ExecuteNonQuery();
+                TempData["messsage"] = "success";
+                myConnection.Close();
+            }
+            string Query4 = "UPDATE checkout_user SET cout_status = 'DIKEMAS' WHERE cout_id = @cout_id";
+            using (SqlCommand sqlmethod = new SqlCommand(Query4, myConnection))
+            {
+                sqlmethod.Parameters.AddWithValue("@cout_id", idcout);
+                myConnection.Open();
+                sqlmethod.ExecuteNonQuery();
+                TempData["messsage"] = "success";
+                myConnection.Close();
+            }
+            string Query5 = "UPDATE Cart_user SET cart_status = 'DIKEMAS' WHERE cout_id = @cout_id";
+            using (SqlCommand sqlmethod = new SqlCommand(Query5, myConnection))
+            {
+                sqlmethod.Parameters.AddWithValue("@cout_id", idcout);
+                myConnection.Open();
+                sqlmethod.ExecuteNonQuery();
+                TempData["messsage"] = "success";
+                myConnection.Close();
+            }
+
+            return RedirectToAction("Order_masuk");
+        }
+        public ActionResult ConfirmProductStandar(FormCollection form, double kmjarak, double waktupenyiapan, string paydate)
+        {
+            SqlConnection myConnection = new SqlConnection();
+            string idcout = form["idcout"];
+            string noresi = form["noresi"];
+
+            string item = form["item"];
+            double Itemcart = Convert.ToDouble(item);
+
+            string kuantity = form["kuantity"];
+            double Kuantitycart = Convert.ToDouble(kuantity);
+
+            DateTime waktuPengiriman;
+            if (!DateTime.TryParseExact(paydate, "dd/MM/yyyy HH:mm:ss", null, System.Globalization.DateTimeStyles.None, out waktuPengiriman))
+            {
+                //Jika waktu yang dimasukkan tidak valid, maka gunakan waktu saat ini
+                //waktuPengiriman = DateTime.Now;
+                waktuPengiriman = DateTime.Now;
+                //waktuPengiriman = Convert.ToDateTime(form["paydate"]);
+            }
+            waktuPengiriman = waktuPengiriman.AddHours(kmjarak * 3 + Itemcart * 2 + Kuantitycart * 2 + waktupenyiapan);
 
             myConnection.ConnectionString = Mainconn;
             string Query3 = "INSERT Estimasi_waktu (cout_id, estimasi_sampai, no_resi, status, waktu_pengiriman) VALUES (@cout_id, @estimasi_sampai, @no_resi, 'DIKEMAS', CURRENT_TIMESTAMP)";
