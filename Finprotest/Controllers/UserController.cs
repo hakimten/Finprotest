@@ -13,8 +13,8 @@ namespace Finprotest.Controllers
 {
     public class UserController : Controller
     {
-        string Mainconn = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
-        //string Mainconn = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
+        //string Mainconn = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+        string Mainconn = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
         // GET: User
         public ActionResult Index()
         {
@@ -479,19 +479,20 @@ namespace Finprotest.Controllers
                     ModelState.AddModelError("", "Total weight of cart items exceeds 10kg.");
                     return RedirectToAction("Validasicart");
                 }
-                else { 
+                else
+                {
 
-                // tambahkan item ke cart
-                string Query3 = "INSERT INTO Cart_user (Product_id, Cart_kuantity, id_user, cart_status, tanggal_pembelian, total_berat) " +
-                        "VALUES (@Product_id, @Cart_kuantity, @id_user, 'CART', CURRENT_TIMESTAMP, @total_berat)";
-                command = new SqlCommand(Query3, myConnection);
-                command.Parameters.AddWithValue("@Product_id", productid);
-                command.Parameters.AddWithValue("@Cart_kuantity", kuantity);
-                command.Parameters.AddWithValue("@id_user", SessionName);
-                command.Parameters.AddWithValue("@total_berat", Totalberat);
-                command.ExecuteNonQuery();
-                TempData["messsage"] = "success";
-                myConnection.Close();
+                    // tambahkan item ke cart
+                    string Query3 = "INSERT INTO Cart_user (Product_id, Cart_kuantity, id_user, cart_status, tanggal_pembelian, total_berat) " +
+                            "VALUES (@Product_id, @Cart_kuantity, @id_user, 'CART', CURRENT_TIMESTAMP, @total_berat)";
+                    command = new SqlCommand(Query3, myConnection);
+                    command.Parameters.AddWithValue("@Product_id", productid);
+                    command.Parameters.AddWithValue("@Cart_kuantity", kuantity);
+                    command.Parameters.AddWithValue("@id_user", SessionName);
+                    command.Parameters.AddWithValue("@total_berat", Totalberat);
+                    command.ExecuteNonQuery();
+                    TempData["messsage"] = "success";
+                    myConnection.Close();
                 }
             }
 
@@ -635,30 +636,60 @@ namespace Finprotest.Controllers
         {
             if (Session["id_user"] != null)
             {
-                List<userclass> jc = new List<userclass>();
-                //var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
-                var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
-                SqlConnection myConnection = new SqlConnection();
-                myConnection.ConnectionString = connectionString;
-                myConnection.Open();
-                SqlConnection sqlconn = new SqlConnection(connectionString);
-                string varString = "";
-                for (int i = 0; i < cartid.Count(); i++)
+                int totalWeight = 0;
+                using (SqlConnection myConnection = new SqlConnection(Mainconn))
                 {
-                    varString += $"UPDATE Cart_user set total_harga = @total_harga{i} ,Cart_kuantity = @Cart_kuantity{i} where Cart_id = @Cart_id{i};";
-                }
-                SqlCommand sqlcommm = new SqlCommand(varString, sqlconn);
-                sqlconn.Open();
-                {
-                    for (int i = 0; i < cartid.Count(); i++)
+                    string SessionName = Session["id_user"].ToString();
+                    string kuantity = form["kuantity"];
+                    string productid = form["productid"];
+                    //string Totalberat = form["Totalberat"];
+                    myConnection.Open();
+                    SqlConnection sqlconn = new SqlConnection(Mainconn);
+                    // hitung total berat dari semua item di cart
+                    string query = "SELECT SUM(total_berat) AS totalWeight FROM Cart_user WHERE id_user = '" + SessionName + "' AND cart_status = 'CART'";
+                    SqlCommand command = new SqlCommand(query, myConnection);
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    if (reader.Read())
                     {
-                        sqlcommm.Parameters.AddWithValue("@total_harga" + i, subtotal[i]);
-                        sqlcommm.Parameters.AddWithValue("@Cart_kuantity" + i, quantity[i]);
-                        sqlcommm.Parameters.AddWithValue("@Cart_id" + i, cartid[i]);
+                        if (reader["TotalWeight"] == DBNull.Value)
+                        {
+
+                        }
+                        else
+                        {
+                            totalWeight = Convert.ToInt32(reader["TotalWeight"]);
+                        }
                     }
 
-                            sqlcommm.ExecuteNonQuery();
-                            sqlconn.Close();
+                    reader.Close();
+
+                    // cek apakah total berat melebihi 10kg
+                    if (totalWeight > 10)
+                    {
+                        ModelState.AddModelError("", "Total weight of cart items exceeds 10kg.");
+                        return RedirectToAction("Validasicart");
+                    }
+                    //else 
+                    //{
+                    string varString = "";
+                    for (int i = 0; i < cartid.Count(); i++)
+                    {
+                        varString += $"UPDATE Cart_user set total_harga = @total_harga{i} ,Cart_kuantity = @Cart_kuantity{i}, total_berat = @total_berat{i}  where Cart_id = @Cart_id{i};";
+                    }
+                    SqlCommand sqlcommm = new SqlCommand(varString, sqlconn);
+                    sqlconn.Open();
+                    {
+                        for (int i = 0; i < cartid.Count(); i++)
+                        {
+                            sqlcommm.Parameters.AddWithValue("@total_harga" + i, subtotal[i]);
+                            sqlcommm.Parameters.AddWithValue("@Cart_kuantity" + i, quantity[i]);
+                            sqlcommm.Parameters.AddWithValue("@Cart_id" + i, cartid[i]);
+                            sqlcommm.Parameters.AddWithValue("@total_berat" + i, jumlahberat[i]);
+                        }
+
+                        sqlcommm.ExecuteNonQuery();
+                        sqlconn.Close();
                         //}
                     }
                 }
@@ -793,9 +824,9 @@ namespace Finprotest.Controllers
             if (Session["id_user"] != null)
             {
                 //var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
-                var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
-                SqlConnection myConnection = new SqlConnection();
-                myConnection.ConnectionString = connectionString;
+                //var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
+                SqlConnection myConnection = new SqlConnection(Mainconn);
+                //myConnection.ConnectionString = Mainconn;
                 myConnection.Open();
                 string SessionName = Session["id_user"].ToString();
                 string totalharga = form["totalharga"];
@@ -917,9 +948,9 @@ namespace Finprotest.Controllers
             if (Session["id_user"] != null)
             {
                 //var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
-                var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
-                SqlConnection myConnection = new SqlConnection();
-                myConnection.ConnectionString = connectionString;
+                //var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
+                SqlConnection myConnection = new SqlConnection(Mainconn);
+                //myConnection.ConnectionString = connectionString;
                 myConnection.Open();
                 string SessionName = Session["id_user"].ToString();
                 string firstName = form["firstName"];
@@ -1139,9 +1170,9 @@ namespace Finprotest.Controllers
             if (Session["id_user"] != null)
             {
                 //var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
-                var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
-                SqlConnection myConnection = new SqlConnection();
-                myConnection.ConnectionString = connectionString;
+                //var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
+                SqlConnection myConnection = new SqlConnection(Mainconn);
+                //myConnection.ConnectionString = connectionString;
                 myConnection.Open();
                 string SessionName = Session["id_user"].ToString();
                 string itemid = form["itemid"];
@@ -1179,9 +1210,9 @@ namespace Finprotest.Controllers
                 buktipembayaran.SaveAs(filePathsewnPattern);
 
                 //var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
-                var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
-                SqlConnection myConnection = new SqlConnection();
-                myConnection.ConnectionString = connectionString;
+                //var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
+                SqlConnection myConnection = new SqlConnection(Mainconn);
+                //myConnection.ConnectionString = connectionString;
                 myConnection.Open();
                 string SessionName = Session["id_user"].ToString();
                 string itemid = form["itemid"];
