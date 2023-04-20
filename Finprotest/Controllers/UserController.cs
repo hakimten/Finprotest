@@ -13,8 +13,8 @@ namespace Finprotest.Controllers
 {
     public class UserController : Controller
     {
-        //string Mainconn = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
-        string Mainconn = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
+        string Mainconn = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+        //string Mainconn = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
         // GET: User
         public ActionResult Index()
         {
@@ -531,8 +531,8 @@ namespace Finprotest.Controllers
             if (Session["id_user"] != null)
             {
                 List<userclass> jc = new List<userclass>();
-                //var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
-                var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
+                var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+                //var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
                 SqlConnection myConnection = new SqlConnection();
                 myConnection.ConnectionString = connectionString;
                 myConnection.Open();
@@ -686,8 +686,8 @@ namespace Finprotest.Controllers
         {
             if (Session["id_user"] != null)
             {
-                //var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
-                var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
+                var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+                //var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
                 SqlConnection myConnection = new SqlConnection();
                 myConnection.ConnectionString = connectionString;
                 myConnection.Open();
@@ -810,8 +810,8 @@ namespace Finprotest.Controllers
         {
             if (Session["id_user"] != null)
             {
-                //var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
-                var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
+                var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+                //var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
                 SqlConnection myConnection = new SqlConnection();
                 myConnection.ConnectionString = connectionString;
                 myConnection.Open();
@@ -955,8 +955,8 @@ namespace Finprotest.Controllers
         {
             if (Session["id_user"] != null)
             {
-                //var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
-                var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
+                var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+                //var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
                 SqlConnection myConnection = new SqlConnection();
                 myConnection.ConnectionString = connectionString;
                 myConnection.Open();
@@ -995,8 +995,8 @@ namespace Finprotest.Controllers
                 string filePathsewnPattern = Path.Combine(Server.MapPath("/gambar/BuktiPembayaran/"), sewnPatternImage);
                 buktipembayaran.SaveAs(filePathsewnPattern);
 
-                //var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
-                var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
+                var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+                //var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
                 SqlConnection myConnection = new SqlConnection();
                 myConnection.ConnectionString = connectionString;
                 myConnection.Open();

@@ -13,10 +13,10 @@ namespace Finprotest.Controllers
 {
     public class LoginController : Controller
     {
-        //string Mainconn = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
-        string Mainconn = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
-        //latihan1Entities entity = new latihan1Entities();
-        HakimEntities entity = new HakimEntities();
+        string Mainconn = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+        //string Mainconn = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
+        latihan1Entities entity = new latihan1Entities();
+        //HakimEntities entity = new HakimEntities();
         // GET: Login
         public ActionResult Index()
         {
