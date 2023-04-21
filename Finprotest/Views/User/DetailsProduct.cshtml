@@ -55,6 +55,7 @@
                     <div class="col-lg-6 col-md-12 col-12">
                         @foreach (var productcart in ViewBag.uc)
                         {
+                            var totalberat = productcart.Berat * productcart.Cart_kuantity;
                             <div class="product-info">
                                 <h2 class="title">@productcart.Product_name</h2>
                                 <p class="category">
@@ -75,8 +76,8 @@
                                             <label for="color">Quantity</label>
                                             <input type="number" name="kuantity" class="form-control" id="kuantity" min="1" value="1" />
                                             <input type="hidden" name="productid" class="form-control" value="@productcart.Product_id" />
-                                            <input type="text" id="berat" name="berat" class="form-control" value="@productcart.Berat" />
-                                            <input type="text" name="Totalberat" id="Totalberat" class="form-control" />
+                                            <input type="hidden" id="berat" name="berat" class="form-control" value="@productcart.Berat" />
+                                            <input type="hidden" name="Totalberat" id="Totalberat" class="form-control" value="@totalberat"/>
                                         </div>
                                     </div>
                                 </div>

@@ -197,8 +197,8 @@
                                             <td data-th="Price"><span class="hargabarang">RP.@jumlah</span></td>
                                             <td data-th="Quantity">
                                                 <input type="number" class="form-control form-control-lg text-center quantity2" value="@product.Cart_kuantity" min="1" max="@product.Product_stock" name="quantity[@i]" step="1" data-decimals="0" required>
-                                                <input type="text" class="berat" value="@product.Berat" />
-                                                <input type="text" class="jumlahberat" name="jumlahberat[@i]" value="@jumlah2" />
+                                                <input type="hidden" class="berat" value="@product.Berat" />
+                                                <input type="hidden" class="jumlahberat" name="jumlahberat[@i]" value="@jumlah2" />
                                             </td>
                                             <td class="actions" data-th="">
                                                 <div class="text-right">
