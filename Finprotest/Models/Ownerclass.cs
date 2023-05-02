@@ -57,5 +57,6 @@ namespace Finprotest.Models
         public DateTime updated_at { get; internal set; }
         public int ITEM { get; internal set; }
         public int QUANTITY { get; internal set; }
+        public string no_resi { get; internal set; }
     }
 }

@@ -1,0 +1,181 @@
+﻿
+@{
+    ViewBag.Title = "HistoryOrderSent";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+<head>
+    <
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="~/Atlantis-Lite-master/assets/js/core/popper.min.js"></script>
+    <script src="~/Atlantis-Lite-master/assets/js/core/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+    @*<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>*@
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <style>
+        body {
+            background: #f5f5f5;
+            margin-top: 20px;
+        }
+
+        .card {
+            border: none;
+            -webkit-box-shadow: 1px 0 20px rgba(96,93,175,.05);
+            box-shadow: 1px 0 20px rgba(96,93,175,.05);
+            margin-bottom: 30px;
+        }
+
+        .table th {
+            font-weight: 500;
+            color: #827fc0;
+        }
+
+        .table thead {
+            /*background-color: #f3f2f7;*/
+            background: rgb(244,244,244);
+            background: linear-gradient(0deg, rgba(244,244,244,1) 0%, rgba(219,135,189,1) 100%);
+        }
+
+        .table > tbody > tr > td, .table > tfoot > tr > td, .table > thead > tr > td {
+            padding: 14px 12px;
+            vertical-align: middle;
+        }
+
+        .table tr:nth-child(even) td {
+            background-color: plum;
+        }
+
+        .table tr:nth-child(odd) td {
+            background-color: rosybrown;
+        }
+
+        .thumb-sm {
+            height: 32px;
+            width: 32px;
+        }
+
+        .badge-soft-warning {
+            /*background-color: rgba(248,201,85,.2);
+            color: #f8c955;*/
+            background: rgb(29,123,187);
+            background: linear-gradient(0deg, rgba(29,123,187,1) 0%, rgba(227,5,99,1) 100%);
+            color: white;
+        }
+
+        .badge {
+            font-weight: 500;
+        }
+
+        .badge-soft-primary {
+            /*background-color: rgba(96,93,175,.2);*/
+            background: rgb(34,193,195);
+            background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+            color: indigo;
+            /*color: #605daf;*/
+            /*background-color: deeppink;*/
+        }
+
+        .modal-xl {
+            width: 90%;
+            max-width: 750px;
+        }
+    </style>
+</head>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+
+        $(".example22").DataTable({
+            ordering: false,
+        });
+    });
+
+    $(document).ready(function () {
+
+        //var object = document.getElementsByClassName(".example22");
+        //object.DataTable();
+    });
+</script>
+<h1 class="text-center">History Order payment</h1>
+<br />
+<div class="card bg-light">
+    <div class="card-body">
+        <table id="example" class="table table-hover mb-0" style="width:100%">
+            <thead>
+                <tr>
+                    <th class="text-dark text-center"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{int a = 0;}
+                @foreach (var data in ViewBag.uc)
+                {
+                    <tr>
+                        <td>
+                            <div class="panel-group bg-white">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" style="margin-left:10px;" href=".collab-@a"><i class="fa fa-plus-circle" aria-hidden="true"></i>ORDERAN AT: @data.updated_at</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse1" class="panel-collapse collapse collab-@a">
+                                        <table id="" class="table table-hover mb-0 example22" style="width:100%;">
+                                            <thead class="bg-dark text-white">
+                                                <tr>
+                                                    <th class="text-center">Pic</th>
+                                                    <th class="text-center">Product Name</th>
+                                                    <th class="text-center">Quantity</th>
+                                                    <th class="text-center">ALl Price</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var data2 in ViewBag.uc2)
+                                                {
+                                                    if (data2.cout_id == data.cout_id)
+                                                    {
+                                                        <tr>
+                                                            <td class="text-dark text-center">
+                                                                <img src="~/Upload/FrontImage/@data2.product_img1" style="width: 200px; height: 200px; object-fit:scale-down;" />
+                                                            </td>
+                                                            <td class="text-dark text-center"><h4>@data2.Product_name</h4></td>
+                                                            <td class="text-dark text-center"><h4>@data2.Cart_kuantity</h4></td>
+                                                            <td class="text-dark text-center"><h4>RP.@data2.total_harga</h4></td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                            @*<tfoot class="bg-dark text-white">
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Description</th>
+                                                        <th>Remark</th>
+                                                        <th>Purpose</th>
+                                                        <th>Username</th>
+                                                        <th>Created</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </tfoot>*@
+                                        </table>
+                                        <center>
+                                            <div class="panel-footer bg-warning">
+                                                <a class="bg-warning" href="@Url.Action("statusorder", "User",  new { id = data.cout_id })">
+                                                    <h3 class="text-dark text-center">CHECK STATUS</h3>
+                                                </a>
+                                            </div>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    a++;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

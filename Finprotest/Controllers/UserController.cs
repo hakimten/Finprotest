@@ -663,9 +663,13 @@ namespace Finprotest.Controllers
                     }
 
                     reader.Close();
-
+                    int x = 0;
+                    foreach(string checkweight in jumlahberat)
+                    {
+                        x += int.Parse(checkweight);
+                    }
                     // cek apakah total berat melebihi 10kg
-                    if (totalWeight > 10)
+                    if (x > 10)
                     {
                         ModelState.AddModelError("", "Total weight of cart items exceeds 10kg.");
                         return RedirectToAction("Validasicart");
@@ -1247,7 +1251,7 @@ namespace Finprotest.Controllers
                 string SessionName = Session["id_user"].ToString();
                 //menampilkan lattitude & longitude Toko
                 SqlConnection sqlconn = new SqlConnection(Mainconn);
-                string sqlquery = $"SELECT * FROM checkout_user WHERE cout_status = 'DIKEMAS' AND id_user = '" + SessionName + "'";
+                string sqlquery = $"SELECT * FROM checkout_user WHERE cout_status = 'PAYMENT' AND id_user = '" + SessionName + "'";
                 SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
                 sqlconn.Open();
                 SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
@@ -1304,6 +1308,118 @@ namespace Finprotest.Controllers
                 //menampilkan lattitude & longitude Toko
                 SqlConnection sqlconn = new SqlConnection(Mainconn);
                 string sqlquery = $"SELECT * FROM checkout_user WHERE cout_status = 'CHECKOUT' AND id_user = '" + SessionName + "'";
+                SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
+                sqlconn.Open();
+                SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+                DataTable ds = new DataTable();
+                sda.Fill(ds);
+                List<userclass> uc = new List<userclass>();
+                List<userclass> uc2 = new List<userclass>();
+                foreach (DataRow dr in ds.Rows)
+                {
+                    userclass data = new userclass();
+                    data.cout_id = (int)dr["cout_id"];
+                    data.updated_at = (DateTime)dr["updated_at"];
+                    uc.Add(data);
+                    string sqlquery2 = $"SELECT t1.Cart_id, t1.Product_id, t1.Cart_kuantity, t1.total_harga, t1.id_user, t1.cout_id, t2.Product_name, t2.product_img1 FROM Cart_user t1 JOIN Product_owner t2 ON t1.Product_id = t2.Product_id WHERE t1.cout_id = '{data.cout_id}' AND t1.id_user = '" + SessionName + "'";
+                    SqlCommand sqlcomm2 = new SqlCommand(sqlquery2, sqlconn);
+                    SqlDataAdapter sda2 = new SqlDataAdapter(sqlcomm2);
+                    DataTable ds2 = new DataTable();
+                    sda2.Fill(ds2);
+                    foreach (DataRow dr1 in ds2.Rows)
+                    {
+                        userclass data2 = new userclass();
+                        //data2.swr_toy = (string)dr1["swr_toy"];
+                        //data2.swr_desc = (string)dr1["swr_desc"];
+                        //data2.swr_rem = (string)dr1["swr_rem"];
+                        //data2.created_at = (DateTime)dr1["created_at"];
+                        //data2.update_at = (DateTime)dr1["update_at"];
+                        //data2.swr_purN = (string)dr1["swr_purN"];
+                        data2.product_img1 = (string)dr1["product_img1"];
+                        data2.Product_name = (string)dr1["Product_name"];
+                        data2.Cart_id = Convert.ToInt32(dr1["Cart_id"]);
+                        data2.Product_id = Convert.ToInt32(dr1["Product_id"]);
+                        data2.Cart_kuantity = Convert.ToInt32(dr1["Cart_kuantity"]);
+                        data2.total_harga = Convert.ToInt32(dr1["total_harga"]);
+                        data2.id_user = Convert.ToInt32(dr1["id_user"]);
+                        data2.cout_id = Convert.ToInt32(dr1["cout_id"]);
+                        uc2.Add(data2);
+                    }
+                }
+                ViewBag.uc = uc;
+                ViewBag.uc2 = uc2;
+                sqlconn.Close();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LoginUser", "Login");
+            }
+        }
+        public ActionResult HistoryOrderPacked()
+        {
+            if (Session["id_user"] != null)
+            {
+                string SessionName = Session["id_user"].ToString();
+                //menampilkan lattitude & longitude Toko
+                SqlConnection sqlconn = new SqlConnection(Mainconn);
+                string sqlquery = $"SELECT * FROM checkout_user WHERE cout_status = 'DIKEMAS' AND id_user = '" + SessionName + "'";
+                SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
+                sqlconn.Open();
+                SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+                DataTable ds = new DataTable();
+                sda.Fill(ds);
+                List<userclass> uc = new List<userclass>();
+                List<userclass> uc2 = new List<userclass>();
+                foreach (DataRow dr in ds.Rows)
+                {
+                    userclass data = new userclass();
+                    data.cout_id = (int)dr["cout_id"];
+                    data.updated_at = (DateTime)dr["updated_at"];
+                    uc.Add(data);
+                    string sqlquery2 = $"SELECT t1.Cart_id, t1.Product_id, t1.Cart_kuantity, t1.total_harga, t1.id_user, t1.cout_id, t2.Product_name, t2.product_img1 FROM Cart_user t1 JOIN Product_owner t2 ON t1.Product_id = t2.Product_id WHERE t1.cout_id = '{data.cout_id}' AND t1.id_user = '" + SessionName + "'";
+                    SqlCommand sqlcomm2 = new SqlCommand(sqlquery2, sqlconn);
+                    SqlDataAdapter sda2 = new SqlDataAdapter(sqlcomm2);
+                    DataTable ds2 = new DataTable();
+                    sda2.Fill(ds2);
+                    foreach (DataRow dr1 in ds2.Rows)
+                    {
+                        userclass data2 = new userclass();
+                        //data2.swr_toy = (string)dr1["swr_toy"];
+                        //data2.swr_desc = (string)dr1["swr_desc"];
+                        //data2.swr_rem = (string)dr1["swr_rem"];
+                        //data2.created_at = (DateTime)dr1["created_at"];
+                        //data2.update_at = (DateTime)dr1["update_at"];
+                        //data2.swr_purN = (string)dr1["swr_purN"];
+                        data2.product_img1 = (string)dr1["product_img1"];
+                        data2.Product_name = (string)dr1["Product_name"];
+                        data2.Cart_id = Convert.ToInt32(dr1["Cart_id"]);
+                        data2.Product_id = Convert.ToInt32(dr1["Product_id"]);
+                        data2.Cart_kuantity = Convert.ToInt32(dr1["Cart_kuantity"]);
+                        data2.total_harga = Convert.ToInt32(dr1["total_harga"]);
+                        data2.id_user = Convert.ToInt32(dr1["id_user"]);
+                        data2.cout_id = Convert.ToInt32(dr1["cout_id"]);
+                        uc2.Add(data2);
+                    }
+                }
+                ViewBag.uc = uc;
+                ViewBag.uc2 = uc2;
+                sqlconn.Close();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LoginUser", "Login");
+            }
+        } 
+        public ActionResult HistoryOrderSent()
+        {
+            if (Session["id_user"] != null)
+            {
+                string SessionName = Session["id_user"].ToString();
+                //menampilkan lattitude & longitude Toko
+                SqlConnection sqlconn = new SqlConnection(Mainconn);
+                string sqlquery = $"SELECT * FROM checkout_user WHERE cout_status = 'DIKIRIM' AND id_user = '" + SessionName + "'";
                 SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
                 sqlconn.Open();
                 SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);

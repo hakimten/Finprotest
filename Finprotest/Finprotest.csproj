@@ -1801,6 +1801,8 @@
     <Content Include="Views\Owner\EstimasiWaktu.cshtml" />
     <Content Include="Views\User\statusorder.cshtml" />
     <Content Include="Views\User\Validasicart.cshtml" />
+    <Content Include="Views\User\HistoryOrderPacked.cshtml" />
+    <Content Include="Views\User\HistoryOrderSent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

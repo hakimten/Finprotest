@@ -139,8 +139,8 @@ namespace Finprotest.Controllers
         [HttpPost]
         public ActionResult registeruser(FormCollection form)
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
-            //var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+            //v/*ar connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;*/
+            var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
             SqlConnection myConnection = new SqlConnection();
             myConnection.ConnectionString = connectionString;
             myConnection.Open();
@@ -182,8 +182,8 @@ namespace Finprotest.Controllers
         [HttpPost]
         public ActionResult registerOwner(FormCollection form)
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
-            //var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+            //var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
+            var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
             SqlConnection myConnection = new SqlConnection();
             myConnection.ConnectionString = connectionString;
             myConnection.Open();
