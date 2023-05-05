@@ -58,5 +58,8 @@ namespace Finprotest.Models
         public int ITEM { get; internal set; }
         public int QUANTITY { get; internal set; }
         public string no_resi { get; internal set; }
+        public string RP { get; internal set; }
+        public string date { get; internal set; }
+        public string month { get; internal set; }
     }
 }
