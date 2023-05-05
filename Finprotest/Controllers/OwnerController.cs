@@ -21,6 +21,48 @@ namespace Finprotest.Controllers
         {
             if (Session["id_owner"] != null)
             {
+                //SqlConnection sqlconn = new SqlConnection(Mainconn);
+                //String sqlquery = "select date, FORMAT(net_income, 'N') AS RP from Order_Income_Day";
+                //SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
+                //sqlconn.Open();
+                //SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+                //DataTable ds = new DataTable();
+                //sda.Fill(ds);
+
+                //List<Ownerclass> uc = new List<Ownerclass>();
+                //List<Ownerclass> uc1 = new List<Ownerclass>();
+                //{
+                //    foreach (DataRow dr in ds.Rows)
+                //    {
+                //        Ownerclass uc10 = new Ownerclass();
+                //        uc10.RP = Convert.ToString(dr["RP"]);
+                //        uc10.date = Convert.ToString(dr["date"]);
+
+                //        uc.Add(uc10);
+                //    }
+                //}
+
+                //String sqlquery1 = $"select month, FORMAT(net_income, 'N') AS RP from Order_Income_Month";
+                //using (SqlCommand cmd3 = new SqlCommand(sqlquery1, sqlconn))
+                //{
+                //    SqlDataAdapter sda1 = new SqlDataAdapter(cmd3);
+                //    DataTable ds1 = new DataTable();
+                //    sda1.Fill(ds1);
+
+                //    {
+
+                //        foreach (DataRow dr1 in ds1.Rows)
+                //        {
+                //            Ownerclass uc11 = new Ownerclass();
+                //            uc11.RP = Convert.ToString(dr1["RP"]);
+                //            uc11.month = Convert.ToString(dr1["month"]);
+
+                //            uc1.Add(uc11);
+                //        }
+                //    }
+                //}
+                //ViewBag.uc1 = uc1;
+                //sqlconn.Close();
                 return View();
             }
             else
@@ -28,6 +70,7 @@ namespace Finprotest.Controllers
                 return RedirectToAction("LoginOwner", "Login");
             }
         }
+
         public ActionResult Product()
         {
             if (Session["id_owner"] != null)
@@ -769,7 +812,7 @@ namespace Finprotest.Controllers
                 string SessionName = Session["id_owner"].ToString();
                 //menampilkan lattitude & longitude Toko
                 SqlConnection sqlconn = new SqlConnection(Mainconn);
-                string sqlquery = $"SELECT * FROM checkout_user WHERE cout_status = 'FINISH'";
+                string sqlquery = $"SELECT * FROM checkout_user WHERE cout_status = 'DIKIRIM'";
                 SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
                 sqlconn.Open();
                 SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
@@ -783,7 +826,7 @@ namespace Finprotest.Controllers
                     data.cout_id = (int)dr["cout_id"];
                     data.updated_at = (DateTime)dr["updated_at"];
                     uc.Add(data);
-                    string sqlquery2 = $" SELECT t1.Cart_id, t1.Product_id, t1.Cart_kuantity, t1.total_harga, t1.id_user, t1.cout_id, t2.Product_name, t2.product_img1, t2.id_owner, t3.name_user FROM Cart_user t1 JOIN Product_owner t2 ON t1.Product_id = t2.Product_id JOIN account_user t3 ON t1.id_user = t3.id_user WHERE t1.cout_id = '{data.cout_id}' AND t1.id_owner = '" + SessionName + "'";
+                    string sqlquery2 = $"SELECT t1.Cart_id, t1.Product_id, t1.Cart_kuantity, t1.total_harga, t1.id_user, t1.cout_id, t2.Product_name, t2.product_img1, t2.id_owner, t3.name_user FROM Cart_user t1 JOIN Product_owner t2 ON t1.Product_id = t2.Product_id JOIN account_user t3 ON t1.id_user = t3.id_user WHERE t1.cout_id = '{data.cout_id}' AND t2.id_owner = '" + SessionName + "'";
                     SqlCommand sqlcomm2 = new SqlCommand(sqlquery2, sqlconn);
                     SqlDataAdapter sda2 = new SqlDataAdapter(sqlcomm2);
                     DataTable ds2 = new DataTable();
@@ -805,6 +848,7 @@ namespace Finprotest.Controllers
                         data2.Cart_kuantity = Convert.ToInt32(dr1["Cart_kuantity"]);
                         data2.total_harga = Convert.ToInt32(dr1["total_harga"]);
                         data2.id_user = Convert.ToInt32(dr1["id_user"]);
+                        data2.id_owner = Convert.ToInt32(dr1["id_owner"]);
                         data2.cout_id = Convert.ToInt32(dr1["cout_id"]);
                         uc2.Add(data2);
                     }
@@ -816,7 +860,7 @@ namespace Finprotest.Controllers
             }
             else
             {
-                return RedirectToAction("LoginUser", "Login");
+                return RedirectToAction("LoginOwner", "Login");
             }
         }
         public ActionResult EstimasiWaktu(int id)

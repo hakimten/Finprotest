@@ -84,5 +84,41 @@ namespace Finprotest.Controllers
                 return RedirectToAction("LoginAdmin", "Login");
             }
         }
+        public ActionResult Validate(FormCollection form)
+        {
+            SqlConnection myConnection = new SqlConnection();
+            string id = form["id"];
+
+            myConnection.ConnectionString = Mainconn;
+            string Query3 = "UPDATE Product_owner SET product_status = 'A' WHERE Product_id = @Product_id";
+            using (SqlCommand sqlmethod = new SqlCommand(Query3, myConnection))
+            {
+                sqlmethod.Parameters.AddWithValue("@Product_id", id);
+                myConnection.Open();
+                sqlmethod.ExecuteNonQuery();
+                TempData["messsage"] = "success";
+                myConnection.Close();
+            }
+            return RedirectToAction("Dashboard");
+        }
+        public ActionResult Delete(FormCollection form)
+        {
+            SqlConnection myConnection = new SqlConnection();
+            string noresi = form["noresi"];
+            string id = form["id"];
+
+            myConnection.ConnectionString = Mainconn;
+            string Query3 = "UPDATE Estimasi_waktu SET no_resi = @no_resi WHERE cout_id = @cout_id";
+            using (SqlCommand sqlmethod = new SqlCommand(Query3, myConnection))
+            {
+                sqlmethod.Parameters.AddWithValue("@cout_id", id);
+                sqlmethod.Parameters.AddWithValue("@no_resi", noresi);
+                myConnection.Open();
+                sqlmethod.ExecuteNonQuery();
+                TempData["messsage"] = "success";
+                myConnection.Close();
+            }
+            return RedirectToAction("Dashboard");
+        }
     }
 }
