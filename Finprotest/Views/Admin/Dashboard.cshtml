@@ -103,15 +103,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach(var dataakun in ViewBag.uc2) {
-                            <tr>
-                                <td class="text-center text-white">@dataakun.username_owner</td>
-                                <td class="text-center text-white">@dataakun.name_owner</td>
-                                <td class="text-center text-white">@dataakun.address_owner</td>
-                                <td class="text-center text-white">
-                                    <span class="open-editprofil badge badge-boxed badge-soft-warning" data-idacc="@dataakun.id_owner">Delete</span>
-                                </td>
-                            </tr>
+                            @foreach (var dataakun in ViewBag.uc2)
+                            {
+                                <tr>
+                                    <td class="text-center text-white">@dataakun.username_owner</td>
+                                    <td class="text-center text-white">@dataakun.name_owner</td>
+                                    <td class="text-center text-white">@dataakun.address_owner</td>
+                                    <td class="text-center text-white">
+                                        <span class="open-editprofil badge badge-boxed badge-soft-warning" data-idacc="@dataakun.id_owner">Delete</span>
+                                    </td>
+                                </tr>
                             }
                         </tbody>
                     </table>
@@ -138,16 +139,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var dataproduct in ViewBag.uc) {
-                            <tr>
-                                <td class="text-center text-white">@dataproduct.Product_name</td>
-                                <td class="text-center text-white">@dataproduct.Toko_name</td>
-                                <td class="text-center text-white">@dataproduct.username_owner</td>
-                                <td class="text-center text-white">@dataproduct.address_owner</td>
-                                <td class="text-center text-white">
-                                    <span class="open-editprofil badge badge-boxed badge-soft-warning" data-id="@dataproduct.Toko_id">Approve</span>
-                                </td>
-                            </tr>
+                            @foreach (var dataproduct in ViewBag.uc)
+                            {
+                                <tr>
+                                    <td class="text-center text-white">@dataproduct.Product_name</td>
+                                    <td class="text-center text-white">@dataproduct.Toko_name</td>
+                                    <td class="text-center text-white">@dataproduct.username_owner</td>
+                                    <td class="text-center text-white">@dataproduct.address_owner</td>
+                                    <td class="text-center text-white">
+                                        <span class="open-editprofil badge badge-boxed badge-soft-warning" data-id="@dataproduct.Toko_id"s>Approve</span>
+                                    </td>
+                                </tr>
                             }
                         </tbody>
                     </table>
