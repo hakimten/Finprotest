@@ -618,7 +618,7 @@ namespace Finprotest.Controllers
             {
                 string session1 = Session["id_owner"].ToString();
                 connection.Open();
-                string query = "SELECT t1.cout_id, t1.all_total, t1.eks_id, t1.pay_ID, t1.id_user, t1.id_owner, t1.almt_Id, t1.cout_status, t1.payment_history, t1.updated_at, t2.eks_name, t2.eks_harga, t3.payment_name, t4.alamt_name, t4.lattitude_user, t4.longitude_user, t4.no_hpbuy, t5.name_user, t6.no_resi FROM checkout_user t1 JOIN Ekspedis_c t2 ON t1.eks_id = t2.eks_id JOIN paymentMethod t3 ON t1.pay_ID = t3.pay_ID JOIN alamat_user t4 ON t1.almt_Id = t4.almt_Id JOIN account_user t5 ON t1.id_user = t5.id_user JOIN Estimasi_waktu t6 ON t1.cout_id = t6.cout_id WHERE t1.id_owner = '" + session1 + "'";
+                string query = "SELECT t1.cout_id, t1.all_total, t1.eks_id, t1.pay_ID, t1.id_user, t1.id_owner, t1.almt_Id, t1.cout_status, t1.payment_history, t1.updated_at, t2.eks_name, t2.eks_harga, t3.payment_name, t4.alamt_name, t4.lattitude_user, t4.longitude_user, t4.no_hpbuy, t5.name_user FROM checkout_user t1 JOIN Ekspedis_c t2 ON t1.eks_id = t2.eks_id JOIN paymentMethod t3 ON t1.pay_ID = t3.pay_ID JOIN alamat_user t4 ON t1.almt_Id = t4.almt_Id JOIN account_user t5 ON t1.id_user = t5.id_user WHERE t1.id_owner = '" + session1 + "' AND t1.cout_status <> 'DIKIRIM'";
                 SqlCommand command = new SqlCommand(query, connection);
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
@@ -648,7 +648,6 @@ namespace Finprotest.Controllers
                     person.longitude_user = (string)reader["longitude_user"];
                     person.no_hpbuy = (string)reader["no_hpbuy"];
                     person.name_user = (string)reader["name_user"];
-                    person.no_resi = (string)reader["no_resi"];
                     person.updated_at = (DateTime)reader["updated_at"];
                     persons.Add(person);
                 }

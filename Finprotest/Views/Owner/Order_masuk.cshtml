@@ -112,8 +112,6 @@
                         <tbody>
                             @foreach (var dataproduk in Model)
                             {
-                                if (dataproduk.no_resi == "NONE")
-                                {
                                     <tr>
                                         <td class="text-white"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="thumb-sm rounded-circle mr-2"> @dataproduk.name_user</td>
                                         <td class="text-center text-white">RP.@dataproduk.all_total</td>
@@ -127,14 +125,21 @@
                                         <td class="text-center text-white">@dataproduk.no_hpbuy</td>
                                         <td class="text-center text-white">@dataproduk.updated_at</td>
                                         <td class="text-center text-dark">
-                                            <a class="btn btn-lg btn-primary" href="@Url.Action("EstimasiWaktu", "Owner", new { id = dataproduk.cout_id})">
-                                                <i class="fa fa-pencil-alt">Confirm</i>
-                                            </a>
+                                            @if (dataproduk.cout_status == "PAYMENT")
+                                            {
+                                                <a class="btn btn-lg btn-primary" href="@Url.Action("EstimasiWaktu", "Owner", new { id = dataproduk.cout_id})">
+                                                    <i class="fa fa-pencil-alt">Confirm</i>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a class="open-editalldata btn btn-lg btn-warning">DATA WAS CONFIRM</a>
+                                            }
                                         </td>
                                         <td class="text-center text-dark">
-                                            @if (dataproduk.no_resi == "NONE")
+                                            @if (dataproduk.cout_status == "DIKEMAS")
                                             {
-                                                <a class="open-editalldata btn btn-lg btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-iddd="@dataproduk.cout_id">ADD RESI NUMBER</a>
+                                                <a class="open-editalldata btn btn-lg btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-iddd="@dataproduk.cout_id">ADD RESI NUMBER</a>
                                             }
                                             else
                                             {
@@ -143,23 +148,6 @@
                                         </td>
                                     </tr>
                                 }
-                                else
-                                {
-                                    @*<tr>
-                                        <td class="text-center text-white"></td>
-                                        <td class="text-white"></td>
-                                        <td class="text-center text-white"></td>
-                                        <td class="text-center text-white"></td>
-                                        <td class="text-center text-white"></td>
-                                        <td class="text-center text-white"></td>
-                                        <td class="text-center text-white"></td>
-                                        <td class="text-center text-white"></td>
-                                        <td class="text-center text-white"></td>
-                                        <td class="text-center text-white"></td>
-                                        <td class="text-center text-white"></td>
-                                    </tr>*@
-                                }
-                            }
                         </tbody>
                     </table>
                 </div>
