@@ -178,7 +178,9 @@
                                                         <p class="text-black">
                                                             @dataalamat.name_buyer,@dataalamat.no_hpbuy,@dataalamat.alamt_name, Jawa Barat, Bekasi, Indonesia, 21274
                                                         </p>
-                                                        <p class="mb-0 text-black font-weight-bold"><a class="text-primary mr-3" data-toggle="modal" data-target="#add-address-modal" href="#"><i class="icofont-ui-edit"></i> EDIT</a> <a class="text-danger" data-toggle="modal" data-target="#delete-address-modal" href="#"><i class="icofont-ui-delete"></i> DELETE</a></p>
+                                                        <p class="mb-0 text-black font-weight-bold">
+                                                        <a class="open-editexel text-danger" data-toggle="modal" data-target="#delete-address-modal" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" data-id="@dataalamat.almt_Id"><i class="icofont-ui-delete" ></i> DELETE</a>
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -334,6 +336,33 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).on("click", ".open-editexel", function () {
+        var id = $(this).data('id');
+        $(".modal-body #idalmt").val(id);
+    });
+</script>
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Edit New Address</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/User/EditNewAddress" method="post" id="sampleForm" enctype="multipart/form-data">
+                <div class="modal-body">
+                    You want to delete this address ? if yes you can click button delete!!
+                    <input type="hidden" id="idalmt" name="idalmt"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">DELETE</button>
                 </div>
             </form>
         </div>

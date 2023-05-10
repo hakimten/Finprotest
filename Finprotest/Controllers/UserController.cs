@@ -992,6 +992,36 @@ namespace Finprotest.Controllers
                 return RedirectToAction("LoginUser", "Login");
             }
         }
+        public ActionResult EditNewAddress(FormCollection form)
+        {
+            if (Session["id_user"] != null)
+            {
+                //var connectionString = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+                //var connectionString = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
+                SqlConnection myConnection = new SqlConnection(Mainconn);
+                //myConnection.ConnectionString = connectionString;
+                myConnection.Open();
+                string SessionName = Session["id_user"].ToString();
+                string firstName = form["firstName"];
+                string idalmt = form["idalmt"];
+                SqlConnection sqlconn2 = new SqlConnection(Mainconn);
+                string Query3 = "DELETE FROM alamat_user WHERE almt_Id = @almt_Id";
+                using (SqlCommand sqlmethod = new SqlCommand(Query3, sqlconn2))
+                {
+                    sqlmethod.Parameters.AddWithValue("@almt_Id", idalmt);
+
+                    sqlconn2.Open();
+                    sqlmethod.ExecuteNonQuery();
+                    TempData["messsage"] = "success";
+                    sqlconn2.Close();
+                }
+                return RedirectToAction("AddressUser");
+            }
+            else
+            {
+                return RedirectToAction("LoginUser", "Login");
+            }
+        }
         public ActionResult ConfirmOrderUser()
         {
             if (Session["id_user"] != null)
@@ -1467,6 +1497,42 @@ namespace Finprotest.Controllers
             {
                 return RedirectToAction("LoginUser", "Login");
             }
+        }
+        public ActionResult Editstatusorder(FormCollection form)
+        {
+            SqlConnection myConnection = new SqlConnection();
+            string idcout = form["idcout"];
+
+            myConnection.ConnectionString = Mainconn;
+            string Query3 = "UPDATE Estimasi_waktu SET status = 'FINISH' WHERE cout_id = @cout_id";
+            using (SqlCommand sqlmethod = new SqlCommand(Query3, myConnection))
+            {
+                sqlmethod.Parameters.AddWithValue("@cout_id", idcout);
+                myConnection.Open();
+                sqlmethod.ExecuteNonQuery();
+                TempData["messsage"] = "success";
+                myConnection.Close();
+            }
+            string Query4 = "UPDATE checkout_user SET cout_status = 'FINISH' WHERE cout_id = @cout_id";
+            using (SqlCommand sqlmethod = new SqlCommand(Query4, myConnection))
+            {
+                sqlmethod.Parameters.AddWithValue("@cout_id", idcout);
+                myConnection.Open();
+                sqlmethod.ExecuteNonQuery();
+                TempData["messsage"] = "success";
+                myConnection.Close();
+            }
+            string Query5 = "UPDATE Cart_user SET cart_status = 'FINISH' WHERE cout_id = @cout_id";
+            using (SqlCommand sqlmethod = new SqlCommand(Query5, myConnection))
+            {
+                sqlmethod.Parameters.AddWithValue("@cout_id", idcout);
+                myConnection.Open();
+                sqlmethod.ExecuteNonQuery();
+                TempData["messsage"] = "success";
+                myConnection.Close();
+            }
+
+            return RedirectToAction("Index");
         }
         public ActionResult HistoryOrderFinish()
         {

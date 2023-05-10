@@ -71,9 +71,9 @@
 </head>
 
 <body>
-    <div class="container card">
+    <div class="container card" style="background-color:lavenderblush;">
         <section>
-            <h2>Reports</h2>
+            <h1 class="text-center">REPORT SALES OWNER</h1>
             <br />
             <br />
             <h4>Total Income Per Month :</h4>
@@ -85,13 +85,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @*@foreach (var data in ViewBag.uc1)
-                        {*@
-                    <tr>
-                        <td class="text-center">March</td>
-                        <td class="text-center">Rp. 6.000.000</td>
-                    </tr>
-                    @*}*@
+                    @foreach (var data in ViewBag.uc1)
+                    {
+                        <tr>
+                            <td class="text-center">@data.month</td>
+                            <td class="text-center">@data.RP</td>
+                        </tr>
+                    }
                 </tbody>
                 <tfoot>
                     <tr>
@@ -133,17 +133,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @*@foreach (var data in Model)
-                            {*@
-                        <tr>
-                            <td class="text-center">03/17/2023</td>
-                            <td class="text-center">Rp. 3.500.000</td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">03/17/2023</td>
-                            <td class="text-center">Rp. 2.000.000</td>
-                        </tr>
-                        @*}*@
+                        @foreach (var data2 in ViewBag.uc)
+                        {
+                            <tr>
+                                <td class="text-center">@data2.date</td>
+                                <td class="text-center">@data2.RP</td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>

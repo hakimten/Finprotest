@@ -76,7 +76,7 @@
                     <div class="col-lg-3 col-md-3 col-7">
                         <!-- Start Header Logo -->
                         <a class="navbar-brand" href="~/User/Index">
-                            <img src="~/Bootstrap 5/bgshop2.png" alt="Logo"/>
+                            <img src="~/Bootstrap 5/bgshop2.png" alt="Logo" />
                         </a>
                         <!-- End Header Logo -->
                     </div>
@@ -113,6 +113,14 @@
     </header>
     <!-- End Header Area -->
     <!-- Start Shipping Info -->
+    @if (Session["id_user"] == null)
+    {
+        @Html.ActionLink("LoginUser", "Login", "Home")
+    }
+    else
+    {
+        @Session["name_user"].ToString()
+    } 
 
     @RenderBody()
 

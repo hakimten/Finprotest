@@ -21,48 +21,49 @@ namespace Finprotest.Controllers
         {
             if (Session["id_owner"] != null)
             {
-                //SqlConnection sqlconn = new SqlConnection(Mainconn);
-                //String sqlquery = "select date, FORMAT(net_income, 'N') AS RP from Order_Income_Day";
-                //SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
-                //sqlconn.Open();
-                //SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
-                //DataTable ds = new DataTable();
-                //sda.Fill(ds);
+                SqlConnection sqlconn = new SqlConnection(Mainconn);
+                String sqlquery = "select date, FORMAT(net_income, 'N') AS RP from income_day";
+                SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
+                sqlconn.Open();
+                SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+                DataTable ds = new DataTable();
+                sda.Fill(ds);
 
-                //List<Ownerclass> uc = new List<Ownerclass>();
-                //List<Ownerclass> uc1 = new List<Ownerclass>();
-                //{
-                //    foreach (DataRow dr in ds.Rows)
-                //    {
-                //        Ownerclass uc10 = new Ownerclass();
-                //        uc10.RP = Convert.ToString(dr["RP"]);
-                //        uc10.date = Convert.ToString(dr["date"]);
+                List<Ownerclass> uc = new List<Ownerclass>();
+                List<Ownerclass> uc1 = new List<Ownerclass>();
+                {
+                    foreach (DataRow dr in ds.Rows)
+                    {
+                        Ownerclass uc10 = new Ownerclass();
+                        uc10.RP = Convert.ToString(dr["RP"]);
+                        uc10.date = Convert.ToString(dr["date"]);
 
-                //        uc.Add(uc10);
-                //    }
-                //}
+                        uc.Add(uc10);
+                    }
+                }
 
-                //String sqlquery1 = $"select month, FORMAT(net_income, 'N') AS RP from Order_Income_Month";
-                //using (SqlCommand cmd3 = new SqlCommand(sqlquery1, sqlconn))
-                //{
-                //    SqlDataAdapter sda1 = new SqlDataAdapter(cmd3);
-                //    DataTable ds1 = new DataTable();
-                //    sda1.Fill(ds1);
+                String sqlquery1 = $"select month, FORMAT(net_income, 'N') AS RP from income_month";
+                using (SqlCommand cmd3 = new SqlCommand(sqlquery1, sqlconn))
+                {
+                    SqlDataAdapter sda1 = new SqlDataAdapter(cmd3);
+                    DataTable ds1 = new DataTable();
+                    sda1.Fill(ds1);
 
-                //    {
+                    {
 
-                //        foreach (DataRow dr1 in ds1.Rows)
-                //        {
-                //            Ownerclass uc11 = new Ownerclass();
-                //            uc11.RP = Convert.ToString(dr1["RP"]);
-                //            uc11.month = Convert.ToString(dr1["month"]);
+                        foreach (DataRow dr1 in ds1.Rows)
+                        {
+                            Ownerclass uc11 = new Ownerclass();
+                            uc11.RP = Convert.ToString(dr1["RP"]);
+                            uc11.month = Convert.ToString(dr1["month"]);
 
-                //            uc1.Add(uc11);
-                //        }
-                //    }
-                //}
-                //ViewBag.uc1 = uc1;
-                //sqlconn.Close();
+                            uc1.Add(uc11);
+                        }
+                    }
+                }
+                ViewBag.uc = uc;
+                ViewBag.uc1 = uc1;
+                sqlconn.Close();
                 return View();
             }
             else
@@ -811,7 +812,7 @@ namespace Finprotest.Controllers
                 string SessionName = Session["id_owner"].ToString();
                 //menampilkan lattitude & longitude Toko
                 SqlConnection sqlconn = new SqlConnection(Mainconn);
-                string sqlquery = $"SELECT * FROM checkout_user WHERE cout_status = 'DIKIRIM'";
+                string sqlquery = $"SELECT * FROM checkout_user WHERE cout_status = 'FINISH'";
                 SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
                 sqlconn.Open();
                 SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
@@ -959,7 +960,7 @@ namespace Finprotest.Controllers
             string id = form["id"];
 
             myConnection.ConnectionString = Mainconn;
-            string Query3 = "UPDATE Estimasi_waktu SET no_resi = @no_resi WHERE cout_id = @cout_id";
+            string Query3 = "UPDATE Estimasi_waktu SET no_resi = @no_resi, status = 'DIKIRIM' WHERE cout_id = @cout_id";
             using (SqlCommand sqlmethod = new SqlCommand(Query3, myConnection))
             {
                 sqlmethod.Parameters.AddWithValue("@cout_id", id);

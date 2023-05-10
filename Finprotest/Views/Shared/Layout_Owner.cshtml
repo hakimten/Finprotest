@@ -379,6 +379,18 @@
                     </div>
                 </div>
             </div>
+            <span class="d-sm-inline d-none">
+                <text class="text-white">
+                    @if (Session["id_owner"] == null)
+                    {
+                        @Html.ActionLink("LoginOwner", "Login", "Home")
+                    }
+                    else
+                    {
+                        @Session["name_owner"].ToString()
+                    }
+                </text>
+            </span>
 
             @RenderBody()
 

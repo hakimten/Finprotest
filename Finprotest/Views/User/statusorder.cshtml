@@ -157,4 +157,12 @@
             <h3 class="text-center">@datastatus.estimasi_sampai</h3>
         </div>
     </div>
+    <br />
+    <center>
+        <form action="/User/Editstatusorder" method="post" id="sampleForm" enctype="multipart/form-data">
+            <input type="hidden" value="@datastatus.cout_id" name="idcout"/>
+            <button class="btn btn-lg btn-warning" type="submit">CONFIRM ORDER</button>
+        </form>
+    </center>
+    <br />
 }
