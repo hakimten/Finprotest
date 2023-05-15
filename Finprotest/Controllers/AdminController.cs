@@ -12,8 +12,8 @@ namespace Finprotest.Controllers
 {
     public class AdminController : Controller
     {
-        //string Mainconn = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
-        string Mainconn = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
+        string Mainconn = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+        //string Mainconn = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
         // GET: Admin
         public ActionResult Dashboard()
         {
@@ -21,7 +21,7 @@ namespace Finprotest.Controllers
             {
                 SqlConnection sqlconn = new SqlConnection(Mainconn);
                 // display product owner 
-                String sqlquery2 = "SELECT FORMAT(product_harga, 'N') AS RP, t1.Product_id, t1.Kategori_ID, t1.Product_name, t1.product_img1, t1.product_img2, t1.product_img3, t1.id_owner, t1.product_harga, t1.Product_stock, t1.artist_ID, t1.product_status, t2.address_owner, t3.Kategori_Name, t4.artist_name, t5.Toko_id, t5.Toko_name, t5.username_owner FROM Product_owner t1 JOIN account_owner t2 ON t1.id_owner = t2.id_owner JOIN KategoriProduct t3 ON t1.Kategori_ID = t3.Kategori_ID JOIN artist_Db t4 ON t1.artist_ID = t4.artist_ID JOIN Toko_Profil t5 ON t1.id_owner = t5.id_owner WHERE t1.product_status = 'A'";
+                String sqlquery2 = "SELECT FORMAT(product_harga, 'N') AS RP, t1.Product_id, t1.Kategori_ID, t1.Product_name, t1.product_img1, t1.product_img2, t1.product_img3, t1.id_owner, t1.product_harga, t1.Product_stock, t1.artist_ID, t1.product_status, t2.address_owner, t3.Kategori_Name, t4.artist_name, t5.Toko_id, t5.Toko_name, t5.username_owner FROM Product_owner t1 JOIN account_owner t2 ON t1.id_owner = t2.id_owner JOIN KategoriProduct t3 ON t1.Kategori_ID = t3.Kategori_ID JOIN artist_Db t4 ON t1.artist_ID = t4.artist_ID JOIN Toko_Profil t5 ON t1.id_owner = t5.id_owner WHERE t1.product_status = 'B'";
                 SqlCommand sqlcomm2 = new SqlCommand(sqlquery2, sqlconn);
                 sqlconn.Open();
                 SqlDataAdapter sda2 = new SqlDataAdapter(sqlcomm2);
@@ -84,16 +84,16 @@ namespace Finprotest.Controllers
                 return RedirectToAction("LoginAdmin", "Login");
             }
         }
-        public ActionResult Validate(FormCollection form)
+        public ActionResult Approve(FormCollection form)
         {
             SqlConnection myConnection = new SqlConnection();
-            string id = form["id"];
+            string idalmt = form["idalmt"];
 
             myConnection.ConnectionString = Mainconn;
             string Query3 = "UPDATE Product_owner SET product_status = 'A' WHERE Product_id = @Product_id";
             using (SqlCommand sqlmethod = new SqlCommand(Query3, myConnection))
             {
-                sqlmethod.Parameters.AddWithValue("@Product_id", id);
+                sqlmethod.Parameters.AddWithValue("@Product_id", idalmt);
                 myConnection.Open();
                 sqlmethod.ExecuteNonQuery();
                 TempData["messsage"] = "success";
@@ -105,13 +105,13 @@ namespace Finprotest.Controllers
         {
             SqlConnection myConnection = new SqlConnection();
             string noresi = form["noresi"];
-            string id = form["id"];
+            string idalmt = form["idalmt"];
 
             myConnection.ConnectionString = Mainconn;
             string Query3 = "UPDATE Estimasi_waktu SET no_resi = @no_resi WHERE cout_id = @cout_id";
             using (SqlCommand sqlmethod = new SqlCommand(Query3, myConnection))
             {
-                sqlmethod.Parameters.AddWithValue("@cout_id", id);
+                sqlmethod.Parameters.AddWithValue("@cout_id", idalmt);
                 sqlmethod.Parameters.AddWithValue("@no_resi", noresi);
                 myConnection.Open();
                 sqlmethod.ExecuteNonQuery();

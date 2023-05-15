@@ -60,7 +60,7 @@
                             </div>
                             <ul class="user-login">
                                 <li>
-                                    <a href="register.html">Logout</a>
+                                    <a data-bs-toggle="modal" data-bs-target="#logoutModal2">Logout</a>
                                 </li>
                             </ul>
                         </div>
@@ -98,11 +98,11 @@
 
                                 </div>
                                 @*<div class="cart-items">
-                                    <a href="~/User/CartDetails" class="main-btn">
-                                        <i class="lni lni-cart"></i>
-                                        <span class="total-items">2</span>
-                                    </a>
-                                </div>*@
+                                        <a href="~/User/CartDetails" class="main-btn">
+                                            <i class="lni lni-cart"></i>
+                                            <span class="total-items">2</span>
+                                        </a>
+                                    </div>*@
                             </div>
                         </div>
                     </div>
@@ -160,7 +160,25 @@
     <a href="#" class="scroll-top">
         <i class="lni lni-chevron-up"></i>
     </a>
-
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="/Login/SignOut">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- ========================= JS here ========================= -->
     <script src="~/ShopGrids-free-lite/assets/js/bootstrap.min.js"></script>
     <script src="~/ShopGrids-free-lite/assets/js/tiny-slider.js"></script>

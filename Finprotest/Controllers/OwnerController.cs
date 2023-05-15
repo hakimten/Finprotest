@@ -14,8 +14,8 @@ namespace Finprotest.Controllers
 {
     public class OwnerController : Controller
     {
-        //string Mainconn = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
-        string Mainconn = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
+        string Mainconn = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+        //string Mainconn = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
         // GET: Owner
         public ActionResult Index()
         {
@@ -78,7 +78,7 @@ namespace Finprotest.Controllers
             {
                 string SessionName = Session["id_owner"].ToString();
                 SqlConnection sqlconn = new SqlConnection(Mainconn);
-                String sqlquery = "SELECT t1.Product_id, t1.Kategori_ID, t1.Product_name, t1.product_img1, t1.product_img2, t1.product_img3, t1.id_owner, t1.product_harga, t1.Product_stock, t1.artist_ID, t1.product_status, t2.Kategori_Name, t3.name_owner, t4.artist_name  FROM Product_owner t1 JOIN KategoriProduct t2 ON t1.Kategori_ID = t2.Kategori_ID JOIN account_owner t3 ON t1.id_owner = t3.id_owner JOIN artist_Db t4 ON t1.artist_ID = t4.artist_ID WHERE t1.id_owner = '" + SessionName + "'";
+                String sqlquery = "SELECT t1.Product_id, t1.Kategori_ID, t1.Product_name, t1.product_img1, t1.product_img2, t1.product_img3, t1.id_owner, t1.product_harga, t1.Product_stock, t1.artist_ID, t1.product_status, t2.Kategori_Name, t3.name_owner, t4.artist_name  FROM Product_owner t1 JOIN KategoriProduct t2 ON t1.Kategori_ID = t2.Kategori_ID JOIN account_owner t3 ON t1.id_owner = t3.id_owner JOIN artist_Db t4 ON t1.artist_ID = t4.artist_ID WHERE t1.id_owner = '" + SessionName + "' AND t1.product_status = 'A'";
                 SqlCommand sqlcomm = new SqlCommand(sqlquery, sqlconn);
                 sqlconn.Open();
                 SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
@@ -251,7 +251,7 @@ namespace Finprotest.Controllers
                 sideimg.SaveAs(filePathsewnPattern2);
 
                 myConnection.ConnectionString = Mainconn;
-                string Query3 = "INSERT INTO Product_owner (Kategori_ID, Product_name, product_img1, product_img2, product_img3, id_owner, product_harga, Product_stock, artist_ID, product_status, Berat) VALUES (@Kategori_ID, @Product_name, @product_img1, @product_img2, @product_img3, @id_owner, @product_harga, @Product_stock, @artist_ID,'B', @Berat)";
+                string Query3 = "INSERT INTO Product_owner (Kategori_ID, Product_name, product_img1, product_img2, product_img3, id_owner, product_harga, Product_stock, artist_ID, product_status, Berat, product_terjual) VALUES (@Kategori_ID, @Product_name, @product_img1, @product_img2, @product_img3, @id_owner, @product_harga, @Product_stock, @artist_ID,'B', @Berat, '1')";
                 using (SqlCommand sqlmethod = new SqlCommand(Query3, myConnection))
                 {
                     sqlmethod.Parameters.AddWithValue("@Kategori_ID", kategori);
@@ -619,7 +619,7 @@ namespace Finprotest.Controllers
             {
                 string session1 = Session["id_owner"].ToString();
                 connection.Open();
-                string query = "SELECT t1.cout_id, t1.all_total, t1.eks_id, t1.pay_ID, t1.id_user, t1.id_owner, t1.almt_Id, t1.cout_status, t1.payment_history, t1.updated_at, t2.eks_name, t2.eks_harga, t3.payment_name, t4.alamt_name, t4.lattitude_user, t4.longitude_user, t4.no_hpbuy, t5.name_user FROM checkout_user t1 JOIN Ekspedis_c t2 ON t1.eks_id = t2.eks_id JOIN paymentMethod t3 ON t1.pay_ID = t3.pay_ID JOIN alamat_user t4 ON t1.almt_Id = t4.almt_Id JOIN account_user t5 ON t1.id_user = t5.id_user WHERE t1.id_owner = '" + session1 + "' AND t1.cout_status <> 'DIKIRIM'";
+                string query = "SELECT t1.cout_id, t1.all_total, t1.eks_id, t1.pay_ID, t1.id_user, t1.id_owner, t1.almt_Id, t1.cout_status, t1.payment_history, t1.updated_at, t2.eks_name, t2.eks_harga, t3.payment_name, t4.alamt_name, t4.lattitude_user, t4.longitude_user, t4.no_hpbuy, t5.name_user FROM checkout_user t1 JOIN Ekspedis_c t2 ON t1.eks_id = t2.eks_id JOIN paymentMethod t3 ON t1.pay_ID = t3.pay_ID JOIN alamat_user t4 ON t1.almt_Id = t4.almt_Id JOIN account_user t5 ON t1.id_user = t5.id_user WHERE t1.id_owner = '" + session1 + "' AND t1.cout_status <> 'FINISH'";
                 SqlCommand command = new SqlCommand(query, connection);
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())

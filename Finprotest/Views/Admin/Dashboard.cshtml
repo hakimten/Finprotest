@@ -110,7 +110,7 @@
                                     <td class="text-center text-white">@dataakun.name_owner</td>
                                     <td class="text-center text-white">@dataakun.address_owner</td>
                                     <td class="text-center text-white">
-                                        <span class="open-editprofil badge badge-boxed badge-soft-warning" data-idacc="@dataakun.id_owner">Delete</span>
+                                        <span class="open-editexel2 badge badge-boxed badge-soft-warning" data-idacc="@dataakun.id_owner" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Delete</span>
                                     </td>
                                 </tr>
                             }
@@ -147,7 +147,7 @@
                                     <td class="text-center text-white">@dataproduct.username_owner</td>
                                     <td class="text-center text-white">@dataproduct.address_owner</td>
                                     <td class="text-center text-white">
-                                        <span class="open-editprofil badge badge-boxed badge-soft-warning" data-id="@dataproduct.Toko_id" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Approve</span>
+                                        <span class="open-editexel badge badge-boxed badge-soft-warning" data-id="@dataproduct.Product_id" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Approve</span>
                                     </td>
                                 </tr>
                             }
@@ -159,6 +159,16 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).on("click", ".open-editexel", function () {
+        var id = $(this).data('id');
+        $(".modal-body #idalmt2").val(id);
+    });
+    $(document).on("click", ".open-editexel2", function () {
+        var idacc = $(this).data('idacc');
+        $(".modal-body #idalmt").val(idacc);
+    });
+</script>
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -167,13 +177,37 @@
                 <h5 class="modal-title" id="staticBackdropLabel">Approve product</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                Are you sure to validate this product? if yes you can click "Approve" button!
+            <form action="/Admin/Approve" method="post" id="sampleForm" enctype="multipart/form-data">
+                <div class="modal-body">
+                    Are you sure to validate this product? if yes you can click "Approve" button!
+                    <input type="hidden" id="idalmt2" name="idalmt" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Approve</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Approve product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Approve</button>
-            </div>
+            <form action="/Admin/Delete" method="post" id="sampleForm" enctype="multipart/form-data">
+                <div class="modal-body">
+                    Are you sure to Delete this Account? if yes you can click "Delete" button!
+                    <input type="hidden" id="idalmt" name="idalmt" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

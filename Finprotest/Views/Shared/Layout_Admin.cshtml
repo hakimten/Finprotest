@@ -121,6 +121,9 @@
                         </a>
                     </div>
                 </li>
+                <br />
+                <button class="btn btn-lg btn-warning" data-bs-toggle="modal" data-bs-target="#logoutModal3">Logout</button>
+                
                 @*<li class="nav-item">
             <a class="nav-link  active" data-bs-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample">
                 <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -382,7 +385,25 @@
             </span>
 
             @RenderBody()
-
+            <!-- Logout Modal-->
+            <div class="modal fade" id="logoutModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                            <a class="btn btn-primary" href="/Login/SignOut">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <footer class="footer pt-4">
                 <hr />
                 <div class="container-fluid">

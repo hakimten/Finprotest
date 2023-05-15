@@ -12,11 +12,11 @@ namespace Finprotest.Controllers
         {
             if (Session["id_user"] != null)
             {
-                return View();
+                return RedirectToAction("Index", "Login");
             }
             else
             {
-                return RedirectToAction("LoginUser", "Login");
+                return RedirectToAction("Index", "Login");
             }
         }
 
@@ -33,7 +33,7 @@ namespace Finprotest.Controllers
             }
             else
             {
-                return RedirectToAction("LoginUser", "Login");
+                return RedirectToAction("Index", "Login");
             }
         }
     }

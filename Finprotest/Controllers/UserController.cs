@@ -13,8 +13,8 @@ namespace Finprotest.Controllers
 {
     public class UserController : Controller
     {
-        //string Mainconn = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
-        string Mainconn = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
+        string Mainconn = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+        //string Mainconn = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
         // GET: User
         public ActionResult Index()
         {
@@ -121,7 +121,7 @@ namespace Finprotest.Controllers
             }
             else
             {
-                return RedirectToAction("LoginUser", "Login");
+                return RedirectToAction("Index", "Login");
             }
         }
         public ActionResult DetailsProduct(int id)
@@ -278,7 +278,7 @@ namespace Finprotest.Controllers
             }
             else
             {
-                return RedirectToAction("LoginOwner", "Login");
+                return RedirectToAction("Index", "Login");
             }
         }
         public ActionResult Detailitem(int Kategori_ID)
@@ -345,7 +345,7 @@ namespace Finprotest.Controllers
             }
             else
             {
-                return RedirectToAction("LoginOwner", "Login");
+                return RedirectToAction("Index", "Login");
             }
         }
         public ActionResult Detailartis(int artist_ID)
@@ -412,7 +412,7 @@ namespace Finprotest.Controllers
             }
             else
             {
-                return RedirectToAction("LoginOwner", "Login");
+                return RedirectToAction("Index", "Login");
             }
         }
         //Add to cart product
@@ -591,7 +591,7 @@ namespace Finprotest.Controllers
             }
             else
             {
-                return RedirectToAction("LoginUser", "Login");
+                return RedirectToAction("Index", "Login");
             }
         }
         //public ActionResult EditCart(FormCollection form, List<string> cartid, List<string> quantity, List<string> subtotal, List<string> jumlahberat)
@@ -701,7 +701,7 @@ namespace Finprotest.Controllers
             }
             else
             {
-                return RedirectToAction("LoginUser", "Login");
+                return RedirectToAction("Index", "Login");
             }
         }
         // for the checkout page
@@ -820,7 +820,7 @@ namespace Finprotest.Controllers
             }
             else
             {
-                return RedirectToAction("LoginUser", "Login");
+                return RedirectToAction("Index", "Login");
             }
         }
         public ActionResult cartpaylogic(FormCollection form, List<string> subtotal, List<string> cartid, List<string> productid)
@@ -901,7 +901,7 @@ namespace Finprotest.Controllers
             }
             else
             {
-                return RedirectToAction("LoginUser", "Login");
+                return RedirectToAction("Index", "Login");
             }
         }
         public ActionResult AddressUser()
@@ -944,7 +944,7 @@ namespace Finprotest.Controllers
             }
             else
             {
-                return RedirectToAction("LoginUser", "Login");
+                return RedirectToAction("Index", "Login");
             }
         }
         public ActionResult AddNewAddress(FormCollection form)
@@ -989,7 +989,7 @@ namespace Finprotest.Controllers
             }
             else
             {
-                return RedirectToAction("LoginUser", "Login");
+                return RedirectToAction("Index", "Login");
             }
         }
         public ActionResult EditNewAddress(FormCollection form)
@@ -1019,7 +1019,7 @@ namespace Finprotest.Controllers
             }
             else
             {
-                return RedirectToAction("LoginUser", "Login");
+                return RedirectToAction("Index", "Login");
             }
         }
         public ActionResult ConfirmOrderUser()
@@ -1069,7 +1069,7 @@ namespace Finprotest.Controllers
             }
             else
             {
-                return RedirectToAction("LoginUser", "Login");
+                return RedirectToAction("Index", "Login");
             }
         }
         public ActionResult ConfirmOrderUser2(int id)
@@ -1119,7 +1119,7 @@ namespace Finprotest.Controllers
             }
             else
             {
-                return RedirectToAction("LoginUser", "Login");
+                return RedirectToAction("Index", "Login");
             }
         }
         public ActionResult statusorder(int id)
@@ -1196,7 +1196,7 @@ namespace Finprotest.Controllers
             }
             else
             {
-                return RedirectToAction("LoginUser", "Login");
+                return RedirectToAction("Index", "Login");
             }
         }
         public ActionResult cancelorder(FormCollection form)
@@ -1231,7 +1231,7 @@ namespace Finprotest.Controllers
             }
             else
             {
-                return RedirectToAction("LoginUser", "Login");
+                return RedirectToAction("Index", "Login");
             }
         }
         public ActionResult confirmorder(FormCollection form, HttpPostedFileBase buktipembayaran)
@@ -1271,7 +1271,7 @@ namespace Finprotest.Controllers
             }
             else
             {
-                return RedirectToAction("LoginUser", "Login");
+                return RedirectToAction("Index", "Login");
             }
         }
         public ActionResult HistoryOrder()
@@ -1327,7 +1327,7 @@ namespace Finprotest.Controllers
             }
             else
             {
-                return RedirectToAction("LoginUser", "Login");
+                return RedirectToAction("Index", "Login");
             }
         }
         public ActionResult HistoryOrderCheckout()
@@ -1383,7 +1383,7 @@ namespace Finprotest.Controllers
             }
             else
             {
-                return RedirectToAction("LoginUser", "Login");
+                return RedirectToAction("Index", "Login");
             }
         }
         public ActionResult HistoryOrderPacked()
@@ -1439,7 +1439,7 @@ namespace Finprotest.Controllers
             }
             else
             {
-                return RedirectToAction("LoginUser", "Login");
+                return RedirectToAction("Index", "Login");
             }
         } 
         public ActionResult HistoryOrderSent()
@@ -1495,7 +1495,7 @@ namespace Finprotest.Controllers
             }
             else
             {
-                return RedirectToAction("LoginUser", "Login");
+                return RedirectToAction("Index", "Login");
             }
         }
         public ActionResult Editstatusorder(FormCollection form)
@@ -1587,7 +1587,7 @@ namespace Finprotest.Controllers
             }
             else
             {
-                return RedirectToAction("LoginUser", "Login");
+                return RedirectToAction("Index", "Login");
             }
         }
     }
