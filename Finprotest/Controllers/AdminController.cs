@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 
@@ -12,8 +14,8 @@ namespace Finprotest.Controllers
 {
     public class AdminController : Controller
     {
-        string Mainconn = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
-        //string Mainconn = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
+        //string Mainconn = ConfigurationManager.ConnectionStrings["Finpro"].ConnectionString;
+        string Mainconn = ConfigurationManager.ConnectionStrings["Finpropc"].ConnectionString;
         // GET: Admin
         public ActionResult Dashboard()
         {
@@ -73,9 +75,29 @@ namespace Finprotest.Controllers
 
                         uc2.Add(uc10);
                     }
+                } 
+                String sqlquery4 = "SELECT * FROM account_user WHERE acc_status = 'B'";
+                SqlCommand sqlcomm4 = new SqlCommand(sqlquery4, sqlconn);
+                SqlDataAdapter sda4 = new SqlDataAdapter(sqlcomm4);
+                DataTable ds4 = new DataTable();
+                sda4.Fill(ds4);
+                List<Adminclass> uc3 = new List<Adminclass>();
+                {
+
+                    foreach (DataRow dr in ds4.Rows)
+                    {
+                        Adminclass uc10 = new Adminclass();
+                        uc10.name_user = Convert.ToString(dr["name_user"]);
+                        uc10.email_user = Convert.ToString(dr["email_user"]);
+                        uc10.username_user = Convert.ToString(dr["username_user"]);
+                        uc10.id_user = Convert.ToInt32(dr["id_user"]);
+
+                        uc3.Add(uc10);
+                    }
                 }
                 ViewBag.uc = uc;
                 ViewBag.uc2 = uc2;
+                ViewBag.uc3 = uc3;
                 sqlconn.Close();
                 return View();
             }
@@ -100,6 +122,111 @@ namespace Finprotest.Controllers
                 myConnection.Close();
             }
             return RedirectToAction("Dashboard");
+        }
+        public ActionResult Approve2(FormCollection form, string Subject)
+        {
+            SqlConnection myConnection = new SqlConnection();
+            string idalmt = form["idalmt"];
+            string email = form["email"];
+
+            myConnection.ConnectionString = Mainconn;
+            string Query3 = "UPDATE account_user SET acc_status = 'A' WHERE id_user = @id_user";
+            using (SqlCommand sqlmethod = new SqlCommand(Query3, myConnection))
+            {
+                sqlmethod.Parameters.AddWithValue("@id_user", idalmt);
+                myConnection.Open();
+                sqlmethod.ExecuteNonQuery();
+                TempData["messsage"] = "success";
+                myConnection.Close();
+            }
+            //EMAIL 
+            string memberemail = form["email"];
+            //string memberemail2 = "tengkuikhmanul.hakim@mattel.com";
+            //string memberemail3 = "rifkymuhammad.juliawan@mattel.com";
+            Subject = "STATUS ACCOUNT USER";
+            //var emailfrom = "tengkuikhmanul1202@gmail.com";
+            //var pass = "Medan2019";
+            var emailfrom = "PTMIProddevSystem@mattel.com";
+            var pass = "Tgl10042000.";
+            //string keprinting = "10.35.101.46/SewingRequest/Index";
+
+
+            SmtpClient smtpClient = new SmtpClient();
+            //smtpClient.Host = "smtp.gmail.com";
+            //smtpClient.Port = 587;
+            smtpClient.Host = "10.1.30.16";
+            smtpClient.Port = 25;
+            smtpClient.UseDefaultCredentials = false;
+            smtpClient.Credentials = new System.Net.NetworkCredential(emailfrom, pass);
+            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtpClient.EnableSsl = false;
+
+
+
+            MailMessage mail = new MailMessage();
+            //var to = usermail;
+            //Debug.WriteLine($"");
+            var from = emailfrom;
+            //var getidemp = requestor.NamaLengkap.ToString();
+            //var getidemp = row.ID_Emp.ToString();
+
+
+
+            string[] Multi = memberemail.Split(',');
+            foreach (string Multimail in Multi)
+            {
+                mail.To.Add(new MailAddress(Multimail));
+            }
+            //mail.CC.Add(new MailAddress(ccemail));
+            //string[] Multi2 = memberemail2.Split(',');
+            //foreach (string Multimail2 in Multi2)
+            //{
+            //    mail.To.Add(new MailAddress(Multimail2));
+            //}
+            //string[] Multi3 = memberemail3.Split(',');
+            //foreach (string Multimail3 in Multi3)
+            //{
+            //    mail.To.Add(new MailAddress(Multimail3));
+            //}
+            //mail.To.Add(new MailAddress(ToMail));
+            mail.From = new MailAddress(from);
+            mail.Body = PopulateBodynewtoy(email);
+            //mail.Subject = "Superior1 #" + PaymentRequest_ID + "";
+            mail.Subject = "STATUS ACCOUNT USER";
+            mail.IsBodyHtml = true;
+            smtpClient.Send(mail);
+
+            // Show account activation modal
+            TempData["ActivationMessage"] = "Account requested, wait for PIC to activate the account";
+            TempData["ShowActivationModal"] = true;
+            return RedirectToAction("Dashboard");
+        }
+        private string PopulateBodynewtoy(string email)
+        {
+
+            //subject = "file already uploaded";
+
+
+
+            var today = DateTime.Today.ToString("dd-MMM-yyyy");
+            string body = string.Empty;
+            using (StreamReader reader = new StreamReader(Server.MapPath("~/Views/email/HtmlPage2.html")))
+            {
+                body = reader.ReadToEnd();
+            }
+
+
+
+            body = body.Replace("{email}", email);
+            //body = body.Replace("{username}", username);
+            //body = body.Replace("{keprinting}", keprinting);
+            //body = body.Replace("{name}", name);
+            //body = body.Replace("{divisi}", divisi);
+            //body = body.Replace("{reqfor}", reqfor);
+
+
+
+            return body;
         }
         public ActionResult Delete(FormCollection form)
         {

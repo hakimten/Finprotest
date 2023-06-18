@@ -26,5 +26,9 @@ namespace Finprotest.Models
         public int Toko_id { get; internal set; }
         public string username_owner { get; internal set; }
         public string name_owner { get; internal set; }
+        public int id_user { get; internal set; }
+        public string name_user { get; internal set; }
+        public string email_user { get; internal set; }
+        public string username_user { get; internal set; }
     }
 }

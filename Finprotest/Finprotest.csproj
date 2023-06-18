@@ -1728,6 +1728,9 @@
     <Content Include="ShopGrids-free-lite\__MACOSX\ShopGrids-free-lite\assets\js\._main.js" />
     <Content Include="ShopGrids-free-lite\__MACOSX\ShopGrids-free-lite\assets\js\._tiny-slider.js" />
     <Content Include="ShopGrids-free-lite\__MACOSX\ShopGrids-free-lite\assets\mail\._mail.php" />
+    <Content Include="Views\email\HtmlPage1.html" />
+    <Content Include="Views\email\HtmlPage2.html" />
+    <Content Include="Views\email\HtmlPage3.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1803,6 +1806,9 @@
     <Content Include="Views\User\Validasicart.cshtml" />
     <Content Include="Views\User\HistoryOrderPacked.cshtml" />
     <Content Include="Views\User\HistoryOrderSent.cshtml" />
+    <Content Include="Views\Login\changepassword.cshtml" />
+    <Content Include="Views\Login\changepassword3.cshtml" />
+    <Content Include="Views\Login\validation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
