@@ -126,6 +126,42 @@
     <div class="col-xl-12">
         <div class="card">
             <div class="card-body">
+                <h5 class="header-title pb-3 mt-0">Account User Need to Approve</h5>
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0" id="example">
+                        <thead>
+                            <tr class="align-self-center">
+                                <th class="text-center">User Username</th>
+                                <th class="text-center">User Name</th>
+                                <th class="text-center">User Email</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var dataakun2 in ViewBag.uc3)
+                            {
+                                <tr>
+                                    <td class="text-center text-white">@dataakun2.username_user</td>
+                                    <td class="text-center text-white">@dataakun2.name_user</td>
+                                    <td class="text-center text-white">@dataakun2.email_user</td>
+                                    <td class="text-center text-white">
+                                        <span class="open-editexel22 badge badge-boxed badge-soft-warning" data-idacc="@dataakun2.id_user" data-email="@dataakun2.email_user" data-bs-toggle="modal" data-bs-target="#staticBackdrop3">Approve</span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <!--end table-responsive-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
                 <h5 class="header-title pb-3 mt-0">Product Owner Need to Approve</h5>
                 <div class="table-responsive">
                     <table class="table table-hover mb-0" id="example2">
@@ -168,7 +204,35 @@
         var idacc = $(this).data('idacc');
         $(".modal-body #idalmt").val(idacc);
     });
+    $(document).on("click", ".open-editexel22", function () {
+        var idacc = $(this).data('idacc');
+        $(".modal-body #idalmt2").val(idacc);
+        var email = $(this).data('email');
+        $(".modal-body #email").val(email);
+    });
 </script>
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Approve product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/Admin/Approve2" method="post" id="sampleForm" enctype="multipart/form-data">
+                <div class="modal-body">
+                    Are you sure to validate this account? if yes you can click "Approve" button!
+                    <input type="text" id="idalmt2" name="idalmt" />
+                    <input  class="form-control-lg form-control" name="email" id="email"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Approve</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
